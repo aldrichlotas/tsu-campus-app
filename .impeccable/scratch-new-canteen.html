@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Canteen Express - TSU Canteen Pre-Order</title>
+<!-- Inter Google Font -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#800000",
+            "primary-dark": "#570000",
+            "primary-container": "#800000",
+            "on-primary": "#ffffff",
+            "gold": "#FFC632",
+            "gold-light": "#FFF3D1",
+            "secondary-container": "#fcc42f",
+            "surface": "#F4F5F7",
+            "surface-bright": "#fcf9f8",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-low": "#f6f3f2",
+            "surface-container": "#f0eded",
+            "surface-container-high": "#eae7e7",
+            "on-surface": "#1b1c1c",
+            "on-surface-variant": "#5a413d",
+            "text-muted": "#7A7A7A",
+            "border-subtle": "#E5E7EB",
+            "outline-variant": "#e2bfb9"
+          },
+          fontFamily: {
+            sans: ["Inter", "system-ui", "-apple-system", "sans-serif"],
+            body: ["Inter", "system-ui", "-apple-system", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.125rem",
+            "lg": "0.375rem",
+            "xl": "0.75rem",
+            "2xl": "1rem",
+            "full": "9999px"
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      min-height: max(884px, 100dvh);
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+</style>
+</head>
+<body class="bg-[#F4F5F7] text-on-surface antialiased min-h-screen flex justify-center selection:bg-amber-100 selection:text-[#800000]">
+<div class="w-full max-w-[390px] mx-auto bg-white min-h-screen flex flex-col shadow-sm border-x border-[#E5E7EB] relative pb-44">
+<!-- Top App Bar / Header (Standardized Collegiate Header) -->
+<header class="sticky top-0 z-30 bg-white border-b border-[#E5E7EB] px-4 pt-4 pb-2 h-16 flex items-center justify-between shadow-xs"><div class="flex items-center gap-3"><button aria-label="Back" class="w-6 h-6 flex items-center justify-center text-gray-700 hover:text-gray-900 transition-colors" type="button"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"></path></svg></button><h1 class="text-[20px] font-semibold text-gray-900 tracking-tight leading-[28px]">Canteen Express</h1></div><div class="flex items-center gap-2"><button aria-label="Search meals or stalls" class="w-6 h-6 flex items-center justify-center text-gray-700 hover:text-gray-900 transition-colors" type="button"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round"></path></svg></button><button aria-label="Cart and order status" class="w-6 h-6 relative flex items-center justify-center text-gray-700 hover:text-gray-900 transition-colors" type="button"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="absolute -top-1 -right-1 size-2 bg-red-600 rounded-full ring-2 ring-white"></span></button></div></header>
+<!-- Dual Campus Navigation Tabs (Strict Scope) -->
+<div class="bg-white border-b border-[#E5E7EB] px-4 pt-1.5"><div class="flex gap-4"><button class="border-b-2 border-[#800000] pb-2 text-[14px] font-semibold text-[#800000] leading-[20px] flex items-center gap-1.5" type="button"><span class="">TSU Main Campus</span><span class="size-1.5 rounded-full bg-[#800000]"></span></button><button class="border-b-2 border-transparent pb-2 text-[14px] font-normal text-gray-500 hover:text-gray-800 leading-[20px] transition-colors" type="button">TSU Lucinda Campus</button></div></div>
+<main class="flex-1 px-4 py-3.5 space-y-4"><div class="flex items-center justify-between pt-1"><p class="text-[14px] font-normal text-gray-500 leading-[20px]">Pre-order meals, skip the line &amp; track live prep</p><span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-bold tracking-[0.5px] uppercase bg-emerald-50 text-emerald-700 border border-emerald-200 leading-none"><span class="size-1.5 rounded-full bg-emerald-500 animate-ping"></span>LIVE QUEUE</span></div><section aria-label="Active Order Status" class="bg-white rounded-[12px] border border-[#E5E7EB] p-4 relative overflow-hidden shadow-sm"><div class="flex items-center justify-between gap-2 mb-2"><span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold tracking-[0.5px] uppercase bg-amber-100 text-amber-900 border border-amber-200 leading-none">PREPARING</span><div class="flex items-center gap-1 text-[12px] font-normal text-gray-500 leading-[16px]"><span class="">Order #C-104</span><span class="">•</span><span class="text-gray-700 font-medium">11:45 AM Pickup</span></div></div><div class="flex items-start justify-between gap-3 mb-3"><div><h2 class="text-[14px] font-semibold text-gray-900 leading-[20px]">TSU Main Campus - Ate Joy's Kitchen</h2><p class="text-[12px] font-normal text-gray-500 leading-[16px] flex items-center gap-1 mt-0.5"><svg class="w-3.5 h-3.5 text-[#800000]" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" stroke-linecap="round" stroke-linejoin="round"></path></svg>Express Pick-up Counter #2</p></div><div class="bg-rose-50 border border-rose-200 rounded-[12px] px-2.5 py-1 text-center flex-shrink-0"><span class="block text-[11px] uppercase tracking-[0.5px] text-[#800000] font-bold leading-none">TOKEN</span><span class="text-[16px] font-bold text-[#800000] tracking-tight">#8921</span></div></div><div class="py-2.5 px-3 bg-[#F4F5F7] rounded-[12px] border border-gray-200 mb-3"><div class="flex items-center justify-between relative"><div class="absolute left-6 right-6 top-2.5 h-[2px] bg-gray-200 z-0"></div><div class="absolute left-6 w-1/2 top-2.5 h-[2px] bg-[#800000] z-0"></div><div class="relative z-10 flex flex-col items-center"><div class="size-5 rounded-full bg-[#800000] text-white flex items-center justify-center"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><span class="text-[12px] font-normal text-gray-700 mt-1 leading-[16px]">Placed</span></div><div class="relative z-10 flex flex-col items-center"><div class="size-5 rounded-full ring-2 ring-[#800000] bg-white text-[#800000] flex items-center justify-center"><span class="size-2 rounded-full bg-[#800000] animate-pulse"></span></div><span class="text-[12px] font-semibold text-[#800000] mt-1 leading-[16px]">Preparing</span><span class="text-[12px] text-gray-500 font-normal leading-[16px]">~8 mins left</span></div><div class="relative z-10 flex flex-col items-center"><div class="size-5 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><span class="text-[12px] font-normal text-gray-500 mt-1 leading-[16px]">Counter #2</span></div></div></div><div class="flex items-center justify-between pt-1"><button class="h-8 px-3 rounded-[12px] border border-gray-300 text-gray-700 text-[12px] font-medium leading-[16px] hover:bg-gray-50 transition-colors flex items-center gap-1.5" type="button"><svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="">Show QR Pickup Code</span></button><button class="h-8 px-3.5 rounded-[12px] bg-[#800000] text-white text-[12px] font-semibold leading-[16px] hover:bg-[#660000] transition-colors flex items-center gap-1 shadow-xs" type="button"><span class="">Track Order</span><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path></svg></button></div></section><div class="space-y-2.5"><div class="flex gap-1.5 overflow-x-auto no-scrollbar py-0.5 -mx-4 px-4"><button class="h-7 px-3 rounded-full bg-[#800000] text-white text-[12px] font-medium leading-[16px] whitespace-nowrap shadow-xs flex items-center" type="button">All</button><button class="h-7 px-3 rounded-full bg-white border border-gray-200 text-gray-700 text-[12px] font-medium leading-[16px] whitespace-nowrap hover:bg-gray-50 transition-colors flex items-center" type="button">Student Value Meals (&lt;₱80)</button><button class="h-7 px-3 rounded-full bg-white border border-gray-200 text-gray-700 text-[12px] font-medium leading-[16px] whitespace-nowrap hover:bg-gray-50 transition-colors flex items-center" type="button">Halal Certified</button><button class="h-7 px-3 rounded-full bg-white border border-gray-200 text-gray-700 text-[12px] font-medium leading-[16px] whitespace-nowrap hover:bg-gray-50 transition-colors flex items-center" type="button">Quick Bites</button><button class="h-7 px-3 rounded-full bg-white border border-gray-200 text-gray-700 text-[12px] font-medium leading-[16px] whitespace-nowrap hover:bg-gray-50 transition-colors flex items-center" type="button">Beverages</button></div></div><section aria-labelledby="section-stalls" class="space-y-3.5 pt-1"><div class="flex items-center justify-between"><h2 class="text-[16px] font-semibold text-gray-900 tracking-tight leading-[22px]" id="section-stalls">Available Food Stalls</h2><span class="text-[12px] font-normal text-gray-500 leading-[16px]">8 Stalls Open</span></div><div class="rounded-[12px] border border-[#E5E7EB] bg-white p-3.5 shadow-[0_2px_8px_rgba(0,0,0,0.05)] space-y-3"><div class="flex items-start justify-between gap-3"><div class="flex gap-3"><img alt="Mang Ben's Sizzling" class="w-14 h-14 rounded-[12px] object-cover bg-gray-100 flex-shrink-0 border border-gray-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMbE1YmzZA8UPJy-1afGDpvMqU82koprij6Krp5Hd61bkp-xrP_Ff8q9PriGVg83lXpGah-jR9fbQKyhYqYnRZqjBEfz8DlsdDYMCQKWQzzWYeRSQyeyS8RWruAKhj5qwC9AtSJxSR5dTtKJ2nwqbkBiZPFDXrK8gVYjiLkE0OJ156FmVqYstgq6CGghBOSodP07qZHGG6o14uAAmefaV4urZhlfqW0cuYeyuc6pe1Tz8oGNisrksG8A"/><div><h3 class="text-[14px] font-semibold text-gray-900 leading-[20px]">Mang Ben's Sizzling &amp; Rice Bowls</h3><div class="flex items-center gap-2 mt-1"><span class="text-[12px] font-normal text-amber-700 flex items-center gap-0.5 leading-[16px]"><svg class="w-3.5 h-3.5 fill-amber-400 text-amber-500" viewbox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>4.8 (120+)</span><span class="text-gray-300">•</span><span class="text-[12px] font-normal text-gray-500 leading-[16px]">10-15 mins prep</span></div></div></div><span class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-bold uppercase tracking-[0.5px] bg-rose-50 text-[#800000] border border-rose-100 flex-shrink-0 leading-none">EXPRESS</span></div><div class="divide-y divide-gray-100 border-t border-gray-100 pt-1 space-y-2"><div class="pt-2 flex items-center justify-between gap-3"><div class="flex-1"><div class="flex items-center gap-1.5"><p class="text-[14px] font-semibold text-gray-900 leading-[20px]">Crispy Sisig Rice Bowl w/ Egg</p><span class="px-1.5 py-0.5 rounded text-[11px] font-bold tracking-[0.5px] uppercase bg-amber-50 text-amber-800 border border-amber-200 leading-none">VALUE MEAL</span></div><p class="text-[14px] font-normal text-gray-500 leading-[20px]">Classic pork sisig with garlic rice &amp; egg</p><p class="text-[14px] font-semibold text-[#800000] mt-0.5 leading-[20px]">₱75.00</p></div><button class="h-8 px-3 rounded-[12px] border border-[#800000]/30 bg-rose-50/50 text-[#800000] text-[12px] font-semibold leading-[16px] hover:bg-[#800000] hover:text-white transition-colors flex items-center gap-1 flex-shrink-0" type="button"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M12 4v16m8-8H4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="">Pre-Order</span></button></div><div class="pt-2 flex items-center justify-between gap-3"><div class="flex-1"><p class="text-[14px] font-semibold text-gray-900 leading-[20px]">Beef Tapa Special with Atchara</p><p class="text-[14px] font-normal text-gray-500 leading-[20px]">Marinated beef slices with sinangag</p><p class="text-[14px] font-semibold text-[#800000] mt-0.5 leading-[20px]">₱90.00</p></div><button class="h-8 px-3 rounded-[12px] border border-[#800000]/30 bg-rose-50/50 text-[#800000] text-[12px] font-semibold leading-[16px] hover:bg-[#800000] hover:text-white transition-colors flex items-center gap-1 flex-shrink-0" type="button"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M12 4v16m8-8H4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="">Pre-Order</span></button></div></div></div><div class="rounded-[12px] border border-[#E5E7EB] bg-white p-3.5 shadow-[0_2px_8px_rgba(0,0,0,0.05)] space-y-3"><div class="flex items-start justify-between gap-3"><div class="flex gap-3"><img alt="Campus Greens &amp; Juice Bar" class="w-14 h-14 rounded-[12px] object-cover bg-gray-100 flex-shrink-0 border border-gray-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkwuZB4mBt8VkPrFnv5Zv4h9L4Vrn3NVqaP-ZC0d_k7heDoeI5cWwtW72XUsxNjGYZqzbee5pHTjAJFLysxfBbipx2JTeLOLwhPaib4SyKMucyySjKbcobYIqEYtB3O8bToFQngEzepNFcf6x-Bqn1VKybz-8lSsz3p0wxXblEk3W_w3uLxklz5idetcKeq2Pp2J_S75y7VTyEOO4GYiT7A_jywnKtZuxWLxgoe0D2ynSeT_TqBFQHuQ"/><div><h3 class="text-[14px] font-semibold text-gray-900 leading-[20px]">Campus Greens &amp; Juice Bar</h3><div class="flex items-center gap-2 mt-1"><span class="text-[12px] font-normal text-amber-700 flex items-center gap-0.5 leading-[16px]"><svg class="w-3.5 h-3.5 fill-amber-400 text-amber-500" viewbox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>4.9 (85)</span><span class="text-gray-300">•</span><span class="text-[12px] font-normal text-gray-500 leading-[16px]">5-10 mins prep</span></div></div></div><span class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-bold uppercase tracking-[0.5px] bg-emerald-50 text-emerald-800 border border-emerald-100 flex-shrink-0 leading-none">COUNTER 01</span></div><div class="divide-y divide-gray-100 border-t border-gray-100 pt-1 space-y-2"><div class="pt-2 flex items-center justify-between gap-3"><div class="flex-1"><div class="flex items-center gap-1.5"><p class="text-[14px] font-semibold text-gray-900 leading-[20px]">Chicken Pesto Wrap</p><span class="px-1.5 py-0.5 rounded text-[11px] font-bold tracking-[0.5px] uppercase bg-emerald-50 text-emerald-800 border border-emerald-200 leading-none">FRESH</span></div><p class="text-[14px] font-normal text-gray-500 leading-[20px]">Fresh lettuce, grilled chicken &amp; herb pesto</p><p class="text-[14px] font-semibold text-[#800000] mt-0.5 leading-[20px]">₱85.00</p></div><button class="h-8 px-3 rounded-[12px] border border-[#800000]/30 bg-rose-50/50 text-[#800000] text-[12px] font-semibold leading-[16px] hover:bg-[#800000] hover:text-white transition-colors flex items-center gap-1 flex-shrink-0" type="button"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M12 4v16m8-8H4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="">Pre-Order</span></button></div><div class="pt-2 flex items-center justify-between gap-3"><div class="flex-1"><p class="text-[14px] font-semibold text-gray-900 leading-[20px]">Iced Green Tea Lemonade (Large)</p><p class="text-[14px] font-normal text-gray-500 leading-[20px]">16oz chilled steeped green tea with fresh calamansi</p><p class="text-[14px] font-semibold text-[#800000] mt-0.5 leading-[20px]">₱45.00</p></div><button class="h-8 px-3 rounded-[12px] border border-[#800000]/30 bg-rose-50/50 text-[#800000] text-[12px] font-semibold leading-[16px] hover:bg-[#800000] hover:text-white transition-colors flex items-center gap-1 flex-shrink-0" type="button"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M12 4v16m8-8H4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="">Pre-Order</span></button></div></div></div></section></main>
+<!-- Floating Cart / Pre-Order Action Bar -->
+<div class="fixed bottom-14 left-1/2 -translate-x-1/2 w-full max-w-[390px] h-20 bg-white border-t border-[#E5E7EB] px-4 py-3 z-40 flex items-center"><button class="w-full h-12 rounded-[12px] bg-[#800000] hover:bg-[#6a0000] text-white text-[14px] font-semibold leading-[20px] flex items-center justify-between px-4 transition-colors shadow-sm" type="button"><span class="flex items-center gap-2"><svg class="w-5 h-5 text-[#FFC632]" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="">Proceed to Pre-Order (₱120.00)</span></span><div class="flex items-center gap-2"><span class="text-[12px] font-normal bg-white/10 px-2 py-0.5 rounded-[12px] text-amber-200 leading-[16px]">12:15 PM</span><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path></svg></div></button></div>
+<!-- Shared Collegiate 5-Item Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[390px] bg-white border-t border-[#E5E7EB] z-50">
+<div class="grid grid-cols-5 py-2 px-1 text-center">
+<!-- 1. Hub -->
+<a class="flex flex-col items-center justify-center gap-1 text-gray-500 hover:text-gray-900 transition-colors" href="#">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<rect height="7" rx="1" width="7" x="3" y="3"></rect>
+<rect height="7" rx="1" width="7" x="14" y="3"></rect>
+<rect height="7" rx="1" width="7" x="14" y="14"></rect>
+<rect height="7" rx="1" width="7" x="3" y="14"></rect>
+</svg>
+<span class="text-[11px] font-medium leading-none">Hub</span>
+</a>
+<!-- 2. Shuttle -->
+<a class="flex flex-col items-center justify-center gap-1 text-gray-500 hover:text-gray-900 transition-colors" href="#">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M8 6v6m8-6v6m-9 6h10a2 2 0 002-2V6a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM6 18l-1 2m14-2l1 2" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="text-[11px] font-medium leading-none">Shuttle</span>
+</a>
+<!-- 3. Canteen (Active Collegiate Maroon) -->
+<a class="flex flex-col items-center justify-center gap-1 text-[#800000]" href="#">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path class="hidden" d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6m14-14h-4" stroke-linecap="round" stroke-linejoin="round"></path>
+<!-- Fork & Knife icon -->
+<path d="M18 2v20M6 2v7a3 3 0 003 3v10M6 5h6M18 7a3 3 0 00-3-3v0a3 3 0 00-3 3v5a3 3 0 003 3v7" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="text-[11px] font-bold leading-none text-[#800000]">Canteen</span>
+</a>
+<!-- 4. Print Hub -->
+<a class="flex flex-col items-center justify-center gap-1 text-gray-500 hover:text-gray-900 transition-colors" href="#">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4H7v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="text-[11px] font-medium leading-none">Print Hub</span>
+</a>
+<!-- 5. Merch -->
+<a class="flex flex-col items-center justify-center gap-1 text-gray-500 hover:text-gray-900 transition-colors" href="#">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="text-[11px] font-medium leading-none">Merch</span>
+</a>
+</div>
+</nav>
+</div>
+</body></html>

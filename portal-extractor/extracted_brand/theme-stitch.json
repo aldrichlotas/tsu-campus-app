@@ -1,0 +1,49 @@
+{
+  "themeName": "University Portal Brandbook Theme",
+  "extractedAt": "2026-10-04T08:15:34.109Z",
+  "typography": {
+    "primaryFont": "Times New Roman",
+    "fontFamilies": [
+      "Times New Roman",
+      "Baloo Thambi 2",
+      "Droid Sans",
+      "Font Awesome 5 Free",
+      "Font Awesome 5 Brands"
+    ]
+  },
+  "colorPalette": {
+    "primary": "#FFFFFF",
+    "secondary": "#000000",
+    "background": "#FFFFFF",
+    "surface": "#F4F5F7",
+    "textPrimary": "#000000",
+    "allExtractedColors": [
+      "#FFFFFF",
+      "#000000",
+      "#4A4A4A",
+      "#222222",
+      "#800000",
+      "#7A7A7A",
+      "#363636",
+      "#FFC632",
+      "#1B2336"
+    ]
+  },
+  "cssVariables": {},
+  "departmentThemes": {
+    "default": {
+      "primary": "#FFFFFF",
+      "accent": "#000000"
+    },
+    "collegeOfBusinessAdministration": {
+      "primary": "#4A4A4A",
+      "accent": "#222222"
+    }
+  },
+  "appModules": [
+    "Merch",
+    "Shuttle",
+    "Print",
+    "Canteen"
+  ]
+}

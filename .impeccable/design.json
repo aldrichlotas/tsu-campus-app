@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-05T16:22:00Z",
+  "title": "Collegiate Academic Portal",
+  "extensions": {
+    "colorMeta": {
+      "primary": { "role": "primary", "displayName": "Institutional Maroon", "canonical": "#800000" },
+      "secondary": { "role": "secondary", "displayName": "Academic Gold", "canonical": "#FFC632" },
+      "tertiary": { "role": "tertiary", "displayName": "Academic Navy", "canonical": "#1B2336" },
+      "neutral": { "role": "neutral", "displayName": "Obsidian Charcoal", "canonical": "#222222" },
+      "surface": { "role": "surface", "displayName": "Cool Slate", "canonical": "#F4F5F7" }
+    },
+    "shadows": [
+      { "name": "academic-sm", "value": "0 2px 4px rgba(27, 35, 54, 0.04), 0 1px 2px rgba(27, 35, 54, 0.02)", "purpose": "Resting cards and tiles." },
+      { "name": "academic-md", "value": "0 8px 16px rgba(27, 35, 54, 0.08), 0 2px 6px rgba(27, 35, 54, 0.04)", "purpose": "Active/hovered cards and dropdowns." },
+      { "name": "academic-lg", "value": "0 20px 32px rgba(27, 35, 54, 0.14), 0 4px 12px rgba(27, 35, 54, 0.06)", "purpose": "Modal dialogs and institutional announcements." }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Institutional Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Solid maroon background with pure white text, shifting darker on hover.",
+      "html": "<button class=\"ds-btn-primary\">CONFIRM BOOKING</button>",
+      "css": ".ds-btn-primary { background: #800000; color: #FFFFFF; padding: 10px 20px; font-weight: 600; font-family: 'Manrope', sans-serif; font-size: 14px; border: none; border-radius: 4px; cursor: pointer; transition: background 0.2s; }\n.ds-btn-primary:hover { background: #660000; }"
+    },
+    {
+      "name": "Secondary Academic Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Solid gold background for featured calls-to-action.",
+      "html": "<button class=\"ds-btn-secondary\">ENROLL NOW</button>",
+      "css": ".ds-btn-secondary { background: #FFC632; color: #1B2336; padding: 10px 20px; font-weight: 600; font-family: 'Manrope', sans-serif; font-size: 14px; border: none; border-radius: 4px; cursor: pointer; transition: opacity 0.2s; }\n.ds-btn-secondary:hover { opacity: 0.9; }"
+    },
+    {
+      "name": "Status Chip",
+      "kind": "chip",
+      "refersTo": "status-chip",
+      "description": "Pill-shaped with subtle tinted background for tags.",
+      "html": "<span class=\"ds-chip-status\">ENROLLED</span>",
+      "css": ".ds-chip-status { display: inline-flex; align-items: center; background: rgba(255, 198, 50, 0.18); color: #1B2336; border-radius: 9999px; padding: 4px 12px; font-family: 'Manrope', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "text-input",
+      "description": "Standard text input fields.",
+      "html": "<input type=\"text\" class=\"ds-input\" placeholder=\"Enter your ID\" />",
+      "css": ".ds-input { height: 40px; background: #FFFFFF; border: 1px solid #E2E5EB; border-radius: 4px; padding: 0 12px; font-family: 'Manrope', sans-serif; font-size: 14px; color: #222222; outline: none; transition: all 0.2s; box-sizing: border-box; width: 100%; }\n.ds-input:focus { border-color: #800000; box-shadow: 0 0 0 3px rgba(128, 0, 0, 0.12); }"
+    },
+    {
+      "name": "Portal Service Card",
+      "kind": "card",
+      "refersTo": "service-card",
+      "description": "Pure white surface with a hairline border for modules.",
+      "html": "<div class=\"ds-card-service\"><h3>Print Hub</h3><p>Upload files for advance printing.</p></div>",
+      "css": ".ds-card-service { background: #FFFFFF; border: 1px solid #E2E5EB; border-radius: 8px; padding: 16px; box-shadow: 0 2px 4px rgba(27, 35, 54, 0.04), 0 1px 2px rgba(27, 35, 54, 0.02); font-family: 'Manrope', sans-serif; }\n.ds-card-service h3 { margin: 0 0 8px; font-family: 'Playfair Display', serif; font-size: 18px; color: #1B2336; font-weight: 600; }\n.ds-card-service p { margin: 0; font-size: 14px; color: #7A7A7A; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Editorial Neo-Classicism + Contemporary Corporate SaaS",
+    "overview": "This design system embodies an authoritative, dignified academic collegiate aesthetic merged with high-clarity modern utility. It reflects the rich heritage of public higher education—balancing traditional institutional solemnity with seamless day-to-day administrative and student life operations.",
+    "keyCharacteristics": [
+      "High-contrast typography featuring an expressive editorial serif for institutional weight, titles, and honorific headings, anchored by a neutral, legible geometric sans-serif for rigorous dashboard productivity and data grids.",
+      "Prestigious color accents derived from institutional identity: commanding academic maroon, warm luminous gold, grounded deep charcoal, and crisp light utility surfaces.",
+      "Department-aware chromatic theming that allows distinct sub-units to maintain their localized identity within the parent institutional superstructure."
+    ],
+    "rules": [],
+    "dos": [],
+    "donts": []
+  }
+}

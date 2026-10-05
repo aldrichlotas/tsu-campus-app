@@ -1,0 +1,177 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_tab" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" class=""><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "cba-primary": "#4A4A4A",
+        "cba-accent": "#222222",
+        "univ-maroon": "#800000",
+        "univ-gold": "#FFC632",
+        "surface-base": "#F4F5F7",
+        "surface-card": "#FFFFFF",
+        "border-subtle": "#E2E5EB",
+        "outline-variant": "#c5c5d3",
+        "on-surface": "#1b1c1c",
+        "on-surface-variant": "#444651",
+        "outline": "#757682",
+        "status-live": "#10B981",
+        "status-live-bg": "#ECFDF5",
+        "status-pending": "#D97706",
+        "status-pending-bg": "#FFFBEB",
+        "status-alert": "#ba1a1a",
+        "status-alert-bg": "#FEF2F2",
+        "payment-gcash": "#005CEE",
+        "payment-maya": "#20B259"
+      },
+      fontFamily: {
+        serif: ['"Times New Roman"', 'Times', 'serif'],
+        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+        "body-md": ['"Plus Jakarta Sans"', 'sans-serif'],
+        "title-sm": ['"Plus Jakarta Sans"', 'sans-serif'],
+        "label-badge": ['"Plus Jakarta Sans"', 'sans-serif'],
+        "label-numeric": ['"Plus Jakarta Sans"', 'sans-serif']
+      },
+      spacing: {
+        gutter: "1rem",
+        "space-xs": "0.25rem",
+        "space-sm": "0.5rem",
+        "space-md": "1rem",
+        "space-lg": "1.5rem",
+        "space-xl": "2rem"
+      }
+    }
+  }
+};</script><style>@layer base{html,body{width:100%;margin:0;padding:0;background-color:#F4F5F7;}body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head><body class="bg-surface-base font-body-md text-on-surface flex flex-col min-h-screen"><style>* { font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Plus Jakarta Sans', sans-serif !important; } .material-symbols-outlined { font-family: 'Material Symbols Outlined' !important; }</style><header class="fixed top-0 inset-x-0 z-50 bg-white/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] pt-safe border-b border-border-subtle"><div class="h-16 px-gutter flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><img alt="Tarlac State University Seal" class="h-10 w-10 object-contain flex-shrink-0 drop-shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuApl6FJ1wi_3NpNm2B5mWpKB8Sn1J-gPFJ2a3StYdIduWuEyc53OdSpWPsx5gP9OL1RIJsFOEP-BVZlcO06aEVbyQETPUqODR0e0IxpciGbk1RTusZiFyCq6nOlwE7UoseUjmVdfZ84_xjDkaQGwQxETM-kVYehj-FBKO4hC6WX8e3CyQYJHgVONLvhJQsvs-zHiYVC-nX5TVKh78YI2tAbAfNV8hs6pC_I2igneU3IQ-ZTk7tTYn0p4lvWvLrvFGRcpwM"><button class="flex items-center gap-1 text-left min-w-0 rounded-lg p-1 hover:bg-slate-100 transition-colors" type="button"><div class="flex flex-col min-w-0"><span class="font-sans text-[11px] uppercase tracking-wider text-outline font-bold">Campus</span><span class="font-sans text-[13px] text-on-surface font-semibold truncate max-w-[140px]">TSU Main Campus</span></div><span class="material-symbols-outlined text-outline text-[18px]">expand_more</span></button></div><div class="flex items-center gap-space-xs"><button aria-label="Notifications" class="relative w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-slate-100 transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-2 right-2 flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-univ-maroon opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-univ-maroon"></span></span></button><button aria-label="Student Profile" class="w-11 h-11 flex items-center justify-center rounded-full hover:opacity-90 transition-opacity" type="button"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-univ-gold/50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJ7FTqud7SFny2ZkGcwfmFjqGwdplJsERkZIUQ1KxlVZD0y-wmv74PCJlIqLwFY4Yf4-LT5S8wQ5rC5FuipU5TeMtgAiS5YKUu5B8-ZsQ0uVV59gwioj6M4CQk0Epy5UGyC4hkU7-VIfmP6U9fTpSx5goIqvO4id6OiTHy6PpsprpIdBSWwmXUkdq-mQKX0fHQ7j9P9tvmoBYSUMKtg4e1dwHskn0Uoee0uFNt4NOeNQc-iwf3qfVWWA"></button></div></div></header><main class="flex flex-col relative w-full pt-16 pb-24 bg-surface-base flex-1 min-h-screen"><div class="flex flex-col w-full pb-8">
+<!-- College Directory Bar / Sub-Header -->
+<div class="px-gutter pt-space-sm pb-space-xs flex items-center justify-between"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-univ-maroon text-[22px]">storefront</span><h1 class="text-[20px] leading-tight text-[#1b1c1c] font-semibold tracking-tight font-sans">Departmental Merch</h1></div><div class="flex items-center gap-1 bg-white border border-border-subtle px-2.5 py-1 rounded-full text-on-surface-variant text-[11px] font-medium shadow-xs"><span class="material-symbols-outlined text-[15px] text-status-live" style="font-variation-settings: 'FILL' 1;">verified</span><span class="">Official Portal</span></div></div>
+<!-- Horizontal College Directory Carousel -->
+<div class="w-full overflow-x-auto no-scrollbar py-space-xs px-gutter flex gap-2"><button class="flex-shrink-0 flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-full bg-[#4A4A4A] border border-[#222222] text-white shadow-sm hover:opacity-95 transition-all" type="button"><span class="w-5 h-5 rounded-full bg-[#222222] text-[#FFC632] flex items-center justify-center text-[10px] font-bold shadow-inner">BA</span><span class="text-[12px] font-medium tracking-wide whitespace-nowrap">College of Business Administration (CBA)</span><span class="w-1.5 h-1.5 rounded-full bg-[#FFC632]"></span></button><button class="flex-shrink-0 flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-full bg-white border border-border-subtle shadow-xs hover:bg-slate-50 transition-all" type="button"><span class="w-5 h-5 rounded-full bg-orange-100 flex items-center justify-center text-[10px] font-bold text-amber-700">COE</span><span class="text-[12px] text-on-surface-variant font-medium whitespace-nowrap">Engineering (COE)</span></button><button class="flex-shrink-0 flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-full bg-white border border-border-subtle shadow-xs hover:bg-slate-50 transition-all" type="button"><span class="w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center text-[10px] font-bold text-[#800000]">CCS</span><span class="text-[12px] text-on-surface-variant font-medium whitespace-nowrap">Computer Studies (CCS)</span></button><button class="flex-shrink-0 flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-full bg-white border border-border-subtle shadow-xs hover:bg-slate-50 transition-all" type="button"><span class="w-5 h-5 rounded-full bg-rose-100 flex items-center justify-center text-[10px] font-bold text-rose-800">CASS</span><span class="text-[12px] text-on-surface-variant font-medium whitespace-nowrap">Arts &amp; Social Sciences (CASS)</span></button></div>
+<!-- Announcement / Drop Notification Banner (Charcoal CBA #4A4A4A with #222222 border & Gold Accents) -->
+<div class="w-full overflow-x-auto no-scrollbar py-1 px-gutter flex items-center gap-1.5"><span class="text-[11px] font-semibold text-outline uppercase whitespace-nowrap mr-1 tracking-wider">CBA Orgs:</span><button class="flex-shrink-0 px-2.5 py-1 rounded-full bg-[#800000] text-white text-[12px] font-medium shadow-xs flex items-center gap-1" type="button"><span class="w-1.5 h-1.5 rounded-full bg-[#FFC632]"></span><span class="">JPIA</span></button><button class="flex-shrink-0 px-2.5 py-1 rounded-full bg-white border border-border-subtle text-on-surface-variant hover:bg-slate-50 text-[12px] font-medium shadow-xs" type="button"><span class="">JFINEX</span></button><button class="flex-shrink-0 px-2.5 py-1 rounded-full bg-white border border-border-subtle text-on-surface-variant hover:bg-slate-50 text-[12px] font-medium shadow-xs" type="button"><span class="">YES</span></button><button class="flex-shrink-0 px-2.5 py-1 rounded-full bg-white border border-border-subtle text-on-surface-variant hover:bg-slate-50 text-[12px] font-medium shadow-xs" type="button"><span class="">JMA</span></button><button class="flex-shrink-0 px-2.5 py-1 rounded-full bg-white border border-border-subtle text-on-surface-variant hover:bg-slate-50 text-[12px] font-medium shadow-xs" type="button"><span class="">HTM</span></button><button class="flex-shrink-0 px-2.5 py-1 rounded-full bg-white border border-border-subtle text-on-surface-variant hover:bg-slate-50 text-[12px] font-medium shadow-xs" type="button"><span class="">JPES</span></button><button class="flex-shrink-0 px-2.5 py-1 rounded-full bg-slate-100 text-outline text-[12px] font-medium border border-dashed border-border-subtle hover:bg-slate-200 transition-colors" type="button"><span class="">+ More Orgs</span></button></div><div class="px-gutter mt-space-sm">
+<div class="w-full bg-[#4A4A4A] border border-[#222222] text-white rounded-xl p-space-md shadow-md relative overflow-hidden">
+<!-- Ambient Graphic Accent -->
+<div class="absolute -right-6 -bottom-6 w-28 h-28 rounded-full bg-white/5 pointer-events-none"></div>
+<div class="absolute right-4 top-3 opacity-15 text-white pointer-events-none">
+<span class="material-symbols-outlined text-[68px]">local_activity</span>
+</div>
+<div class="relative z-10 flex flex-col gap-1.5">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#FFC632] text-[#222222] text-[11px] font-bold tracking-wider uppercase shadow-xs font-sans">
+<span class="w-1.5 h-1.5 rounded-full bg-[#800000] animate-pulse"></span>
+            Semester 1 Official Merch Drop #2
+          </span>
+<span class="text-amber-200 font-sans text-[11px] font-medium">Batch Pre-Order</span>
+</div>
+<p class="text-[16px] font-semibold text-white leading-snug pt-0.5 font-sans">TSU Main Campus Student Center / Gym Booth B</p>
+<p class="font-sans text-[12px] text-gray-200 leading-relaxed">Scheduled Distribution: <span class="font-bold text-[#FFC632]">Nov 24 – 28</span> at TSU Main Campus Gym Booth B or TSU Lucinda Campus Student Pavilion.</p>
+<div class="pt-1 flex items-center justify-between">
+<div class="flex items-center gap-1 text-[11px] text-gray-300">
+<span class="material-symbols-outlined text-[14px]">event</span>
+<span class="">Closes Nov 20, 11:59 PM</span>
+</div>
+<button class="text-[11px] font-bold uppercase tracking-wider text-[#FFC632] flex items-center gap-0.5 hover:underline" type="button">
+            Claim Slot <span class="material-symbols-outlined text-[13px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Active Department Filter & Counter Bar -->
+<div class="px-gutter mt-space-md flex items-center justify-between">
+<div class="flex items-center gap-2">
+<h2 class="text-[16px] text-on-surface font-semibold font-sans">CBA Student Organization Catalog</h2>
+<span class="font-sans text-[11px] text-[#4A4A4A] font-semibold px-2 py-0.5 bg-white border border-border-subtle rounded-md">8 items</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-surface-card border border-border-subtle text-on-surface-variant text-[12px] font-medium shadow-xs hover:bg-slate-50 transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">tune</span>
+<span class="">Filter</span>
+</button>
+<button class="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-surface-card border border-border-subtle text-on-surface-variant text-[12px] font-medium shadow-xs hover:bg-slate-50 transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">swap_vert</span>
+<span class="">Sort</span>
+</button>
+</div>
+</div>
+<!-- 2-Column Product Catalog Grid -->
+<div class="w-full overflow-x-auto no-scrollbar py-1 px-gutter flex items-center gap-1.5"><span class="text-[11px] font-semibold text-outline uppercase whitespace-nowrap mr-1 tracking-wider">CBA Orgs:</span><button class="flex-shrink-0 px-2.5 py-1 rounded-full bg-[#800000] text-white text-[12px] font-medium shadow-xs flex items-center gap-1" type="button"><span class="w-1.5 h-1.5 rounded-full bg-[#FFC632]"></span><span class="">JPIA</span></button><button class="flex-shrink-0 px-2.5 py-1 rounded-full bg-white border border-border-subtle text-on-surface-variant hover:bg-slate-50 text-[12px] font-medium shadow-xs" type="button"><span class="">JFINEX</span></button><button class="flex-shrink-0 px-2.5 py-1 rounded-full bg-white border border-border-subtle text-on-surface-variant hover:bg-slate-50 text-[12px] font-medium shadow-xs" type="button"><span class="">YES</span></button><button class="flex-shrink-0 px-2.5 py-1 rounded-full bg-white border border-border-subtle text-on-surface-variant hover:bg-slate-50 text-[12px] font-medium shadow-xs" type="button"><span class="">JMA</span></button><button class="flex-shrink-0 px-2.5 py-1 rounded-full bg-white border border-border-subtle text-on-surface-variant hover:bg-slate-50 text-[12px] font-medium shadow-xs" type="button"><span class="">HTM</span></button><button class="flex-shrink-0 px-2.5 py-1 rounded-full bg-white border border-border-subtle text-on-surface-variant hover:bg-slate-50 text-[12px] font-medium shadow-xs" type="button"><span class="">JPES</span></button><button class="flex-shrink-0 px-2.5 py-1 rounded-full bg-slate-100 text-outline text-[12px] font-medium border border-dashed border-border-subtle hover:bg-slate-200 transition-colors" type="button"><span class="">+ More Orgs</span></button></div><div class="px-gutter mt-space-sm grid grid-cols-2 gap-space-sm"><div class="bg-surface-card border border-border-subtle rounded-xl p-space-sm flex flex-col justify-between shadow-xs hover:shadow-md transition-shadow relative"><div><div class="relative w-full aspect-square rounded-lg overflow-hidden bg-slate-100 mb-2"><img class="w-full h-full object-cover" alt="JPIA Official CBA Varsity Jacket" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBW5pA2DT0imuckMPJGNFgcUaww85i69JD3_adT0DIw29H13_djTl9I7gztKLHiaXlLoQb_7TWnBInpFJLBB7ETNgvgYYNv-InuxUU14bmCvAHfr07REjSO9D47D1g24S_HZpJ7rDCMX9CKWMhkI_w6bBDZk1NBw4-eBYcG96VSl7How2jIW5F8IjNebYU9tEnGsIbGnOM4EhswUY9ubR5txXS-IcTGVeEv4FQjf4ZjgRU-PfEeIDst2A"><div class="absolute top-1.5 left-1.5"><span class="px-2 py-0.5 rounded-full bg-[#800000] text-[#FFC632] text-[11px] font-bold uppercase tracking-wider flex items-center gap-1 shadow-xs font-sans"><span class="w-1.5 h-1.5 rounded-full bg-[#FFC632]"></span>JPIA • OFFICIAL MERCH</span></div><button aria-label="Favorite" class="absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-white/85 backdrop-blur-sm flex items-center justify-center text-on-surface-variant hover:text-univ-maroon transition-colors" type="button"><span class="material-symbols-outlined text-[14px]">favorite</span></button></div><div class="flex items-center gap-1 text-[12px] mb-0.5"><span class="material-symbols-outlined text-[14px] text-[#FFC632]" style="font-variation-settings: 'FILL' 1;">star</span><span class="font-medium text-on-surface">4.9</span><span class="text-outline text-[12px]">(120)</span></div><h3 class="text-[14px] font-normal text-on-surface leading-snug line-clamp-2 font-sans">JPIA Official CBA Varsity Jacket</h3><div class="mt-1 flex items-baseline gap-1"><span class="font-sans text-[15px] font-extrabold text-[#800000]">₱1,250.00</span></div><div class="mt-1.5 px-1.5 py-0.5 rounded bg-amber-50 border border-amber-200/60 text-amber-800 font-sans text-[11px] font-bold uppercase tracking-wide flex items-center gap-1"><span class="material-symbols-outlined text-[12px] text-amber-700">schedule</span><span class="truncate">BATCH 2 PRE-ORDER</span></div><div class="mt-2 pt-2 border-t border-border-subtle/50 flex flex-col gap-1"><div class="flex items-center justify-between text-[11px]"><span class="text-outline font-sans uppercase font-bold tracking-wider">Size</span><button class="text-[#800000] font-sans font-medium hover:underline text-[12px]" type="button">Size Chart</button></div><div class="flex items-center justify-between gap-0.5"><span class="px-1.5 py-0.5 rounded text-[11px] font-medium bg-slate-100 text-on-surface-variant">S</span><span class="px-1.5 py-0.5 rounded text-[11px] font-bold bg-[#800000] text-white shadow-xs">M</span><span class="px-1.5 py-0.5 rounded text-[11px] font-medium bg-slate-100 text-on-surface-variant">L</span><span class="px-1.5 py-0.5 rounded text-[11px] font-medium bg-slate-100 text-on-surface-variant">XL</span><span class="px-1 py-0.5 rounded text-[10px] font-medium bg-slate-100 text-on-surface-variant">2XL</span></div></div></div><button class="mt-2.5 w-full py-2 px-2 rounded-lg bg-[#800000] text-white font-sans text-[14px] font-semibold flex items-center justify-center gap-1.5 shadow-sm hover:bg-[#600000] transition-colors" type="button"><span class="material-symbols-outlined text-[15px] text-[#FFC632]">add_shopping_cart</span><span class="">Add to Cart</span></button></div><div class="bg-surface-card border border-border-subtle rounded-xl p-space-sm flex flex-col justify-between shadow-xs hover:shadow-md transition-shadow relative"><div><div class="relative w-full aspect-square rounded-lg overflow-hidden bg-slate-100 mb-2"><img class="w-full h-full object-cover" alt="JFINEX Executive Polo Shirt" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQuTC9TVav14UthfsExdCum-hNIg1yJcZF33oonv8W2LfvtaEtR1MO1pfrI3iPktDmuG0gVRN2JNmHbgzisXmdxix35dB_f3KnQ46k8VoxuIznQicwMr0giBlC3nK3VXGTYWaCuT2wpJqgXAtYSXhbE4-DCKv3yxm3TWUE7peoCvvffvd_8dyfNk_dQzkuS-C29rWHKZTyKEY_nSNwjkBqrh3qh3dkXc6u-pCkGucGjH4HmHgKMF3vlg"><div class="absolute top-1.5 left-1.5"><span class="px-1.5 py-0.5 rounded-full bg-[#4A4A4A] text-[#FFC632] text-[11px] font-bold uppercase tracking-wider">PRESCRIBED ATTIRE</span></div><button aria-label="Favorite" class="absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-white/85 backdrop-blur-sm flex items-center justify-center text-on-surface-variant hover:text-univ-maroon transition-colors" type="button"><span class="material-symbols-outlined text-[14px]">favorite</span></button></div><div class="flex items-center gap-1 text-[12px] mb-0.5"><span class="material-symbols-outlined text-[14px] text-[#FFC632]" style="font-variation-settings: 'FILL' 1;">star</span><span class="font-medium text-on-surface">4.8</span><span class="text-outline text-[12px]">(84)</span></div><h3 class="text-[14px] font-normal text-on-surface leading-snug line-clamp-2 font-sans">JFINEX Executive Polo Shirt</h3><div class="mt-1 flex items-baseline gap-1"><span class="font-sans text-[15px] font-extrabold text-[#800000]">₱480.00</span></div><div class="mt-1.5 px-1.5 py-0.5 rounded bg-emerald-50 border border-emerald-200/60 text-emerald-800 font-sans text-[11px] font-bold uppercase tracking-wider flex items-center gap-1"><span class="material-symbols-outlined text-[12px] text-emerald-700">inventory_2</span><span class="truncate">JFINEX OFFICIAL</span></div><div class="mt-2 pt-2 border-t border-border-subtle/50 flex flex-col gap-1"><span class="text-outline font-sans text-[11px] uppercase font-bold tracking-wider">Specification</span><div class="w-full flex items-center justify-between px-2 py-1 bg-slate-50 border border-border-subtle rounded text-[12px] text-on-surface-variant"><span class="">Select Size (Unisex)</span><span class="material-symbols-outlined text-[14px]">expand_more</span></div></div></div><button class="mt-2.5 w-full py-2 px-2 rounded-lg bg-[#800000] text-white font-sans text-[14px] font-semibold flex items-center justify-center gap-1.5 shadow-sm hover:bg-[#600000] transition-colors" type="button"><span class="material-symbols-outlined text-[15px] text-[#FFC632]">add_shopping_cart</span><span class="">Add to Cart</span></button></div><div class="bg-surface-card border border-border-subtle rounded-xl p-space-sm flex flex-col justify-between shadow-xs hover:shadow-md transition-shadow relative"><div><div class="relative w-full aspect-square rounded-lg overflow-hidden bg-slate-100 mb-2"><img class="w-full h-full object-cover" alt="YES Young Entrepreneurs Lanyard &amp; ID Holder" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuwduyrOl7FmwIpz9_7VtXfojOn0dAYsvYZjSr8oQr67SOZRATDfunxBJD8QBcMRT-0wMbEu_OA03_Y6Ah9Q2WOgya-oVi_M594oY_MroczqgM3qXouQYt0LGTVwtz2bcMOe46oDFfWleMYCYAOeqAu4vci2Zr7k6GN_1_6L2p3gWT-EhDHQKb2p-tzxejJ7JS4VMggJ5nAiQFikRsa7t3TyNaUa6NHDtQcKkcEyeKVOZOXTnFslvVyQ"><div class="absolute top-1.5 left-1.5"><span class="px-1.5 py-0.5 rounded-full bg-slate-200 text-[#222222] text-[11px] font-bold uppercase tracking-wider">YES ORG MERCH</span></div><button aria-label="Favorite" class="absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-white/85 backdrop-blur-sm flex items-center justify-center text-on-surface-variant hover:text-univ-maroon transition-colors" type="button"><span class="material-symbols-outlined text-[14px]">favorite</span></button></div><div class="flex items-center gap-1 text-[12px] mb-0.5"><span class="material-symbols-outlined text-[14px] text-[#FFC632]" style="font-variation-settings: 'FILL' 1;">star</span><span class="font-medium text-on-surface">5.0</span><span class="text-outline text-[12px]">(210)</span></div><h3 class="text-[14px] font-normal text-on-surface leading-snug line-clamp-2 font-sans">YES Young Entrepreneurs Lanyard &amp; ID Holder</h3><div class="mt-1 flex items-baseline gap-1"><span class="font-sans text-[15px] font-extrabold text-[#800000]">₱180.00</span></div><div class="mt-1.5 px-1.5 py-0.5 rounded bg-emerald-50 border border-emerald-200/60 text-emerald-800 font-sans text-[11px] font-bold uppercase tracking-wider flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-status-live animate-ping"></span><span class="truncate">IN STOCK (INSTANT)</span></div><div class="mt-2 pt-2 border-t border-border-subtle/50 text-[12px] text-outline font-sans"><span class="">Includes Quick-Release Buckle</span></div></div><button class="mt-2.5 w-full py-2 px-2 rounded-lg bg-[#800000] text-white font-sans text-[14px] font-semibold flex items-center justify-center gap-1.5 shadow-sm hover:bg-[#600000] transition-colors" type="button"><span class="material-symbols-outlined text-[15px] text-[#FFC632]">add_shopping_cart</span><span class="">Add to Cart</span></button></div><div class="bg-surface-card border border-border-subtle rounded-xl p-space-sm flex flex-col justify-between shadow-xs hover:shadow-md transition-shadow relative"><div><div class="relative w-full aspect-square rounded-lg overflow-hidden bg-slate-100 mb-2"><img class="w-full h-full object-cover" alt="HTM Society Hospitality Pin &amp; Badge Set" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8xRp5gmQUHtPyhgfc5i7672NVxWOeiT4mteiyNqxpSR6lTIYkaFeIW3RkrPYQSHowgf0rhNLo7GXU3pkR7yzrpTIUniK02DtZSzZma-9w6exDuQZM3QLRwKssAnYVOe-l--ZUcSzEjWW1aRrPAeR0H3keAeJMdqSF2WFv7zxociqSU1UypKSL_nYz23bKVG0uRzrIkayhvdd1tgOAmseoT49ynlmPnGOIXRnTyQMgCqXd4GcdIhLZhQ"><div class="absolute top-1.5 left-1.5"><span class="px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-800 text-[11px] font-bold uppercase tracking-wider">HTM ORG TAG</span></div><button aria-label="Favorite" class="absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-white/85 backdrop-blur-sm flex items-center justify-center text-on-surface-variant hover:text-univ-maroon transition-colors" type="button"><span class="material-symbols-outlined text-[14px]">favorite</span></button></div><div class="flex items-center gap-1 text-[12px] mb-0.5"><span class="material-symbols-outlined text-[14px] text-[#FFC632]" style="font-variation-settings: 'FILL' 1;">star</span><span class="font-medium text-on-surface">4.9</span><span class="text-outline text-[12px]">(72)</span></div><h3 class="text-[14px] font-normal text-on-surface leading-snug line-clamp-2 font-sans">HTM Society Hospitality Pin &amp; Badge Set</h3><div class="mt-1 flex items-baseline gap-1"><span class="font-sans text-[15px] font-extrabold text-[#800000]">₱220.00</span></div><div class="mt-1.5 px-1.5 py-0.5 rounded bg-emerald-50 border border-emerald-200/60 text-emerald-800 font-sans text-[11px] font-bold uppercase tracking-wider flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-status-live"></span><span class="truncate">OFFICIAL ORG MERCH</span></div><div class="mt-2 pt-2 border-t border-border-subtle/50 text-[12px] text-outline font-sans"><span class="">HTM Society Gold Enamel Pair</span></div></div><button class="mt-2.5 w-full py-2 px-2 rounded-lg bg-[#800000] text-white font-sans text-[14px] font-semibold flex items-center justify-center gap-1.5 shadow-sm hover:bg-[#600000] transition-colors" type="button"><span class="material-symbols-outlined text-[15px] text-[#FFC632]">add_shopping_cart</span><span class="">Add to Cart</span></button></div></div>
+<!-- Pickup Location & Policy Information Card -->
+<div class="px-gutter mt-space-md">
+<div class="bg-surface-card border border-border-subtle rounded-xl p-space-md shadow-xs flex flex-col gap-space-sm">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-rose-50 border border-rose-100 flex items-center justify-center text-univ-maroon">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+</div>
+<div>
+<h4 class="text-[16px] font-semibold text-on-surface font-sans">Campus Fulfillment Policy</h4>
+<p class="font-sans text-[11px] text-outline">UniPass Campus Store Service Rules</p>
+</div>
+</div>
+<div class="space-y-2 pt-1">
+<div class="flex items-start gap-2 text-[12px] font-sans text-on-surface-variant">
+<span class="material-symbols-outlined text-emerald-600 text-[18px] flex-shrink-0 mt-0.5">payments</span>
+<span class="">Supports <strong class="text-on-surface">Cash on Pickup</strong> at Student Council Hub or <strong class="text-on-surface">Direct Student Account Charging</strong> (settled at term-end).</span>
+</div>
+<div class="flex items-start gap-2 text-[12px] font-sans text-on-surface-variant">
+<span class="material-symbols-outlined text-univ-maroon text-[18px] flex-shrink-0 mt-0.5">receipt_long</span>
+<span class="">Transparent Pricing: Standard <strong class="text-[#800000] font-bold">+₱15.00</strong> digital campus service fee markup applied per completed checkout.</span>
+</div>
+<div class="flex items-start gap-2 text-[12px] font-sans text-on-surface-variant"><span class="material-symbols-outlined text-amber-600 text-[18px] flex-shrink-0 mt-0.5">location_on</span><span class="">Designated pickup centers: <strong class="text-on-surface">TSU Main Campus Student Center / Gym Booth B</strong> or <strong class="text-on-surface">TSU Lucinda Campus Student Pavilion</strong>. Bring student ID or QR receipt.</span></div>
+</div>
+<!-- Payment Support Badges -->
+<div class="pt-2 flex items-center justify-between border-t border-border-subtle">
+<span class="font-sans text-[11px] text-outline uppercase font-semibold">Accepted Gateways</span>
+<div class="flex items-center gap-1.5">
+<span class="px-2 py-0.5 rounded bg-slate-100 font-label-badge text-[10px] font-bold text-payment-gcash">GCash</span>
+<span class="px-2 py-0.5 rounded bg-slate-100 font-label-badge text-[10px] font-bold text-payment-maya">Maya</span>
+<span class="px-2 py-0.5 rounded bg-slate-100 font-label-badge text-[10px] font-bold text-[#800000]">Student Account</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Persistent Fast Cart Action Banner / Floating Mobile Bar -->
+<div class="px-gutter mt-space-md mb-2">
+<div class="w-full bg-surface-card border border-border-subtle rounded-xl p-3 shadow-md flex items-center justify-between gap-3">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="relative w-10 h-10 rounded-lg bg-rose-50 border border-rose-100 flex items-center justify-center text-univ-maroon flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">shopping_bag</span>
+<span class="absolute -top-1 -right-1 w-4 h-4 bg-[#800000] text-white font-label-badge text-[10px] font-bold rounded-full flex items-center justify-center shadow-xs">
+            1
+          </span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="text-[14px] font-bold text-on-surface truncate font-sans">CBA Varsity Jacket</span>
+<span class="text-sans text-[11px] text-outline">(Size M)</span>
+</div>
+<div class="flex items-center gap-1 text-[11px] text-on-surface-variant font-sans">
+<span class="">Subtotal: <strong class="text-[#800000] font-bold">₱1,250</strong></span>
+<span class="text-outline">• +₱15 fee</span>
+</div>
+</div>
+</div>
+<button class="flex-shrink-0 px-3.5 py-2 rounded-lg bg-[#800000] text-white font-sans text-[14px] font-semibold flex items-center gap-1 shadow-sm hover:bg-[#600000] transition-all" type="button"><span class="">View Cart</span><span class="material-symbols-outlined text-[16px] text-[#FFC632]">arrow_forward</span></button>
+</div>
+</div>
+</div>
+<script>
+  // Micro-interaction for departmental chip switching and buttons
+  document.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      this.classList.add('scale-95');
+      setTimeout(() => {
+        this.classList.remove('scale-95');
+      }, 120);
+    });
+  });
+</script></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-white/95 backdrop-blur-xl border-t border-border-subtle shadow-[0_-4px_16px_rgba(15,23,42,0.06)]" data-active-classes="text-univ-maroon font-bold"><div class="flex justify-around items-center h-16 px-space-xs"><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-on-surface-variant hover:text-on-surface transition-all" data-path="campus-hub" href="#"><span class="material-symbols-outlined text-[24px]">grid_view</span><span class="font-sans text-[11px] leading-tight">Hub</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-on-surface-variant hover:text-on-surface transition-all relative" data-path="campus-shuttle" href="#"><span class="relative"><span class="material-symbols-outlined text-[24px]">directions_bus</span><span class="absolute -top-0.5 -right-1 flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-status-live opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-status-live"></span></span></span><span class="font-sans text-[11px] leading-tight">Shuttle</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-on-surface-variant hover:text-on-surface transition-all" data-path="canteen-express" href="#"><span class="material-symbols-outlined text-[24px]">restaurant</span><span class="font-sans text-[11px] leading-tight">Canteen</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-on-surface-variant hover:text-on-surface transition-all" data-path="print-hub" href="#"><span class="material-symbols-outlined text-[24px]">print</span><span class="font-sans text-[11px] leading-tight">Print Hub</span></a><a aria-current="page" class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 transition-all text-[#800000] font-bold" data-path="merch-store" href="#"><span class="material-symbols-outlined text-[24px]">local_mall</span><span class="font-sans text-[11px] leading-tight">Merch</span></a></div></nav>
+
+
+
+</body></html>

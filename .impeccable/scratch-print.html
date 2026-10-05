@@ -1,0 +1,378 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_tab" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" class=""><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-surface-variant": "#4A4A4A", "on-secondary-container": "#6e5200", "secondary-fixed": "#ffdf9c", "primary-fixed": "#ffdad4", "border-subtle": "#E2E5EB", "outline-variant": "#e2bfb9", "status-live": "#10B981", "surface-container-highest": "#e5e2e1", "status-pending-bg": "#FFFBEB", "on-primary-container": "#ffffff", "surface-base": "#F4F5F7", "on-surface": "#222222", "surface-dim": "#dcd9d9", "on-background": "#222222", "on-primary": "#ffffff", "surface-bright": "#fcf9f8", "status-pending": "#D97706", "surface-container-low": "#f6f3f2", "primary-container": "#800000", "surface-container": "#f0eded", "surface-subtle": "#F4F5F7", "surface-card": "#FFFFFF", "primary-action": "#800000", "error-container": "#ffdad6", "surface": "#F4F5F7", "surface-container-lowest": "#ffffff", "primary-fixed-dim": "#ffb4a8", "error": "#ba1a1a", "primary": "#800000", "on-error": "#ffffff", "status-alert-bg": "#FEF2F2", "inverse-surface": "#303030", "background": "#F4F5F7", "secondary": "#785a00", "secondary-container": "#FFC632", "status-live-bg": "#ECFDF5", "on-secondary": "#ffffff", "status-alert": "#DC2626", "outline": "#8e706c", "maroon": "#800000", "maroon-dark": "#570000", "gold": "#FFC632", "gold-light": "#FFF3D6", "cba-dark": "#1B2336" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "margin": "1rem", "space-xl": "2rem", "space-lg": "1.5rem", "gutter": "1rem", "space-xs": "0.25rem", "space-md": "1rem", "space-sm": "0.5rem" }, fontFamily: { "serif-heading": ["'Times New Roman'", "Times", "serif"], "body-sm": ["Plus Jakarta Sans", "sans-serif"], "title-sm": ["Plus Jakarta Sans", "sans-serif"], "headline-lg": ["'Times New Roman'", "Times", "serif"], "body-md": ["Plus Jakarta Sans", "sans-serif"], "label-numeric": ["Plus Jakarta Sans", "sans-serif"], "headline-lg-mobile": ["'Times New Roman'", "Times", "serif"], "headline-md": ["'Times New Roman'", "Times", "serif"], "label-badge": ["Plus Jakarta Sans", "sans-serif"], "body-lg": ["Plus Jakarta Sans", "sans-serif"], "display-ticket": ["Plus Jakarta Sans", "sans-serif"] }, fontSize: { "body-sm": ["0.75rem", { lineHeight: "1rem", fontWeight: "400" }], "title-sm": ["1.125rem", { lineHeight: "1.5rem", fontWeight: "600" }], "headline-lg": ["2rem", { lineHeight: "2.5rem", letterSpacing: "-0.02em", fontWeight: "700" }], "body-md": ["0.875rem", { lineHeight: "1.25rem", fontWeight: "400" }], "label-numeric": ["0.875rem", { lineHeight: "1.125rem", fontWeight: "700" }], "headline-lg-mobile": ["1.625rem", { lineHeight: "2rem", letterSpacing: "-0.015em", fontWeight: "700" }], "headline-md": ["1.375rem", { lineHeight: "1.75rem", letterSpacing: "-0.01em", fontWeight: "600" }], "label-badge": ["0.75rem", { lineHeight: "1rem", letterSpacing: "0.04em", fontWeight: "700" }], "body-lg": ["1rem", { lineHeight: "1.5rem", fontWeight: "400" }], "display-ticket": ["3rem", { lineHeight: "3.25rem", letterSpacing: "-0.03em", fontWeight: "800" }] } } } };</script><style>@layer base{html,body{width:100%;margin:0;padding:0;background-color:#F4F5F7;}body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent;color:#222222;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head><body class="bg-[#F4F5F7] font-body-md text-[#222222] flex flex-col min-h-screen" data-mode="connect"><header class="fixed top-0 inset-x-0 z-50 bg-white/95 backdrop-blur-xl border-b border-border-subtle shadow-sm pt-safe"><div class="h-16 px-gutter flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><img alt="Tarlac State University Seal" class="h-10 w-10 object-contain flex-shrink-0 drop-shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnl9Mx_xgQjqrrFmFDsG-M8uFOvqOssaPyLDLOJIBbxIU5yBMlL0VFWEUuOIyWS1NViNyl9ZUch-IPfTa1MswZxyxBa7KYpPHrx-2M8OoyDjYCBKWNj0p3XjuBjlpe6PiAzKZdAL56w0jyIBObZ_WFCOtLsc_c32G22plYDC6yK1OGL247rNV-NMURq7xv1DGJYSdrhZ148i8sVzinW6RWLCwPPGkDweM1kVDDbS7e9_FOgwSdEQnuD4oC6IKWN-C3a6U"><button class="flex items-center gap-1 text-left min-w-0 rounded-lg p-1 hover:bg-surface-subtle transition-colors" type="button"><div class="flex flex-col min-w-0"><span class="font-label-badge text-label-badge uppercase tracking-wider text-[#800000] font-bold">University Campus</span><span class="font-title-sm text-body-md text-[#222222] font-semibold truncate max-w-[150px]">Main Campus Fleet</span></div><span class="material-symbols-outlined text-[#7A7A7A] text-[18px]">expand_more</span></button></div><div class="flex items-center gap-space-xs"><button aria-label="Notifications" class="relative w-11 h-11 flex items-center justify-center rounded-full text-[#1B2336] hover:bg-surface-subtle transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-2 right-2 flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#800000] opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-[#800000]"></span></span></button><button aria-label="Student Profile" class="w-11 h-11 flex items-center justify-center rounded-full hover:opacity-90 transition-opacity" type="button"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-[#FFC632]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJ7FTqud7SFny2ZkGcwfmFjqGwdplJsERkZIUQ1KxlVZD0y-wmv74PCJlIqLwFY4Yf4-LT5S8wQ5rC5FuipU5TeMtgAiS5YKUu5B8-ZsQ0uVV59gwioj6M4CQk0Epy5UGyC4hkU7-VIfmP6U9fTpSx5goIqvO4id6OiTHy6PpsprpIdBSWwmXUkdq-mQKX0fHQ7j9P9tvmoBYSUMKtg4e1dwHskn0Uoee0uFNt4NOeNQc-iwf3qfVWWA"></button></div></div></header><main class="flex flex-col relative w-full pt-16 pb-24 bg-[#F4F5F7] flex-1 min-h-screen"><div class="flex flex-col w-full">
+<div class="px-gutter pt-space-md pb-space-lg flex flex-col gap-space-md">
+<!-- Header Section with Live Status Badge -->
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5 mb-1">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-[#FFF3D6] text-[#785a00] border border-[#FFC632]/40 font-label-badge text-label-badge uppercase tracking-wider font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-status-live mr-1.5 animate-pulse"></span>
+            Queue Online
+          </span>
+<span class="font-body-sm text-body-sm text-[#7A7A7A]">Section 4.2</span>
+</div>
+<h1 class="font-serif-heading text-[26px] leading-[32px] font-bold text-[#222222]">University Print Hub</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Advance file processing &amp; express pickup desk</p>
+</div>
+<!-- Quick Action Guide Trigger -->
+<button class="w-10 h-10 rounded-full bg-white border border-border-subtle flex items-center justify-center text-[#1B2336] hover:bg-[#F4F5F7] transition-colors shadow-sm flex-shrink-0" title="Print Hub Guide" type="button">
+<span class="material-symbols-outlined text-[20px]">help_outline</span>
+</button>
+</div>
+<!-- Campus Map & Hub Location Selector -->
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm border border-border-subtle flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#800000] text-[22px]">location_on</span>
+<h2 class="font-serif-heading text-title-sm text-[#222222] font-bold">Select Print Terminal</h2>
+</div>
+<span class="font-body-sm text-body-sm text-[#7A7A7A] font-medium">3 Hubs Available</span>
+</div>
+<!-- Interactive Map Preview Anchor -->
+<div class="w-full h-36 bg-cover bg-center rounded-lg shadow-inner relative overflow-hidden flex flex-col justify-end p-2.5" data-location="University Library Quadrangle, Manila" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA5sCJpxwa1FitqY-yLefHYEaD1uaUBzND3BDqKSlmZnYQ29YoSu76Vak2X7FZO0mbcH9PzFmAYfvAfUJZNBN3bv-GVGagcbUG7jb1Zf9e230uAMQs6fyb64yJbgpUTB_82Jwg0k-BY9SsjIWXB18aT9BhHe59jyJK5OtDhyrgDM02Vr1oVEta_lDq0EerimnRJdqHYDVaVIMbwj9LFyDMhN_qqTnPNFkLjETT_HBC2cIqQFzll08Yuwg')">
+<div class="absolute inset-0 bg-gradient-to-t from-[#800000]/85 via-[#800000]/35 to-transparent"></div>
+<div class="relative z-10 flex items-center justify-between text-on-primary">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-[#FFC632]">hub</span>
+<span class="font-label-numeric text-label-numeric font-bold">Main Library Fleet Online</span>
+</div>
+<span class="bg-white/95 backdrop-blur-md text-[#222222] font-label-badge text-[11px] font-bold px-2 py-0.5 rounded-full shadow-sm border border-border-subtle">GPS Synced</span>
+</div>
+</div>
+<!-- Hub Selector Cards Carousel / Stack -->
+<div class="flex flex-col gap-space-sm" id="hub-selector-group">
+<!-- Hub 1: Selected -->
+<label class="relative flex items-center justify-between p-3 rounded-lg bg-[#FFF7F5] border-2 border-[#800000] cursor-pointer transition-all shadow-sm">
+<input checked="" class="peer sr-only" name="print-hub" type="radio" value="hub-1">
+<div class="flex items-start gap-3 min-w-0">
+<div class="w-8 h-8 rounded-full bg-[#800000] flex items-center justify-center text-white flex-shrink-0 mt-0.5 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">local_library</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-body-md font-semibold text-[#222222] truncate">Hub 1: Main University Library</span>
+<span class="px-2 py-0.5 rounded bg-[#FFC632] text-[#222222] font-label-badge text-[10px] uppercase font-bold tracking-wider shadow-xs">Recommended</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Ground Floor East Wing</span>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center text-[11px] font-semibold text-status-live">
+<span class="w-1.5 h-1.5 rounded-full bg-status-live mr-1"></span>
+                  Low Queue (2 mins wait)
+                </span>
+<span class="text-[#7A7A7A] text-[11px]">•</span>
+<span class="text-[11px] font-medium text-on-surface-variant">8 Printers Active</span>
+</div>
+</div>
+</div>
+<div class="w-5 h-5 rounded-full bg-[#800000] flex items-center justify-center text-white ml-2 flex-shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[14px] font-bold">check</span>
+</div>
+</label>
+<!-- Hub 2 -->
+<label class="relative flex items-center justify-between p-3 rounded-lg bg-white border border-border-subtle hover:bg-surface-subtle cursor-pointer transition-all">
+<input class="peer sr-only" name="print-hub" type="radio" value="hub-2">
+<div class="flex items-start gap-3 min-w-0">
+<div class="w-8 h-8 rounded-full bg-surface-subtle border border-border-subtle flex items-center justify-center text-[#1B2336] flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]">memory</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-body-md font-semibold text-[#222222] truncate">Hub 2: Engineering &amp; Tech Building</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Room 204 Computer Lab</span>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center text-[11px] font-medium text-status-pending">
+<span class="w-1.5 h-1.5 rounded-full bg-status-pending mr-1"></span>
+                  Busy (~12 mins wait)
+                </span>
+<span class="text-[#7A7A7A] text-[11px]">•</span>
+<span class="text-[11px] text-[#7A7A7A]">3 Printers active</span>
+</div>
+</div>
+</div>
+<div class="w-5 h-5 rounded-full border border-border-subtle bg-surface-subtle flex items-center justify-center text-transparent ml-2 flex-shrink-0">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+</label>
+<!-- Hub 3 -->
+<label class="relative flex items-center justify-between p-3 rounded-lg bg-white border border-border-subtle hover:bg-surface-subtle cursor-pointer transition-all">
+<input class="peer sr-only" name="print-hub" type="radio" value="hub-3">
+<div class="flex items-start gap-3 min-w-0">
+<div class="w-8 h-8 rounded-full bg-surface-subtle border border-border-subtle flex items-center justify-center text-[#1B2336] flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-body-md font-semibold text-[#222222] truncate">Hub 3: Student Center Hub</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Central Atrium Ground Flr</span>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center text-[11px] font-medium text-status-live">
+<span class="w-1.5 h-1.5 rounded-full bg-status-live mr-1"></span>
+                  Fast Queue (Express Pick-up Only)
+                </span>
+</div>
+</div>
+</div>
+<div class="w-5 h-5 rounded-full border border-border-subtle bg-surface-subtle flex items-center justify-center text-transparent ml-2 flex-shrink-0">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Advance File Upload & Dropzone Area -->
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm border border-border-subtle flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#800000] text-[22px]">upload_file</span>
+<h2 class="font-serif-heading text-title-sm text-[#222222] font-bold">Document Upload</h2>
+</div>
+<span class="font-body-sm text-body-sm text-[#800000] font-semibold cursor-pointer hover:underline">Specs Guide</span>
+</div>
+<!-- Dropzone Interactive Area -->
+<div class="rounded-xl p-5 flex flex-col items-center justify-center text-center bg-[#F4F5F7] border-2 border-dashed border-border-subtle transition-colors hover:bg-white cursor-pointer">
+<div class="w-12 h-12 rounded-full bg-[#ffdad4] flex items-center justify-center text-[#800000] mb-2 shadow-xs">
+<span class="material-symbols-outlined text-[24px]">cloud_upload</span>
+</div>
+<p class="font-title-sm text-body-md text-[#222222] font-semibold">Drag &amp; drop research paper, reviewer, thesis, or syllabus</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Supports PDF, DOCX, PPTX (Up to 50MB per file)</p>
+<button class="mt-3 px-3.5 py-1.5 rounded-lg bg-white border border-border-subtle hover:bg-surface-subtle font-label-badge text-body-sm font-semibold text-[#222222] transition-colors shadow-xs" type="button">
+          Browse Device Storage
+        </button>
+</div>
+<!-- Uploaded Document Chip / Preview -->
+<div class="p-3 rounded-lg bg-[#F4F5F7] border border-border-subtle flex items-center justify-between gap-3 shadow-xs">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-10 h-10 rounded-lg bg-status-alert-bg text-status-alert border border-status-alert/20 flex items-center justify-center flex-shrink-0 font-bold text-xs uppercase shadow-xs">
+            PDF
+          </div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-md text-body-md font-semibold text-[#222222] truncate">CS301_Final_Project_Report.pdf</span>
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-[12px]">
+<span>3.4 MB</span>
+<span>•</span>
+<span class="text-[#800000] font-semibold">14 pages indexed</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 flex-shrink-0">
+<button class="w-8 h-8 rounded-full bg-white border border-border-subtle hover:bg-surface-subtle text-[#1B2336] flex items-center justify-center shadow-xs" title="Preview File" type="button">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+<button class="w-8 h-8 rounded-full bg-white border border-border-subtle hover:bg-error-container text-error flex items-center justify-center shadow-xs" title="Remove File" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Print Specifications Form -->
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm border border-border-subtle flex flex-col gap-space-md">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#800000] text-[22px]">tune</span>
+<h2 class="font-serif-heading text-title-sm text-[#222222] font-bold">Print Job Specifications</h2>
+</div>
+<div class="flex flex-col gap-space-sm">
+<!-- Student Identity Context -->
+<div class="flex flex-col gap-1">
+<label class="font-label-badge text-label-badge text-[#7A7A7A] uppercase tracking-wider">From / Student Identification</label>
+<div class="p-2.5 rounded-lg bg-[#F4F5F7] border border-border-subtle flex items-center justify-between">
+<div class="flex items-center gap-2 min-w-0">
+<span class="material-symbols-outlined text-[#1B2336] text-[20px]">badge</span>
+<span class="font-body-md text-body-md font-medium text-[#222222] truncate">Alex Rivera (Student ID #2022-84910)</span>
+</div>
+<span class="font-label-badge text-[11px] text-[#222222] font-bold bg-[#FFC632] px-2 py-0.5 rounded shadow-xs">Verified SSO</span>
+</div>
+</div>
+<!-- Subject / Course Code -->
+<div class="flex flex-col gap-1 mt-1">
+<label class="font-label-badge text-label-badge text-[#7A7A7A] uppercase tracking-wider" for="course-code">Subject / Course Code</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-[#7A7A7A] text-[18px]">school</span>
+<input class="w-full bg-[#F4F5F7] border border-border-subtle text-[#222222] font-body-md text-body-md rounded-lg pl-9 pr-3 py-2.5 focus:bg-white focus:border-[#800000] focus:ring-1 focus:ring-[#800000] focus:outline-none transition-colors" id="course-code" placeholder="e.g. ENG101 or Bio Research" type="text" value="CS301 - Operating Systems">
+</div>
+</div>
+<!-- Print Color Configuration -->
+<div class="flex flex-col gap-1.5 mt-2">
+<label class="font-label-badge text-label-badge text-[#7A7A7A] uppercase tracking-wider">Color Mode</label>
+<div class="grid grid-cols-2 gap-space-sm">
+<button class="p-2.5 rounded-lg bg-[#800000] text-white flex flex-col items-center justify-center text-center shadow-sm" type="button">
+<span class="font-body-md text-body-md font-bold">B&amp;W Monochrome</span>
+<span class="font-body-sm text-[11px] text-[#FFC632] font-semibold">₱1.50 / page</span>
+</button>
+<button class="p-2.5 rounded-lg bg-[#F4F5F7] border border-border-subtle text-[#222222] hover:bg-white flex flex-col items-center justify-center text-center transition-colors" type="button">
+<span class="font-body-md text-body-md font-semibold">Full Color</span>
+<span class="font-body-sm text-[11px] text-[#7A7A7A]">₱5.00 / page</span>
+</button>
+</div>
+</div>
+<!-- Sidedness Option -->
+<div class="flex flex-col gap-1.5 mt-2">
+<label class="font-label-badge text-label-badge text-[#7A7A7A] uppercase tracking-wider">Page Sidedness</label>
+<div class="grid grid-cols-2 gap-space-sm">
+<button class="p-2.5 rounded-lg bg-[#FFF7F5] border-2 border-[#800000] text-[#222222] flex flex-col items-center justify-center text-center shadow-xs" type="button">
+<div class="flex items-center gap-1">
+<span class="font-body-md text-body-md font-bold text-[#800000]">Duplex (Back-to-Back)</span>
+</div>
+<span class="font-body-sm text-[11px] text-status-live font-semibold">Save paper &amp; eco-friendly</span>
+</button>
+<button class="p-2.5 rounded-lg bg-[#F4F5F7] border border-border-subtle text-[#222222] hover:bg-white flex flex-col items-center justify-center text-center transition-colors" type="button">
+<span class="font-body-md text-body-md font-semibold">Single-Sided</span>
+<span class="font-body-sm text-[11px] text-[#7A7A7A]">Standard one-sided</span>
+</button>
+</div>
+</div>
+<!-- Paper Type & Quantity -->
+<div class="grid grid-cols-2 gap-space-sm mt-2">
+<div class="flex flex-col gap-1">
+<label class="font-label-badge text-label-badge text-[#7A7A7A] uppercase tracking-wider">Paper Type</label>
+<div class="p-2.5 rounded-lg bg-[#F4F5F7] border border-border-subtle flex items-center justify-between">
+<span class="font-body-md text-body-md font-medium text-[#222222]">A4 70gsm</span>
+<span class="material-symbols-outlined text-[#7A7A7A] text-[18px]">unfold_more</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-badge text-label-badge text-[#7A7A7A] uppercase tracking-wider">Number of Copies</label>
+<div class="p-1 rounded-lg bg-[#F4F5F7] border border-border-subtle flex items-center justify-between">
+<button class="w-8 h-8 rounded-lg bg-white border border-border-subtle flex items-center justify-center text-[#222222] font-bold shadow-xs hover:bg-surface-subtle transition-colors" type="button">-</button>
+<span class="font-label-numeric text-label-numeric font-bold text-[#222222]">2 copies</span>
+<button class="w-8 h-8 rounded-lg bg-white border border-border-subtle flex items-center justify-center text-[#222222] font-bold shadow-xs hover:bg-surface-subtle transition-colors" type="button">+</button>
+</div>
+</div>
+</div>
+<!-- Message Notes to Operator -->
+<div class="flex flex-col gap-1 mt-2">
+<div class="flex items-center justify-between">
+<label class="font-label-badge text-label-badge text-[#7A7A7A] uppercase tracking-wider" for="operator-notes">Message Notes to Operator</label>
+<span class="font-body-sm text-[11px] text-[#7A7A7A]">Optional</span>
+</div>
+<textarea class="w-full bg-[#F4F5F7] border border-border-subtle text-[#222222] font-body-md text-body-md rounded-lg p-2.5 focus:bg-white focus:border-[#800000] focus:ring-1 focus:ring-[#800000] focus:outline-none transition-colors" id="operator-notes" placeholder="Special binding, ring bind, staple location..." rows="2">Please staple upper left corner and print double-sided.</textarea>
+</div>
+</div>
+</div>
+<!-- Cost Breakdown & Express Counter Pickup Notice Card -->
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm border border-border-subtle flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#800000] text-[22px]">receipt_long</span>
+<h2 class="font-serif-heading text-title-sm text-[#222222] font-bold">Itemized Ledger</h2>
+</div>
+<span class="bg-[#FFF3D6] text-[#785a00] border border-[#FFC632]/50 font-label-badge text-[10px] px-2 py-0.5 rounded font-bold uppercase tracking-wider">Estimated</span>
+</div>
+<!-- Perforated Ticket Style Calculation Block -->
+<div class="rounded-xl bg-[#F4F5F7] border border-border-subtle p-4 flex flex-col gap-2 relative">
+<div class="flex justify-between items-center text-body-sm text-on-surface-variant font-body-sm">
+<span>Document Pages</span>
+<span class="font-label-numeric text-[#222222] font-semibold">14 pages x 2 copies</span>
+</div>
+<div class="flex justify-between items-center text-body-sm text-on-surface-variant font-body-sm">
+<span>Rate (Duplex B&amp;W @ ₱1.50)</span>
+<span class="font-label-numeric text-[#222222] font-semibold">₱42.00</span>
+</div>
+<div class="flex justify-between items-center text-body-sm text-on-surface-variant font-body-sm">
+<span>Service &amp; Campus Platform Fee</span>
+<span class="font-label-numeric text-[#222222] font-semibold">₱3.00</span>
+</div>
+<!-- Perforated separator bar -->
+<div class="my-2 border-b border-dashed border-[#8e706c]/30"></div>
+<div class="flex justify-between items-baseline pt-1">
+<span class="font-serif-heading text-title-sm font-bold text-[#222222]">Total Amount Due</span>
+<span class="font-headline-md text-headline-md font-bold text-[#800000]">₱45.00</span>
+</div>
+</div>
+<!-- Payment Method Selection Chips -->
+<div class="flex flex-col gap-2">
+<span class="font-label-badge text-label-badge text-[#7A7A7A] uppercase tracking-wider">Payment Mode</span>
+<div class="grid grid-cols-2 gap-space-sm">
+<!-- Digital Payment (Selected) -->
+<label class="p-3 rounded-xl bg-[#FFF7F5] border-2 border-[#800000] cursor-pointer flex flex-col gap-1 transition-all shadow-xs">
+<input checked="" class="sr-only" name="payment-method" type="radio" value="online">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-[#800000] text-[22px]">account_balance_wallet</span>
+<div class="w-4 h-4 rounded-full bg-[#800000] flex items-center justify-center text-white shadow-xs">
+<span class="material-symbols-outlined text-[12px] font-bold">check</span>
+</div>
+</div>
+<span class="font-title-sm text-body-md font-bold text-[#222222]">GCash / Student Portal</span>
+<span class="font-body-sm text-[11px] text-[#800000] font-semibold">Instant processing priority</span>
+</label>
+<!-- Cash upon Pickup -->
+<label class="p-3 rounded-xl bg-[#F4F5F7] border border-border-subtle hover:bg-white cursor-pointer flex flex-col gap-1 transition-all">
+<input class="sr-only" name="payment-method" type="radio" value="cash">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-[#1B2336] text-[22px]">payments</span>
+<div class="w-4 h-4 rounded-full border border-border-subtle bg-white flex items-center justify-center text-transparent">
+<span class="material-symbols-outlined text-[12px]">check</span>
+</div>
+</div>
+<span class="font-title-sm text-body-md font-semibold text-[#222222]">Cash upon Pickup</span>
+<span class="font-body-sm text-[11px] text-[#7A7A7A]">Pay at station kiosk</span>
+</label>
+</div>
+</div>
+<!-- Express Pickup Counter Notice -->
+<div class="p-3 rounded-lg bg-[#FFF3D6] border border-[#FFC632]/50 flex items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-[#FFC632] flex items-center justify-center text-[#222222] flex-shrink-0 mt-0.5 shadow-xs">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-md text-body-md font-bold text-[#222222]">Express Counter #1 Bypass</span>
+<p class="font-body-sm text-body-sm text-[#4A4A4A] mt-0.5">
+            Files are processed in advance. Head directly to <strong class="text-[#800000]">Counter #1 (Express Pickup)</strong> with your queue PIN upon arrival.
+          </p>
+</div>
+</div>
+</div>
+<!-- Primary Action Sticky Submission Tray -->
+<div class="flex flex-col gap-2 pt-2">
+<button class="w-full py-3.5 px-space-md rounded-xl bg-[#800000] hover:bg-[#570000] text-white font-title-sm text-title-sm font-bold flex items-center justify-center gap-2 shadow-md active:scale-[0.99] transition-all ring-1 ring-white/20" id="submit-print-btn" type="button">
+<span class="material-symbols-outlined text-[20px] text-[#FFC632]">send_to_mobile</span>
+<span>Submit Print Job &amp; Get Queue PIN</span>
+</button>
+<div class="flex items-center justify-center gap-1.5 text-center text-[#7A7A7A] font-body-sm text-[12px]">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+<span>Encrypted upload directly to university fleet station</span>
+</div>
+</div>
+<!-- Real-time Queue PIN Modal Trigger Overlay (Initially Hidden Simulator) -->
+<div class="fixed inset-0 z-50 bg-[#1B2336]/65 backdrop-blur-sm hidden flex items-center justify-center p-gutter" id="pin-modal">
+<div class="bg-surface-card rounded-2xl w-full max-w-sm p-space-lg shadow-2xl flex flex-col items-center text-center animate-fade-in border border-border-subtle">
+<div class="w-16 h-16 rounded-full bg-[#FFF3D6] text-[#800000] border-2 border-[#FFC632] flex items-center justify-center mb-3 shadow-sm">
+<span class="material-symbols-outlined text-[36px]">task_alt</span>
+</div>
+<span class="font-label-badge text-label-badge uppercase tracking-wider text-[#800000] font-bold">Print Job Dispatched</span>
+<h2 class="font-serif-heading text-headline-md font-bold text-[#222222] mt-1">Queue PIN Ready</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Present this code at Library Hub Counter #1</p>
+<!-- PIN Display Box -->
+<div class="my-4 w-full p-4 rounded-xl bg-[#F4F5F7] border border-border-subtle flex flex-col items-center justify-center">
+<span class="font-display-ticket text-display-ticket font-extrabold text-[#800000] tracking-widest">PR-492</span>
+<span class="font-body-sm text-[12px] text-on-surface-variant mt-1">Estimated Ready Time: <strong>10:18 AM (~3 mins)</strong></span>
+</div>
+<button class="w-full py-3 rounded-lg bg-[#800000] hover:bg-[#570000] font-title-sm text-body-md font-semibold text-white transition-colors shadow-sm" id="close-modal-btn" type="button">
+          Dismiss &amp; View Ticket Wallet
+        </button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Simple micro-interaction for PIN Modal Simulation
+  const submitBtn = document.getElementById('submit-print-btn');
+  const modal = document.getElementById('pin-modal');
+  const closeBtn = document.getElementById('close-modal-btn');
+
+  if (submitBtn && modal && closeBtn) {
+    submitBtn.addEventListener('click', () => {
+      modal.classList.remove('hidden');
+    });
+
+    closeBtn.addEventListener('click', () => {
+      modal.classList.add('hidden');
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.add('hidden');
+      }
+    });
+  }
+</script></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-white/95 backdrop-blur-xl border-t border-border-subtle shadow-[0_-4px_16px_rgba(0,0,0,0.04)]" data-active-classes="text-[#800000] font-bold"><div class="flex justify-around items-center h-16 px-space-xs"><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-[#4A4A4A] hover:text-[#222222] transition-all" data-path="campus-hub" href="#"><span class="material-symbols-outlined text-[24px]">grid_view</span><span class="font-body-sm text-body-sm text-[11px] leading-tight">Hub</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-[#4A4A4A] hover:text-[#222222] transition-all relative" data-path="campus-shuttle" href="#"><span class="relative"><span class="material-symbols-outlined text-[24px]">directions_bus</span><span class="absolute -top-0.5 -right-1 flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-status-live opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-status-live"></span></span></span><span class="font-body-sm text-body-sm text-[11px] leading-tight">Shuttle</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-[#4A4A4A] hover:text-[#222222] transition-all" data-path="canteen-express" href="#"><span class="material-symbols-outlined text-[24px]">restaurant</span><span class="font-body-sm text-body-sm text-[11px] leading-tight">Canteen</span></a><a aria-current="page" class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 transition-all text-[#800000] font-bold" data-path="print-hub" href="#"><span class="material-symbols-outlined text-[24px]">print</span><span class="font-body-sm text-body-sm text-[11px] leading-tight font-bold">Print Hub</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-[#4A4A4A] hover:text-[#222222] transition-all" data-path="merch-store" href="#"><span class="material-symbols-outlined text-[24px]">local_mall</span><span class="font-body-sm text-body-sm text-[11px] leading-tight">Merch</span></a></div></nav></body></html>
