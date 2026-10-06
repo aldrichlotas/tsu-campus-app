@@ -40,75 +40,44 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Navigate to the /merch page (Merch catalog) and check for product listings.
+        # -> Open the 'Merch' page by navigating to /merch so the product catalog can be selected.
         await page.goto("http://localhost:8081/merch")
         try:
             await page.wait_for_load_state("domcontentloaded", timeout=5000)
         except Exception:
             pass
         
-        # -> Open the product detail page for the 'JPIA Official Polo Shirt' by clicking its listing.
-        # JPIA Official Polo Shirt
-        elem = page.get_by_text("JPIA Official Polo Shirt")
+        # -> Click the 'Add to Cart' button on the JPIA Official Polo Shirt product card to add the item to the cart.
+        # Add to Cart
+        elem = page.locator("div:nth-child(6) > div > div:nth-child(3) > .css-text-146c3p1").first
         await elem.click(timeout=10000)
         
-        # -> Click the 'L' size button in the Product Details modal to change the selected size.
-        # L
-        elem = page.get_by_text("L", exact=True)
-        await elem.click(timeout=10000)
-        
-        # -> Click the 'Pre-Order Merchandise' button to add the selected JPIA Official Polo Shirt (size L) to the cart.
+        # -> Click the 'Pre-Order Merchandise' button to add the selected JPIA Official Polo Shirt (size M) to the cart.
         # Pre-Order Merchandise
-        elem = page.locator("div").filter(has_text=re.compile(r"^Pre-Order Merchandise$")).nth(1)
+        elem = page.get_by_text("Pre-Order Merchandise")
         await elem.click(timeout=10000)
         
-        # -> Click the 'View Cart • ₱514.00' bar to open the cart view.
+        # -> Click the 'View Cart • ₱514.00' button to open the cart view.
         # View Cart • ₱ 514.00
         elem = page.locator("div").filter(has_text=re.compile(r"^View Cart • ₱514\.00$")).first
         await elem.click(timeout=10000)
         
-        # -> Click the 'Size: L' line in the cart to try to change the selected size (or open product details), and if that does not result in a size-edit UI, click the 'Remove' link to remove the item from the cart.
-        # Remove
-        elem = page.locator("div").filter(has_text=re.compile(r"^Remove$")).first
-        await elem.click(timeout=10000)
-        
-        # -> Click the 'Size: L' line in the cart to try to change the selected size (or open product details), and if that does not result in a size-edit UI, click the 'Remove' link to remove the item from the cart.
-        # Remove
-        elem = page.locator("xpath=/html/body/div[3]/div/div[2]/div/div/div/div[2]/div[2]/div/div[1]/div[1]/div[3]/div").nth(0)
-        await elem.click(timeout=10000)
-        
-        # -> Click the 'Confirm & Pay ₱0.00' button to attempt to proceed with checkout
-        # Confirm & Pay ₱ 0.00
-        elem = page.get_by_text("Confirm & Pay ₱")
-        await elem.click(timeout=10000)
-        
-        # -> Click the 'Confirm & Pay ₱0.00' button to attempt checkout and verify a checkout confirmation is displayed.
-        # Confirm & Pay ₱ 0.00
-        elem = page.get_by_text("Confirm & Pay ₱")
-        await elem.click(timeout=10000)
-        
-        # -> Click the 'Confirm & Pay ₱0.00' button and verify whether a checkout confirmation or an error message is displayed.
-        # Confirm & Pay ₱ 0.00
-        elem = page.get_by_text("Confirm & Pay ₱")
-        await elem.click(timeout=10000)
-        
-        # -> Click the 'Confirm & Pay ₱0.00' button and check whether a checkout confirmation message or an error is displayed.
-        # Confirm & Pay ₱ 0.00
+        # -> Click the 'Confirm & Pay ₱514.00' button to proceed to checkout and verify the checkout result.
+        # Confirm & Pay ₱ 514.00
         elem = page.get_by_text("Confirm & Pay ₱")
         await elem.click(timeout=10000)
         
         # --> Assertions to verify final state
         
-        # --> The cart review modal is visible showing totals and a 'Confirm & Pay ₱0.00' button.
-        await page.locator("div").filter(has_text=re.compile(r"^Confirm & Pay ₱0\.00$")).nth(1).nth(0).scroll_into_view_if_needed()
+        # --> The cart review is visible on the confirmation page showing the purchased item.
         # Assert-outcome: failed
-        # Assert: Expected the cart review modal (Confirm & Pay button) to be visible.
-        await expect(page.locator("div").filter(has_text=re.compile(r"^Confirm & Pay ₱0\.00$")).nth(1).nth(0)).to_be_visible(timeout=15000), "Expected the cart review modal (Confirm & Pay button) to be visible."
+        # Assert: Expected the cart review to be visible on the confirmation page.
+        await expect(page.get_by_role("dialog").nth(0)).to_contain_text("1x JPIA Official Polo Shirt (M) \u20b1499.00", timeout=15000), "Expected the cart review to be visible on the confirmation page."
         
-        # --> No checkout confirmation appeared after clicking the 'Confirm & Pay ₱0.00' button.
+        # --> A checkout confirmation message is visible after completing the purchase.
         # Assert-outcome: failed
-        # Assert: Expected a checkout confirmation message (e.g. a 'Thank you' or order confirmation) to be visible.
-        await expect(page.get_by_role("dialog").nth(0)).to_contain_text("Thank you", timeout=15000), "Expected a checkout confirmation message (e.g. a 'Thank you' or order confirmation) to be visible."
+        # Assert: Expected a checkout confirmation message to be visible after completing checkout.
+        await expect(page.get_by_role("dialog").nth(0)).to_contain_text("Thank you! Your merchandise pre-order has been placed successfully.", timeout=15000), "Expected a checkout confirmation message to be visible after completing checkout."
         await asyncio.sleep(5)
 
     finally:

@@ -275,6 +275,14 @@ export const DemoProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setMerchCart((prev) => prev.filter((i) => !(i.id === id && i.size === size)));
     };
 
+    const decrementMerchItem = (id: string, size: string) => {
+        setMerchCart((prev) =>
+            prev
+                .map((i) => (i.id === id && i.size === size ? { ...i, quantity: i.quantity - 1 } : i))
+                .filter((i) => i.quantity > 0)
+        );
+    };
+
     const checkoutMerch = (paymentMode: 'Student Account Ledger' | 'Cash on Claim'): boolean => {
         const total = merchCart.reduce((sum, i) => sum + i.price * i.quantity, 0);
         if (paymentMode === 'Student Account Ledger' && !deductBalance(total)) {
@@ -311,6 +319,7 @@ export const DemoProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 merchCart,
                 addMerchToCart,
                 removeMerchItem,
+                decrementMerchItem,
                 checkoutMerch,
             }}
         >

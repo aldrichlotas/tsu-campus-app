@@ -40,47 +40,46 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Open the Print Hub page by navigating to /print so the print job configuration UI can be tested.
-        await page.goto("http://localhost:8081/print")
-        try:
-            await page.wait_for_load_state("domcontentloaded", timeout=5000)
-        except Exception:
-            pass
+        # -> Click the 'Print Hub' card (labeled "Print Hub") to open the print services page.
+        # Print Hub
+        elem = page.get_by_text("Print Hub")
+        await elem.click(timeout=10000)
         
-        # -> Set the page count to 10, choose 'Full Color' and 'Duplex (Back-to-Back)', then click the 'Submit & Queue Print Job' button.
+        # -> Set the page count to '10', choose 'Full Color' and 'Single-Sided', then click the 'Submit & Queue Print Job' button.
         # text field
         elem = page.get_by_role("textbox").nth(1)
         await elem.wait_for(state="visible", timeout=10000)
         await elem.fill("10")
         
-        # -> Set the page count to 10, choose 'Full Color' and 'Duplex (Back-to-Back)', then click the 'Submit & Queue Print Job' button.
-        # Full Color ₱8.00 / page
-        elem = page.get_by_text("Full Color₱8.00 / page")
+        # -> Set the page count to '10', choose 'Full Color' and 'Single-Sided', then click the 'Submit & Queue Print Job' button.
+        # Full Color
+        elem = page.get_by_text("Full Color")
         await elem.click(timeout=10000)
         
-        # -> Set the page count to 10, choose 'Full Color' and 'Duplex (Back-to-Back)', then click the 'Submit & Queue Print Job' button.
-        # Duplex (Back-to-Back)
-        elem = page.locator("div").filter(has_text=re.compile(r"^Duplex \(Back-to-Back\)$")).first
+        # -> Set the page count to '10', choose 'Full Color' and 'Single-Sided', then click the 'Submit & Queue Print Job' button.
+        # Single-Sided
+        elem = page.get_by_text("Single-Sided")
         await elem.click(timeout=10000)
         
-        # -> Set the page count to 10, choose 'Full Color' and 'Duplex (Back-to-Back)', then click the 'Submit & Queue Print Job' button.
+        # -> Set the page count to '10', choose 'Full Color' and 'Single-Sided', then click the 'Submit & Queue Print Job' button.
         # Submit & Queue Print Job
-        elem = page.locator("div").filter(has_text=re.compile(r"^Submit & Queue Print Job$")).first
+        elem = page.get_by_text("Submit & Queue Print Job")
         await elem.click(timeout=10000)
         
         # --> Assertions to verify final state
         
-        # --> A pickup confirmation modal with the queue PIN is visible.
-        await page.locator("div").filter(has_text=re.compile(r"^Dismiss to Dashboard$")).first.nth(0).scroll_into_view_if_needed()
+        # --> A confirmation modal with the pickup PIN is visible.
         # Assert-outcome: passed
-        # Assert: Confirmation modal with the pickup PIN is visible.
-        await expect(page.locator("div").filter(has_text=re.compile(r"^Dismiss to Dashboard$")).first.nth(0)).to_be_visible(timeout=15000), "Confirmation modal with the pickup PIN is visible."
+        # Assert: The confirmation modal's Dismiss button is visible, indicating the modal is displayed.
+        await expect(page.locator("xpath=/html/body/div[5]/div/div[2]/div/div/div/div/div[6]").nth(0)).to_have_text("Dismiss to Dashboard", timeout=15000), "The confirmation modal's Dismiss button is visible, indicating the modal is displayed."
         
-        # --> Print job details are shown in the job summary (10 pages, Full Color, Duplex).
-        await page.get_by_text("TSU Main: Library Fleet").nth(0).scroll_into_view_if_needed()
+        # --> The submitted print job shows the configured details: 10 pages, Full Color, and Single-Sided.
         # Assert-outcome: passed
-        # Assert: The print job summary (shop/job details area) is visible.
-        await expect(page.get_by_text("TSU Main: Library Fleet").nth(0)).to_be_visible(timeout=15000), "The print job summary (shop/job details area) is visible."
+        # Assert: The page count input is set to 10.
+        await expect(page.get_by_role("textbox").nth(1).nth(0)).to_have_value("10", timeout=15000), "The page count input is set to 10."
+        # Assert-outcome: passed
+        # Assert: The color option 'Full Color' is shown.
+        await expect(page.locator("xpath=/html/body/div[1]/div/div[2]/div[2]/div/div/div/div[2]/div/div[4]/div[5]/div[2]/div[2]/div[1]").nth(0)).to_have_text("Full Color", timeout=15000), "The color option 'Full Color' is shown."
         await asyncio.sleep(5)
 
     finally:

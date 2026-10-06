@@ -40,46 +40,43 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Open the 'Canteen' page by navigating to /canteen (visit the Canteen page).
+        # -> Open the Canteen page (navigate to /canteen) so the menu and category filters can be accessed.
         await page.goto("http://localhost:8081/canteen")
         try:
             await page.wait_for_load_state("domcontentloaded", timeout=5000)
         except Exception:
             pass
         
-        # -> Click the 'Meals' category button to filter the menu to Meals.
-        # Meals
-        elem = page.get_by_text("Meals")
+        # -> Click the 'Rice Bowls' category filter to apply the Rice Bowls filter.
+        # Rice Bowls
+        elem = page.locator("div").filter(has_text=re.compile(r"^Rice Bowls$")).first
         await elem.click(timeout=10000)
         
-        # -> Open the 'Crispy Sisig Rice Bowl w/ Egg' product card so its details can be added to the cart.
+        # -> Scroll the menu list so the 'Add' control for 'Crispy Sisig Rice Bowl w/ Egg' becomes visible.
+        await page.mouse.wheel(0, 300)
+        
+        # -> Scroll the Rice Bowls menu list further so the 'Add' button for 'Crispy Sisig Rice Bowl w/ Egg' becomes visible and locate the Add control.
+        await page.mouse.wheel(0, 300)
+        
+        # -> Scroll the main page down and inspect div elements to locate the 'Add' button or item controls for 'Crispy Sisig Rice Bowl w/ Egg'.
+        await page.mouse.wheel(0, 300)
+        
+        # -> Click the '+ Pre-Order' button for 'Crispy Sisig Rice Bowl w/ Egg' to add it or open its ordering options.
         # Pre-Order
-        elem = page.locator("div").filter(has_text=re.compile(r"^₱90\.00Pre-Order$")).locator("div").nth(1)
-        await elem.click(timeout=10000)
-        
-        # -> Click the '1 items in cart (View)' control to open the cart and verify the added item is present.
-        # 1 items in cart (View)
-        elem = page.get_by_text("items in cart (View)")
-        await elem.click(timeout=10000)
-        
-        # -> Check that 'Your Cart' lists the added item (e.g., 'Beef Tapa Special with Atchara'), then click the 'Close Cart' button and verify the 'Meals' category and filtered menu results remain visible.
-        # Close Cart
-        elem = page.locator("div").filter(has_text=re.compile(r"^Close Cart$")).first
+        elem = page.get_by_text("Pre-Order").first
         await elem.click(timeout=10000)
         
         # --> Assertions to verify final state
         
-        # --> The cart shows an item — the cart control displays '1 items in cart (View)'.
-        await page.get_by_text("items in cart (View)").nth(0).scroll_into_view_if_needed()
+        # --> The cart shows that 1 item is in the cart after adding from the filtered results.
         # Assert-outcome: passed
-        # Assert: Verifies the cart items control ('items in cart (View)') is visible.
-        await expect(page.get_by_text("items in cart (View)").nth(0)).to_be_visible(timeout=15000), "Verifies the cart items control ('items in cart (View)') is visible."
+        # Assert: Verifies the cart displays '1 items in cart'."
+        await expect(page.locator("#root").nth(0)).to_contain_text("1 items in cart", timeout=15000), "Verifies the cart displays '1 items in cart'.\""
         
-        # --> The Meals filter results remain visible — a meal item ('Crispy Sisig Rice Bowl w/ Egg') is displayed in the menu.
-        await page.get_by_text("Pre-Order").nth(1).nth(0).scroll_into_view_if_needed()
+        # --> The Rice Bowls filtered results remain visible — the item's 'Pre-Order' control is present.
         # Assert-outcome: passed
-        # Assert: Verifies a product 'Pre-Order' label is visible in the menu, indicating filtered meal items are shown.
-        await expect(page.get_by_text("Pre-Order").nth(1).nth(0)).to_be_visible(timeout=15000), "Verifies a product 'Pre-Order' label is visible in the menu, indicating filtered meal items are shown."
+        # Assert: Verifies the item's 'Pre-Order' control is visible, indicating filtered results remain.
+        await expect(page.locator("#root").nth(0)).to_contain_text("Pre-Order", timeout=15000), "Verifies the item's 'Pre-Order' control is visible, indicating filtered results remain."
         await asyncio.sleep(5)
 
     finally:

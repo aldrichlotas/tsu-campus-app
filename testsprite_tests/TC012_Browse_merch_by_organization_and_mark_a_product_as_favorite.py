@@ -40,36 +40,49 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Open the Merch catalog page by navigating to the /merch URL so the product filter and favorite actions can be performed.
+        # -> Navigate to the 'Merch' catalog page by opening the URL /merch
         await page.goto("http://localhost:8081/merch")
         try:
             await page.wait_for_load_state("domcontentloaded", timeout=5000)
         except Exception:
             pass
         
-        # -> Click the 'JPIA' organization filter to apply the organization filter.
+        # -> Click the 'JPIA' organization filter to apply the organization filter to the merchandise list.
         # JPIA
         elem = page.get_by_text("JPIA").first
         await elem.click(timeout=10000)
         
-        # -> Click the 'JPIA' organization filter to apply the organization filter.
+        # -> Click the 'JPIA' organization filter to apply the organization filter to the merchandise list.
+        # JPIA Official Polo Shirt
+        elem = page.get_by_text("JPIA Official Polo Shirt")
+        await elem.click(timeout=10000)
+        
+        # -> Click the 'JPIA' organization filter to apply the organization filter to the merchandise list.
+        # Click the 'JPIA' organization filter to apply the organization filter to the merchandise list.
+        elem = page.locator("div:nth-child(6) > div:nth-child(2) > div > div > .css-view-g5y9jx").first
+        await elem.click(timeout=10000)
+        
+        # -> Click the heart (favorite) icon in the Product Details dialog to mark the product as a favorite.
+        # Click the heart (favorite) icon in the Product Details dialog to mark the product as a favorite.
+        elem = page.locator("div:nth-child(2) > div > div > div > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(2)")
+        await elem.click(timeout=10000)
+        
+        # -> Click the 'JPIA Official Polo Shirt' product to open its details so the favorite (heart) control can be found and verified.
         # JPIA Official Polo Shirt
         elem = page.get_by_text("JPIA Official Polo Shirt")
         await elem.click(timeout=10000)
         
         # --> Assertions to verify final state
         
-        # --> The catalog shows the JPIA product card after applying the JPIA filter.
-        await page.get_by_text("JPIA5.0(188)JPIA Official").nth(0).scroll_into_view_if_needed()
+        # --> The merch list displays the JPIA product 'JPIA Official Polo Shirt'.
         # Assert-outcome: passed
-        # Assert: The JPIA product card is visible in the filtered results.
-        await expect(page.get_by_text("JPIA5.0(188)JPIA Official").nth(0)).to_be_visible(timeout=15000), "The JPIA product card is visible in the filtered results."
+        # Assert: The merch list contains the product title 'JPIA Official Polo Shirt'.
+        await expect(page.locator("#root").nth(0)).to_contain_text("JPIA Official Polo Shirt", timeout=15000), "The merch list contains the product title 'JPIA Official Polo Shirt'."
         
-        # --> The opened product is marked as saved in the Product Details modal.
-        await page.locator("div").filter(has_text=re.compile(r"^Saved$")).nth(1).nth(0).scroll_into_view_if_needed()
+        # --> The opened product is marked as a favorite (Product Details modal shows 'Saved').
         # Assert-outcome: passed
-        # Assert: The Product Details modal displays a 'Saved' label indicating the product is favorited.
-        await expect(page.locator("div").filter(has_text=re.compile(r"^Saved$")).nth(1).nth(0)).to_be_visible(timeout=15000), "The Product Details modal displays a 'Saved' label indicating the product is favorited."
+        # Assert: The Product Details modal displays 'Saved', confirming the item was favorited.
+        await expect(page.locator("xpath=/html/body/div[6]/div/div[2]/div/div/div/div[2]/div[1]/div[2]/div[1]").nth(0)).to_have_text("Saved", timeout=15000), "The Product Details modal displays 'Saved', confirming the item was favorited."
         await asyncio.sleep(5)
 
     finally:

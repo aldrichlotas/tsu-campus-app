@@ -40,38 +40,33 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Click the 'Canteen Pre-Order' card to open the canteen page.
+        # -> Click the 'Canteen Pre-Order' card to open the canteen / pre-order view.
         # Canteen Pre-Order
         elem = page.get_by_text("Canteen Pre-Order")
         await elem.click(timeout=10000)
         
-        # -> Click the 'Pre-Order' button for a menu item (e.g., the Crispy Sisig Rice Bowl) and then open the cart view to confirm the item was added.
+        # -> Click the 'Pre-Order' button on a menu item to add it to the cart.
         # Pre-Order
-        elem = page.locator("div").filter(has_text=re.compile(r"^₱90\.00Pre-Order$")).locator("div").nth(1)
+        elem = page.get_by_text("Pre-Order").nth(3)
         await elem.click(timeout=10000)
         
-        # -> Click the 'Pre-Order' button for a menu item (e.g., the Crispy Sisig Rice Bowl) and then open the cart view to confirm the item was added.
-        # +₱5.00 Campus Service Fee
-        elem = page.get_by_text("+₱5.00 Campus Service Fee")
-        await elem.click(timeout=10000)
-        
-        # -> Click the 'Proceed to Pre-Order' button
+        # -> Click the 'Pre-Order' button on a menu item to add it to the cart.
         # Proceed to Pre-Order
         elem = page.get_by_text("Proceed to Pre-Order")
         await elem.click(timeout=10000)
         
         # --> Assertions to verify final state
         
-        # --> The Live Order Tracker is displayed on the page (tracker header is visible).
+        # --> The Live Order Tracker page is open at /canteen/tracker.
         # Assert-outcome: passed
-        # Assert: Live Order Tracker heading is visible on the page.
-        await expect(page.locator("#root").nth(0)).to_contain_text("Live Order Tracker", timeout=15000), "Live Order Tracker heading is visible on the page."
+        # Assert: Verifies the browser is on the live order tracker URL.
+        await expect(page).to_have_url(re.compile("/canteen/tracker"), timeout=15000), "Verifies the browser is on the live order tracker URL."
         
-        # --> The order progress stages are visible on the tracker (progress stage icon is shown).
-        await page.locator("xpath=/html/body/div[1]/div/div[2]/div[3]/div/div/div/div[2]/div/div[1]/div[3]/div[1]/svg").nth(0).scroll_into_view_if_needed()
+        # --> The order progress stages ('Order Sent', 'Preparing', and 'Ready for Pickup') are visible in the tracker UI.
+        await page.locator("xpath=/html/body/div[1]/div/div[2]/div[3]/div/div/div/div[2]/div/div[2]/div[1]/svg").nth(0).scroll_into_view_if_needed()
         # Assert-outcome: passed
-        # Assert: A progress stage icon is visible, indicating the progress stages are shown.
-        await expect(page.locator("xpath=/html/body/div[1]/div/div[2]/div[3]/div/div/div/div[2]/div/div[1]/div[3]/div[1]/svg").nth(0)).to_be_visible(timeout=15000), "A progress stage icon is visible, indicating the progress stages are shown."
+        # Assert: Verifies a progress-stage icon is visible, indicating the order progress UI is present.
+        await expect(page.locator("xpath=/html/body/div[1]/div/div[2]/div[3]/div/div/div/div[2]/div/div[2]/div[1]/svg").nth(0)).to_be_visible(timeout=15000), "Verifies a progress-stage icon is visible, indicating the order progress UI is present."
         await asyncio.sleep(5)
 
     finally:

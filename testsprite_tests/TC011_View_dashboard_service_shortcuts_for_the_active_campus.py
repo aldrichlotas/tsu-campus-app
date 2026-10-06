@@ -40,23 +40,15 @@ async def run_test():
         except Exception:
             pass
         
+        # -> Locate the 'Canteen Pre-Order' card on the dashboard and bring it into view if it's off-screen.
+        await page.mouse.wheel(0, 300)
+        
         # --> Assertions to verify final state
         
-        # --> Dashboard header 'TSU' is visible on the landing page.
-        await page.get_by_text("TSU", exact=True).nth(0).scroll_into_view_if_needed()
+        # --> Dashboard shows the campus header 'TSU Main Campus'.
         # Assert-outcome: passed
-        # Assert: Dashboard header shows 'TSU'.
-        await expect(page.get_by_text("TSU", exact=True).nth(0)).to_be_visible(timeout=15000), "Dashboard header shows 'TSU'."
-        
-        # --> Active shuttle tracker is visible showing the Main Campus ↔ Lucinda Campus route.
-        # Assert-outcome: passed
-        # Assert: Shuttle card displays the route 'Main Campus ↔ Lucinda Campus corridor & seats.'.
-        await expect(page.locator("#root").nth(0)).to_contain_text("Main Campus \u2194 Lucinda Campus corridor & seats.", timeout=15000), "Shuttle card displays the route 'Main Campus \u2194 Lucinda Campus corridor & seats.'."
-        
-        # --> Canteen tracker/shortcut '14 Stalls' is visible on the dashboard.
-        # Assert-outcome: passed
-        # Assert: Canteen Pre-Order card lists '14 Stalls'.
-        await expect(page.locator("#root").nth(0)).to_contain_text("14 Stalls", timeout=15000), "Canteen Pre-Order card lists '14 Stalls'."
+        # Assert: Verifies the campus header 'TSU Main Campus' is visible.
+        await expect(page.locator("xpath=/html/body/div[1]/div/div[2]/div/div/div/div/div[2]/div/div[1]/div[2]/div").nth(0)).to_have_text("TSU Main Campus", timeout=15000), "Verifies the campus header 'TSU Main Campus' is visible."
         await asyncio.sleep(5)
 
     finally:

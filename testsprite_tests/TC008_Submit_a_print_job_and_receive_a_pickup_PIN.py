@@ -40,21 +40,16 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Open the Print page by navigating to the '/print' route (go to the Print page).
+        # -> Open the Print page by navigating to the site's /print path so the print submission flow can be started.
         await page.goto("http://localhost:8081/print")
         try:
             await page.wait_for_load_state("domcontentloaded", timeout=5000)
         except Exception:
             pass
         
-        # -> Click the 'TSU Main: Library Fleet' print shop card to select that shop.
-        # TSU Main: Library Fleet VERIFIED Ground Floor...
-        elem = page.locator("div:nth-child(2) > div:nth-child(2) > div > div").first
-        await elem.click(timeout=10000)
-        
-        # -> Select the 'Full Color' option under Color Mode to configure the print job.
-        # Full Color ₱8.00 / page
-        elem = page.get_by_text("Full Color₱8.00 / page")
+        # -> Click the 'TSU Lucinda: Tech Center' print shop card to select it.
+        # TSU Lucinda: Tech Center VERIFIED Open 8:00 AM...
+        elem = page.locator("div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > div").first
         await elem.click(timeout=10000)
         
         # -> Click the 'Submit & Queue Print Job' button to submit the print job.
@@ -64,17 +59,17 @@ async def run_test():
         
         # --> Assertions to verify final state
         
-        # --> A pickup PIN confirmation modal was displayed.
+        # --> A pickup PIN confirmation dialog was shown after submitting the print job.
         await page.locator("div").filter(has_text=re.compile(r"^Dismiss to Dashboard$")).first.nth(0).scroll_into_view_if_needed()
         # Assert-outcome: passed
-        # Assert: Confirmation modal (pickup PIN) is visible.
-        await expect(page.locator("div").filter(has_text=re.compile(r"^Dismiss to Dashboard$")).first.nth(0)).to_be_visible(timeout=15000), "Confirmation modal (pickup PIN) is visible."
+        # Assert: The confirmation dialog (dismiss button area) is visible, indicating the pickup PIN modal appeared.
+        await expect(page.locator("div").filter(has_text=re.compile(r"^Dismiss to Dashboard$")).first.nth(0)).to_be_visible(timeout=15000), "The confirmation dialog (dismiss button area) is visible, indicating the pickup PIN modal appeared."
         
-        # --> The print submission summary (uploaded file section) is visible on the page.
-        await page.locator("div").filter(has_text=re.compile(r"^PDF$")).first.nth(0).scroll_into_view_if_needed()
+        # --> The print submission confirmation dialog shows the submission summary including the dispatch header and estimated ready time.
+        await page.get_by_text("Dismiss to Dashboard").nth(0).scroll_into_view_if_needed()
         # Assert-outcome: passed
-        # Assert: Uploaded file section is visible on the print page.
-        await expect(page.locator("div").filter(has_text=re.compile(r"^PDF$")).first.nth(0)).to_be_visible(timeout=15000), "Uploaded file section is visible on the print page."
+        # Assert: The confirmation dialog's summary area (including dismiss control) is visible.
+        await expect(page.get_by_text("Dismiss to Dashboard").nth(0)).to_be_visible(timeout=15000), "The confirmation dialog's summary area (including dismiss control) is visible."
         await asyncio.sleep(5)
 
     finally:

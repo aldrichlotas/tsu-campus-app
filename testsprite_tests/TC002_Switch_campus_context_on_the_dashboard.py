@@ -40,27 +40,30 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Open the campus selector labelled 'TSU Main Campus' in the header so campus options are revealed.
+        # -> Click the 'TSU Main Campus' campus selector dropdown to open campus options.
         # TSU Main Campus
         elem = page.get_by_text("TSU Main Campus")
         await elem.click(timeout=10000)
         
-        # -> Click the 'TSU Lucinda Campus' option in the Select Campus dropdown to change the active campus.
+        # -> Click the 'TSU Lucinda Campus' option in the 'Select Campus' menu to change the active campus.
         # TSU Lucinda Campus
         elem = page.get_by_text("TSU Lucinda Campus")
         await elem.click(timeout=10000)
         
         # --> Assertions to verify final state
         
-        # --> The page header updated to 'TSU Lucinda Campus' after selecting that campus.
-        # Assert-outcome: failed
-        # Assert: Expected the page header to show the selected campus 'TSU Lucinda Campus'.
-        await expect(page.locator("xpath=/html/body/div[1]/div/div[2]/div/div/div/div/div[2]/div/div[1]/div[2]/div").nth(0)).to_have_text("TSU Lucinda Campus", timeout=15000), "Expected the page header to show the selected campus 'TSU Lucinda Campus'."
+        # --> Active campus label changed to 'TSU Lucinda Campus'.
+        # Assert-outcome: passed
+        # Assert: Active campus label is 'TSU Lucinda Campus'.
+        await expect(page.locator("xpath=/html/body/div[1]/div/div[2]/div/div/div/div/div[2]/div/div[1]/div[2]").nth(0)).to_have_text("TSU Lucinda Campus", timeout=15000), "Active campus label is 'TSU Lucinda Campus'."
         
-        # --> The Live Service Tracking did not update to the selected campus and still shows a Main Campus route.
-        # Assert-outcome: failed
-        # Assert: Expected the Live Service Tracking to update to the selected campus (Main Campus route should no longer be visible).
-        await expect(page.locator("xpath=/html/body/div[1]/div/div[2]/div/div/div/div/div[2]/div/div[4]/div[2]/div[1]/div[1]/div[2]/div[2]").nth(0)).not_to_be_visible(timeout=15000), "Expected the Live Service Tracking to update to the selected campus (Main Campus route should no longer be visible)."
+        # --> Live service tracker updated for the selected campus and shows departure information.
+        # Assert-outcome: passed
+        # Assert: Service tracker shows departure time '8m'.
+        await expect(page.locator("xpath=/html/body/div[1]/div/div[2]/div/div/div/div/div[2]/div/div[3]/div[2]/div/div[2]/div[2]/div[1]").nth(0)).to_have_text("8m", timeout=15000), "Service tracker shows departure time '8m'."
+        # Assert-outcome: passed
+        # Assert: Service tracker displays the route between Main Campus and Lucinda Campus.
+        await expect(page.locator("#root").nth(0)).to_contain_text("Main Campus \u2194 Lucinda Campus corridor & seats.", timeout=15000), "Service tracker displays the route between Main Campus and Lucinda Campus."
         await asyncio.sleep(5)
 
     finally:

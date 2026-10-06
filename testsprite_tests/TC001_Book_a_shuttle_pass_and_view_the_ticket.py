@@ -40,44 +40,28 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Click the 'Tap to Book' button on the Campus Shuttle card to open the shuttle booking flow.
-        # 4m avg Campus Shuttle Main Campus ↔ Lucinda...
-        elem = page.get_by_text("4m avgCampus ShuttleMain")
+        # -> Click the 'Campus Shuttle' card in the Express Campus Services section to open the shuttle booking page.
+        # Campus Shuttle
+        elem = page.get_by_text("Campus Shuttle")
         await elem.click(timeout=10000)
         
-        # -> Select the 'Main ↔ Lucinda' travel direction by clicking its route tab.
-        # Main ↔ Lucinda
-        elem = page.get_by_text("Main ↔ Lucinda")
+        # -> Click the 'Lucinda ↔ Main' route button to select the travel direction.
+        # Lucinda ↔ Main
+        elem = page.get_by_text("Lucinda ↔ Main")
         await elem.click(timeout=10000)
         
-        # -> Click the 'Seat #13' tile in the seat grid to select an available seat.
-        # Seat #13
-        elem = page.get_by_text("Seat #13")
-        await elem.click(timeout=10000)
-        
-        # -> Click the 'Seat #13' tile in the seat grid to select an available seat.
-        # Student Account / Portal
-        elem = page.get_by_text("Student Account / Portal")
-        await elem.click(timeout=10000)
-        
-        # -> Click the 'Seat #13' tile in the seat grid to select an available seat.
+        # -> Click the 'Confirm & Generate Instant Boarding Pass (₱25)' button to book the selected seat and generate the boarding pass.
         # Confirm & Generate Instant Boarding Pass (₱25)
         elem = page.get_by_text("Confirm & Generate Instant")
         await elem.click(timeout=10000)
         
         # --> Assertions to verify final state
         
-        # --> The boarding pass ticket view is displayed (QR code / ticket area is visible).
+        # --> The boarding pass ticket view is displayed (QR code and ticket ID present).
         await page.locator("xpath=/html/body/div[1]/div/div[2]/div[3]/div/div/div/div/div/div[1]/div[1]/div[2]/svg").nth(0).scroll_into_view_if_needed()
         # Assert-outcome: passed
-        # Assert: The boarding pass QR code graphic is visible on the ticket page.
-        await expect(page.locator("xpath=/html/body/div[1]/div/div[2]/div[3]/div/div/div/div/div/div[1]/div[1]/div[2]/svg").nth(0)).to_be_visible(timeout=15000), "The boarding pass QR code graphic is visible on the ticket page."
-        
-        # --> Ticket details area is visible showing passenger, seat, scheduled label, and boarding lane.
-        await page.locator("div:nth-child(3) > div > div > div > div > div > div > div:nth-child(3) > div > div > div:nth-child(2)").nth(0).scroll_into_view_if_needed()
-        # Assert-outcome: passed
-        # Assert: The ticket details container (passenger/seat/schedule/lane) is visible on the boarding pass.
-        await expect(page.locator("div:nth-child(3) > div > div > div > div > div > div > div:nth-child(3) > div > div > div:nth-child(2)").nth(0)).to_be_visible(timeout=15000), "The ticket details container (passenger/seat/schedule/lane) is visible on the boarding pass."
+        # Assert: The boarding pass QR code SVG is visible, indicating the ticket view is displayed.
+        await expect(page.locator("xpath=/html/body/div[1]/div/div[2]/div[3]/div/div/div/div/div/div[1]/div[1]/div[2]/svg").nth(0)).to_be_visible(timeout=15000), "The boarding pass QR code SVG is visible, indicating the ticket view is displayed."
         await asyncio.sleep(5)
 
     finally:

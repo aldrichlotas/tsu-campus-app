@@ -116,7 +116,7 @@ const SIZES = ['XS', 'S', 'M', 'L', 'XL', '2XL'];
 
 export default function MerchCatalog() {
   const router = useRouter();
-  const { merchCart, addMerchToCart, removeMerchItem, checkoutMerch, balance, favorites, toggleFavorite } = useDemo();
+  const { merchCart, addMerchToCart, removeMerchItem, decrementMerchItem, checkoutMerch, balance, favorites, toggleFavorite } = useDemo();
   const [activeCollege, setActiveCollege] = useState('cba');
   const [activeOrg, setActiveOrg] = useState('all');
   const [showCart, setShowCart] = useState(false);
@@ -543,9 +543,16 @@ export default function MerchCatalog() {
                   <View style={{ flex: 1 }}>
                     <Text style={{ fontFamily: 'Manrope_700Bold', fontSize: 14 }}>{item.quantity}x {item.name}</Text>
                     <Text style={{ fontFamily: 'Manrope_500Medium', fontSize: 12, color: '#7A7A7A' }}>Size: {item.size}</Text>
-                    <Pressable onPress={() => removeMerchItem(item.id, item.size)} style={{ marginTop: 4 }}>
-                      <Text style={{ fontFamily: 'Manrope_600SemiBold', fontSize: 12, color: '#DC2626' }}>Remove</Text>
-                    </Pressable>
+                    
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, marginTop: 8, backgroundColor: '#f0eded', paddingHorizontal: 8, paddingVertical: 4, borderRadius: 8, alignSelf: 'flex-start' }}>
+                      <Pressable onPress={() => decrementMerchItem(item.id, item.size!)}>
+                        <Text style={{ fontSize: 14, fontFamily: 'Manrope_700Bold', color: '#800000', paddingHorizontal: 4 }}>Remove</Text>
+                      </Pressable>
+                      <Text style={{ fontSize: 14, fontFamily: 'Manrope_700Bold', color: '#222222' }}>{item.quantity}</Text>
+                      <Pressable onPress={() => addMerchToCart(item, item.size!)}>
+                        <Text style={{ fontSize: 16, fontFamily: 'Manrope_700Bold', color: '#800000', paddingHorizontal: 4 }}>+</Text>
+                      </Pressable>
+                    </View>
                   </View>
                   <Text style={{ fontFamily: 'Manrope_700Bold', fontSize: 14 }}>₱{(item.price * item.quantity).toFixed(2)}</Text>
                 </View>
