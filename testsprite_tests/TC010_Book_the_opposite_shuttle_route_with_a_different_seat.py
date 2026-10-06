@@ -40,38 +40,40 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Click the 'Campus Shuttle' card (the 'Tap to Book' entry) to open shuttle booking.
-        # 4m avg Campus Shuttle Main Campus ↔ Lucinda...
-        elem = page.get_by_text("4m avgCampus ShuttleMain Campus ↔ Lucinda Campus corridor & seats.₱25 Fixed")
-        await elem.click(timeout=10000)
+        # -> Open the Shuttle page (navigate to the 'Shuttle' page /shuttle).
+        await page.goto("http://localhost:8081/shuttle")
+        try:
+            await page.wait_for_load_state("domcontentloaded", timeout=5000)
+        except Exception:
+            pass
         
-        # -> Click the 'Lucinda ↔ Main' route button to switch to the opposite campus route, then select 'Seat #11' and press 'Confirm & Generate Instant Boarding Pass (₱25)'.
+        # -> Click the 'Lucinda ↔ Main' route button to switch to the opposite campus route.
         # Lucinda ↔ Main
         elem = page.get_by_text("Lucinda ↔ Main")
         await elem.click(timeout=10000)
         
-        # -> Click the 'Lucinda ↔ Main' route button to switch to the opposite campus route, then select 'Seat #11' and press 'Confirm & Generate Instant Boarding Pass (₱25)'.
-        # Seat #11
-        elem = page.locator("div").filter(has_text=re.compile(r"^Seat #11$")).first
+        # -> Click the 'Seat #13' seat option to choose a different seat.
+        # Seat #13
+        elem = page.locator("div").filter(has_text=re.compile(r"^Seat #13$")).first
         await elem.click(timeout=10000)
         
-        # -> Click the 'Lucinda ↔ Main' route button to switch to the opposite campus route, then select 'Seat #11' and press 'Confirm & Generate Instant Boarding Pass (₱25)'.
+        # -> Click the 'Seat #13' seat option to choose a different seat.
         # Confirm & Generate Instant Boarding Pass (₱25)
         elem = page.get_by_text("Confirm & Generate Instant")
         await elem.click(timeout=10000)
         
         # --> Assertions to verify final state
         
-        # --> A boarding pass page is displayed with a visible download control and ticket id.
-        await page.locator("div").filter(has_text=re.compile(r"^Download Pass / Save to Photos$")).first.nth(0).scroll_into_view_if_needed()
+        # --> A boarding pass is displayed (ticket actions are visible).
+        await page.get_by_text("Download Pass / Save to Photos").nth(0).scroll_into_view_if_needed()
         # Assert-outcome: passed
-        # Assert: The boarding pass download control is visible on the page.
-        await expect(page.locator("div").filter(has_text=re.compile(r"^Download Pass / Save to Photos$")).first.nth(0)).to_be_visible(timeout=15000), "The boarding pass download control is visible on the page."
+        # Assert: The boarding pass download/save action is visible, indicating the ticket is displayed.
+        await expect(page.get_by_text("Download Pass / Save to Photos").nth(0)).to_be_visible(timeout=15000), "The boarding pass download/save action is visible, indicating the ticket is displayed."
         
-        # --> The ticket shows the selected route 'Lucinda Campus → Main Campus'.
+        # --> The generated ticket shows the selected route 'Lucinda Campus → Main Campus'.
         # Assert-outcome: passed
-        # Assert: The boarding pass displays the route Lucinda Campus → Main Campus.
-        await expect(page.locator("#root").nth(0)).to_contain_text("Lucinda Campus \u2192 Main Campus", timeout=15000), "The boarding pass displays the route Lucinda Campus \u2192 Main Campus."
+        # Assert: The ticket displays the selected route 'Lucinda Campus → Main Campus'.
+        await expect(page.locator("#root").nth(0)).to_contain_text("Lucinda Campus \u2192 Main Campus", timeout=15000), "The ticket displays the selected route 'Lucinda Campus \u2192 Main Campus'."
         await asyncio.sleep(5)
 
     finally:

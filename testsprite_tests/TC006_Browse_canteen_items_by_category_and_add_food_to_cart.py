@@ -40,43 +40,46 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Open the Canteen page (navigate to /canteen) so the menu and category filters can be accessed.
+        # -> Open the 'Canteen' page by navigating to /canteen so the menu and category filters can be inspected.
         await page.goto("http://localhost:8081/canteen")
         try:
             await page.wait_for_load_state("domcontentloaded", timeout=5000)
         except Exception:
             pass
         
-        # -> Click the 'Rice Bowls' category filter to apply the Rice Bowls filter.
-        # Rice Bowls
-        elem = page.locator("div").filter(has_text=re.compile(r"^Rice Bowls$")).first
+        # -> Click the 'Meals' category button to filter the canteen menu to meal items.
+        # Meals
+        elem = page.locator("div").filter(has_text=re.compile(r"^Meals$")).first
         await elem.click(timeout=10000)
         
-        # -> Scroll the menu list so the 'Add' control for 'Crispy Sisig Rice Bowl w/ Egg' becomes visible.
-        await page.mouse.wheel(0, 300)
+        # -> Click the 'Chicken Pesto Wrap' menu item to open its details so it can be added to the cart.
+        # FRESH
+        elem = page.get_by_text("FRESH", exact=True)
+        await elem.click(timeout=10000)
         
-        # -> Scroll the Rice Bowls menu list further so the 'Add' button for 'Crispy Sisig Rice Bowl w/ Egg' becomes visible and locate the Add control.
-        await page.mouse.wheel(0, 300)
+        # -> Close the cart drawer by clicking the '0 items in cart (View)' header, then click the 'Pre-Order' button for 'Beef Tapa Special with Atchara' to add it to the cart.
+        # 0 items in cart (View)
+        elem = page.get_by_text("items in cart (View)")
+        await elem.click(timeout=10000)
         
-        # -> Scroll the main page down and inspect div elements to locate the 'Add' button or item controls for 'Crispy Sisig Rice Bowl w/ Egg'.
-        await page.mouse.wheel(0, 300)
-        
-        # -> Click the '+ Pre-Order' button for 'Crispy Sisig Rice Bowl w/ Egg' to add it or open its ordering options.
+        # -> Close the cart drawer by clicking the '0 items in cart (View)' header, then click the 'Pre-Order' button for 'Beef Tapa Special with Atchara' to add it to the cart.
         # Pre-Order
-        elem = page.get_by_text("Pre-Order").first
+        elem = page.get_by_text("Pre-Order").nth(1)
         await elem.click(timeout=10000)
         
         # --> Assertions to verify final state
         
-        # --> The cart shows that 1 item is in the cart after adding from the filtered results.
+        # --> The cart contains the item 'Beef Tapa Special with Atchara'.
+        await page.locator("div").filter(has_text=re.compile(r"^Remove$")).nth(2).nth(0).scroll_into_view_if_needed()
         # Assert-outcome: passed
-        # Assert: Verifies the cart displays '1 items in cart'."
-        await expect(page.locator("#root").nth(0)).to_contain_text("1 items in cart", timeout=15000), "Verifies the cart displays '1 items in cart'.\""
+        # Assert: Cart shows a 'Remove' control, indicating an item is present in the cart.
+        await expect(page.locator("div").filter(has_text=re.compile(r"^Remove$")).nth(2).nth(0)).to_be_visible(timeout=15000), "Cart shows a 'Remove' control, indicating an item is present in the cart."
         
-        # --> The Rice Bowls filtered results remain visible — the item's 'Pre-Order' control is present.
+        # --> The Meals filter is active and meal items remain visible on the /canteen page.
+        await page.get_by_text("Meals").nth(0).scroll_into_view_if_needed()
         # Assert-outcome: passed
-        # Assert: Verifies the item's 'Pre-Order' control is visible, indicating filtered results remain.
-        await expect(page.locator("#root").nth(0)).to_contain_text("Pre-Order", timeout=15000), "Verifies the item's 'Pre-Order' control is visible, indicating filtered results remain."
+        # Assert: The 'Meals' category chip is visible, indicating the Meals filter remains applied.
+        await expect(page.get_by_text("Meals").nth(0)).to_be_visible(timeout=15000), "The 'Meals' category chip is visible, indicating the Meals filter remains applied."
         await asyncio.sleep(5)
 
     finally:

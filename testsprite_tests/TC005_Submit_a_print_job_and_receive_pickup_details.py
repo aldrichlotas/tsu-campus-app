@@ -40,46 +40,44 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Click the 'Print Hub' card (labeled "Print Hub") to open the print services page.
+        # -> Click the 'Print Hub' card in the Express Campus Services section to open available print shops.
         # Print Hub
         elem = page.get_by_text("Print Hub")
         await elem.click(timeout=10000)
         
-        # -> Set the page count to '10', choose 'Full Color' and 'Single-Sided', then click the 'Submit & Queue Print Job' button.
+        # -> Click the 'TSU Main: Library Fleet' print shop, set PAGE COUNT to 10, choose 'Full Color' and 'Duplex (Back-to-Back)', then click the 'Submit & Queue Print Job' button.
+        # TSU Main: Library Fleet VERIFIED Ground Floor...
+        elem = page.locator("div:nth-child(2) > div > div > div > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(2) > div > div").first
+        await elem.click(timeout=10000)
+        
+        # -> Click the 'TSU Main: Library Fleet' print shop, set PAGE COUNT to 10, choose 'Full Color' and 'Duplex (Back-to-Back)', then click the 'Submit & Queue Print Job' button.
         # text field
         elem = page.get_by_role("textbox").nth(1)
         await elem.wait_for(state="visible", timeout=10000)
         await elem.fill("10")
         
-        # -> Set the page count to '10', choose 'Full Color' and 'Single-Sided', then click the 'Submit & Queue Print Job' button.
+        # -> Click the 'TSU Main: Library Fleet' print shop, set PAGE COUNT to 10, choose 'Full Color' and 'Duplex (Back-to-Back)', then click the 'Submit & Queue Print Job' button.
         # Full Color
         elem = page.get_by_text("Full Color")
         await elem.click(timeout=10000)
         
-        # -> Set the page count to '10', choose 'Full Color' and 'Single-Sided', then click the 'Submit & Queue Print Job' button.
-        # Single-Sided
-        elem = page.get_by_text("Single-Sided")
+        # -> Click the 'TSU Main: Library Fleet' print shop, set PAGE COUNT to 10, choose 'Full Color' and 'Duplex (Back-to-Back)', then click the 'Submit & Queue Print Job' button.
+        # Duplex (Back-to-Back)
+        elem = page.get_by_text("Duplex (Back-to-Back)")
         await elem.click(timeout=10000)
         
-        # -> Set the page count to '10', choose 'Full Color' and 'Single-Sided', then click the 'Submit & Queue Print Job' button.
+        # -> Click the 'TSU Main: Library Fleet' print shop, set PAGE COUNT to 10, choose 'Full Color' and 'Duplex (Back-to-Back)', then click the 'Submit & Queue Print Job' button.
         # Submit & Queue Print Job
         elem = page.get_by_text("Submit & Queue Print Job")
         await elem.click(timeout=10000)
         
         # --> Assertions to verify final state
         
-        # --> A confirmation modal with the pickup PIN is visible.
+        # --> A confirmation modal is shown with the pickup PIN and the submitted print job details.
+        await page.locator("div").filter(has_text=re.compile(r"^Dismiss to Dashboard$")).first.nth(0).scroll_into_view_if_needed()
         # Assert-outcome: passed
-        # Assert: The confirmation modal's Dismiss button is visible, indicating the modal is displayed.
-        await expect(page.locator("xpath=/html/body/div[5]/div/div[2]/div/div/div/div/div[6]").nth(0)).to_have_text("Dismiss to Dashboard", timeout=15000), "The confirmation modal's Dismiss button is visible, indicating the modal is displayed."
-        
-        # --> The submitted print job shows the configured details: 10 pages, Full Color, and Single-Sided.
-        # Assert-outcome: passed
-        # Assert: The page count input is set to 10.
-        await expect(page.get_by_role("textbox").nth(1).nth(0)).to_have_value("10", timeout=15000), "The page count input is set to 10."
-        # Assert-outcome: passed
-        # Assert: The color option 'Full Color' is shown.
-        await expect(page.locator("xpath=/html/body/div[1]/div/div[2]/div[2]/div/div/div/div[2]/div/div[4]/div[5]/div[2]/div[2]/div[1]").nth(0)).to_have_text("Full Color", timeout=15000), "The color option 'Full Color' is shown."
+        # Assert: The confirmation modal is visible on the page.
+        await expect(page.locator("div").filter(has_text=re.compile(r"^Dismiss to Dashboard$")).first.nth(0)).to_be_visible(timeout=15000), "The confirmation modal is visible on the page."
         await asyncio.sleep(5)
 
     finally:

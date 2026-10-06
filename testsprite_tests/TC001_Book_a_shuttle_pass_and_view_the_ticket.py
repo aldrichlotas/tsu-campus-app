@@ -40,28 +40,43 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Click the 'Campus Shuttle' card in the Express Campus Services section to open the shuttle booking page.
-        # Campus Shuttle
-        elem = page.get_by_text("Campus Shuttle")
-        await elem.click(timeout=10000)
+        # -> Open the Shuttle page (the Shuttle booking view) to begin selecting route and seats.
+        await page.goto("http://localhost:8081/shuttle")
+        try:
+            await page.wait_for_load_state("domcontentloaded", timeout=5000)
+        except Exception:
+            pass
         
-        # -> Click the 'Lucinda ↔ Main' route button to select the travel direction.
+        # -> Click the 'Lucinda ↔ Main' route tab to change travel direction.
         # Lucinda ↔ Main
         elem = page.get_by_text("Lucinda ↔ Main")
         await elem.click(timeout=10000)
         
-        # -> Click the 'Confirm & Generate Instant Boarding Pass (₱25)' button to book the selected seat and generate the boarding pass.
+        # -> Select an available seat by clicking the 'Seat #13' tile, then click the 'Confirm & Generate Instant Boarding Pass (₱25)' button.
+        # Seat #13
+        elem = page.get_by_text("Seat #13")
+        await elem.click(timeout=10000)
+        
+        # -> Select an available seat by clicking the 'Seat #13' tile, then click the 'Confirm & Generate Instant Boarding Pass (₱25)' button.
         # Confirm & Generate Instant Boarding Pass (₱25)
         elem = page.get_by_text("Confirm & Generate Instant")
         await elem.click(timeout=10000)
         
         # --> Assertions to verify final state
         
-        # --> The boarding pass ticket view is displayed (QR code and ticket ID present).
-        await page.locator("xpath=/html/body/div[1]/div/div[2]/div[3]/div/div/div/div/div/div[1]/div[1]/div[2]/svg").nth(0).scroll_into_view_if_needed()
+        # --> The boarding pass ticket page is displayed (Download/Save control is visible).
+        await page.get_by_text("Download Pass / Save to Photos").nth(0).scroll_into_view_if_needed()
         # Assert-outcome: passed
-        # Assert: The boarding pass QR code SVG is visible, indicating the ticket view is displayed.
-        await expect(page.locator("xpath=/html/body/div[1]/div/div[2]/div[3]/div/div/div/div/div/div[1]/div[1]/div[2]/svg").nth(0)).to_be_visible(timeout=15000), "The boarding pass QR code SVG is visible, indicating the ticket view is displayed."
+        # Assert: The 'Download Pass / Save to Photos' control is visible, proving the boarding pass page is displayed.
+        await expect(page.get_by_text("Download Pass / Save to Photos").nth(0)).to_be_visible(timeout=15000), "The 'Download Pass / Save to Photos' control is visible, proving the boarding pass page is displayed."
+        
+        # --> Ticket details are visible on the boarding pass (passenger name and selected seat).
+        # Assert-outcome: passed
+        # Assert: Passenger name 'Alex Gonzaga' is visible on the ticket.
+        await expect(page.locator("#root").nth(0)).to_contain_text("Alex Gonzaga", timeout=15000), "Passenger name 'Alex Gonzaga' is visible on the ticket."
+        # Assert-outcome: passed
+        # Assert: Selected seat 'Seat #13' is visible on the ticket.
+        await expect(page.locator("#root").nth(0)).to_contain_text("Seat #13", timeout=15000), "Selected seat 'Seat #13' is visible on the ticket."
         await asyncio.sleep(5)
 
     finally:

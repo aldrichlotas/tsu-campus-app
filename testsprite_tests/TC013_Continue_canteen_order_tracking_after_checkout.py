@@ -40,33 +40,33 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Click the 'Canteen Pre-Order' card to open the canteen / pre-order view.
+        # -> Click the 'Canteen Pre-Order' card to open the canteen / pre-order page.
         # Canteen Pre-Order
         elem = page.get_by_text("Canteen Pre-Order")
         await elem.click(timeout=10000)
         
-        # -> Click the 'Pre-Order' button on a menu item to add it to the cart.
+        # -> Click the 'Pre-Order' button for the "Chicken Pesto Wrap" menu item to add it to the cart.
         # Pre-Order
         elem = page.get_by_text("Pre-Order").nth(3)
         await elem.click(timeout=10000)
         
-        # -> Click the 'Pre-Order' button on a menu item to add it to the cart.
+        # -> Click the 'Proceed to Pre-Order' button to start the checkout/pre-order flow.
         # Proceed to Pre-Order
         elem = page.get_by_text("Proceed to Pre-Order")
         await elem.click(timeout=10000)
         
         # --> Assertions to verify final state
         
-        # --> The Live Order Tracker page is open at /canteen/tracker.
+        # --> The Live Order Tracker shows Order Queue Number '#4154'.
         # Assert-outcome: passed
-        # Assert: Verifies the browser is on the live order tracker URL.
-        await expect(page).to_have_url(re.compile("/canteen/tracker"), timeout=15000), "Verifies the browser is on the live order tracker URL."
+        # Assert: Verifies the order queue number '#4154' is visible on the tracker.
+        await expect(page.locator("xpath=/html/body/div[1]/div/div[2]/div[3]/div/div/div/div[2]/div/div[1]/div[2]/div[2]").nth(0)).to_have_text("#4154", timeout=15000), "Verifies the order queue number '#4154' is visible on the tracker."
         
-        # --> The order progress stages ('Order Sent', 'Preparing', and 'Ready for Pickup') are visible in the tracker UI.
-        await page.locator("xpath=/html/body/div[1]/div/div[2]/div[3]/div/div/div/div[2]/div/div[2]/div[1]/svg").nth(0).scroll_into_view_if_needed()
+        # --> The order progress stages ('Order Sent', 'Preparing', 'Ready for Pickup') are visible on the tracker.
+        await page.locator("xpath=/html/body/div[1]/div/div[2]/div[3]/div/div/div/div[2]/div/div[2]/div[2]/div[1]/div[1]/svg").nth(0).scroll_into_view_if_needed()
         # Assert-outcome: passed
-        # Assert: Verifies a progress-stage icon is visible, indicating the order progress UI is present.
-        await expect(page.locator("xpath=/html/body/div[1]/div/div[2]/div[3]/div/div/div/div[2]/div/div[2]/div[1]/svg").nth(0)).to_be_visible(timeout=15000), "Verifies a progress-stage icon is visible, indicating the order progress UI is present."
+        # Assert: Verifies an order progress stage icon is visible on the tracker UI.
+        await expect(page.locator("xpath=/html/body/div[1]/div/div[2]/div[3]/div/div/div/div[2]/div/div[2]/div[2]/div[1]/div[1]/svg").nth(0)).to_be_visible(timeout=15000), "Verifies an order progress stage icon is visible on the tracker UI."
         await asyncio.sleep(5)
 
     finally:

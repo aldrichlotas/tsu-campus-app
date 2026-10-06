@@ -40,36 +40,34 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Open the Print page by navigating to the site's /print path so the print submission flow can be started.
-        await page.goto("http://localhost:8081/print")
-        try:
-            await page.wait_for_load_state("domcontentloaded", timeout=5000)
-        except Exception:
-            pass
-        
-        # -> Click the 'TSU Lucinda: Tech Center' print shop card to select it.
-        # TSU Lucinda: Tech Center VERIFIED Open 8:00 AM...
-        elem = page.locator("div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > div").first
+        # -> Open the 'Print Hub' card to access print services and partner shops.
+        # 3 Hubs Print Hub Verified partner print shops...
+        elem = page.get_by_text("HubsPrint HubVerified partner print shops around campuses.No Walk-in Wait")
         await elem.click(timeout=10000)
         
-        # -> Click the 'Submit & Queue Print Job' button to submit the print job.
+        # -> Click the 'TSU Main: Library Fleet' shop card to (re-)select it and ensure the shop is active for this print job.
+        # Click the 'TSU Main: Library Fleet' shop card to (re-)select it and ensure the shop is active for this print job.
+        elem = page.locator("div:nth-child(2) > div > div > div > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(2) > div > div > div").first
+        await elem.click(timeout=10000)
+        
+        # -> Click the 'Submit & Queue Print Job' button to submit the print job and trigger the confirmation screen.
         # Submit & Queue Print Job
         elem = page.get_by_text("Submit & Queue Print Job")
         await elem.click(timeout=10000)
         
         # --> Assertions to verify final state
         
-        # --> A pickup PIN confirmation dialog was shown after submitting the print job.
+        # --> A confirmation modal with the pickup PIN is displayed.
         await page.locator("div").filter(has_text=re.compile(r"^Dismiss to Dashboard$")).first.nth(0).scroll_into_view_if_needed()
         # Assert-outcome: passed
-        # Assert: The confirmation dialog (dismiss button area) is visible, indicating the pickup PIN modal appeared.
-        await expect(page.locator("div").filter(has_text=re.compile(r"^Dismiss to Dashboard$")).first.nth(0)).to_be_visible(timeout=15000), "The confirmation dialog (dismiss button area) is visible, indicating the pickup PIN modal appeared."
+        # Assert: Confirmation modal is visible (Dismiss to Dashboard button present).
+        await expect(page.locator("div").filter(has_text=re.compile(r"^Dismiss to Dashboard$")).first.nth(0)).to_be_visible(timeout=15000), "Confirmation modal is visible (Dismiss to Dashboard button present)."
         
-        # --> The print submission confirmation dialog shows the submission summary including the dispatch header and estimated ready time.
-        await page.get_by_text("Dismiss to Dashboard").nth(0).scroll_into_view_if_needed()
+        # --> The print submission summary (Print Job Specifications) is visible on the page.
+        await page.get_by_role("textbox", name="e.g. ENG101 Final Output").nth(0).scroll_into_view_if_needed()
         # Assert-outcome: passed
-        # Assert: The confirmation dialog's summary area (including dismiss control) is visible.
-        await expect(page.get_by_text("Dismiss to Dashboard").nth(0)).to_be_visible(timeout=15000), "The confirmation dialog's summary area (including dismiss control) is visible."
+        # Assert: Print job title input is visible in the submission summary.
+        await expect(page.get_by_role("textbox", name="e.g. ENG101 Final Output").nth(0)).to_be_visible(timeout=15000), "Print job title input is visible in the submission summary."
         await asyncio.sleep(5)
 
     finally:

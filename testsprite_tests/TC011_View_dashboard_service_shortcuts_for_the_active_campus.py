@@ -40,15 +40,20 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Locate the 'Canteen Pre-Order' card on the dashboard and bring it into view if it's off-screen.
-        await page.mouse.wheel(0, 300)
-        
         # --> Assertions to verify final state
         
-        # --> Dashboard shows the campus header 'TSU Main Campus'.
+        # --> Dashboard landing shows the TSU header and the account ledger payment method (GCash).
         # Assert-outcome: passed
-        # Assert: Verifies the campus header 'TSU Main Campus' is visible.
-        await expect(page.locator("xpath=/html/body/div[1]/div/div[2]/div/div/div/div/div[2]/div/div[1]/div[2]/div").nth(0)).to_have_text("TSU Main Campus", timeout=15000), "Verifies the campus header 'TSU Main Campus' is visible."
+        # Assert: TSU header is visible on the dashboard.
+        await expect(page.locator("xpath=/html/body/div[1]/div/div[2]/div/div/div/div/div[1]/div[1]/div[1]/div").nth(0)).to_have_text("TSU", timeout=15000), "TSU header is visible on the dashboard."
+        # Assert-outcome: passed
+        # Assert: GCash payment method is visible in the Student Account Ledger area.
+        await expect(page.locator("xpath=/html/body/div[1]/div/div[2]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[1]/div[2]").nth(0)).to_have_text("GCash", timeout=15000), "GCash payment method is visible in the Student Account Ledger area."
+        
+        # --> Active shuttle and canteen tracker cards are visible on the dashboard.
+        # Assert-outcome: passed
+        # Assert: Canteen Pre-Order tracker entry is visible.
+        await expect(page.locator("xpath=/html/body/div[1]/div/div[2]/div/div/div/div/div[2]/div/div[4]/div[2]/div[2]/div[1]/div[2]").nth(0)).to_have_text("Canteen Pre-Order", timeout=15000), "Canteen Pre-Order tracker entry is visible."
         await asyncio.sleep(5)
 
     finally:

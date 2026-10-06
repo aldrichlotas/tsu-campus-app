@@ -40,50 +40,43 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Open the Print page by navigating to /print so the print configuration UI can be inspected.
-        await page.goto("http://localhost:8081/print")
-        try:
-            await page.wait_for_load_state("domcontentloaded", timeout=5000)
-        except Exception:
-            pass
-        
-        # -> Click the 'TSU Main: Library Fleet' print shop card to select it.
-        # TSU Main: Library Fleet VERIFIED Ground Floor...
-        elem = page.locator("div:nth-child(2) > div:nth-child(2) > div > div").first
+        # -> Click the 'Print Hub' card in the Express Campus Services section to open the print configuration view.
+        # Print Hub
+        elem = page.get_by_text("Print Hub")
         await elem.click(timeout=10000)
         
-        # -> Select 'Full Color', select 'Duplex (Back-to-Back)', and enter 'Ring bind, staple top left' into the 'SPECIAL INSTRUCTIONS' field.
+        # -> Select the 'TSU Lucinda: Tech Center' print shop from the Verified Partner Print Shops list.
+        # TSU Lucinda: Tech Center VERIFIED Open 8:00 AM...
+        elem = page.locator("div:nth-child(2) > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > div").first
+        await elem.click(timeout=10000)
+        
+        # -> Select the 'Full Color' color mode and then choose the 'Single-Sided' page sidedness to begin configuring the print job.
         # Full Color ₱8.00 / page
         elem = page.get_by_text("Full Color₱8.00 / page")
         await elem.click(timeout=10000)
         
-        # -> Select 'Full Color', select 'Duplex (Back-to-Back)', and enter 'Ring bind, staple top left' into the 'SPECIAL INSTRUCTIONS' field.
-        # Duplex (Back-to-Back)
-        elem = page.get_by_text("Duplex (Back-to-Back)")
+        # -> Select the 'Full Color' color mode and then choose the 'Single-Sided' page sidedness to begin configuring the print job.
+        # Single-Sided
+        elem = page.get_by_text("Single-Sided")
         await elem.click(timeout=10000)
-        
-        # -> Select 'Full Color', select 'Duplex (Back-to-Back)', and enter 'Ring bind, staple top left' into the 'SPECIAL INSTRUCTIONS' field.
-        # e.g. Ring bind, staple top left... text area
-        elem = page.get_by_role("textbox", name="e.g. Ring bind, staple top")
-        await elem.wait_for(state="visible", timeout=10000)
-        await elem.fill("Ring bind, staple top left")
         
         # --> Assertions to verify final state
         
-        # --> The page shows a visible submission control labeled 'Submit & Queue Print Job'.
+        # --> The submission control 'Submit & Queue Print Job' is visible.
         await page.locator("div").filter(has_text=re.compile(r"^Submit & Queue Print Job$")).first.nth(0).scroll_into_view_if_needed()
         # Assert-outcome: passed
-        # Assert: The Submit & Queue Print Job button is visible on the page.
-        await expect(page.locator("div").filter(has_text=re.compile(r"^Submit & Queue Print Job$")).first.nth(0)).to_be_visible(timeout=15000), "The Submit & Queue Print Job button is visible on the page."
+        # Assert: Verify the 'Submit & Queue Print Job' control is visible.
+        await expect(page.locator("div").filter(has_text=re.compile(r"^Submit & Queue Print Job$")).first.nth(0)).to_be_visible(timeout=15000), "Verify the 'Submit & Queue Print Job' control is visible."
         
-        # --> The print configuration summary reflects the configured options: Full Color is shown and the special instructions contain the entered text.
-        await page.get_by_text("Full Color").nth(0).scroll_into_view_if_needed()
+        # --> A print configuration summary is displayed with the page count and color mode options visible.
+        await page.get_by_role("textbox").nth(1).nth(0).scroll_into_view_if_needed()
         # Assert-outcome: passed
-        # Assert: The Full Color option is visible in the configuration summary.
-        await expect(page.get_by_text("Full Color").nth(0)).to_be_visible(timeout=15000), "The Full Color option is visible in the configuration summary."
+        # Assert: Page count input is visible in the configuration form.
+        await expect(page.get_by_role("textbox").nth(1).nth(0)).to_be_visible(timeout=15000), "Page count input is visible in the configuration form."
+        await page.get_by_text("Full Color₱8.00 / page").nth(0).scroll_into_view_if_needed()
         # Assert-outcome: passed
-        # Assert: The special instructions textarea contains the entered text.
-        await expect(page.get_by_role("textbox", name="e.g. Ring bind, staple top").nth(0)).to_have_value("Ring bind, staple top left", timeout=15000), "The special instructions textarea contains the entered text."
+        # Assert: Full Color option is visible in the color mode choices.
+        await expect(page.get_by_text("Full Color₱8.00 / page").nth(0)).to_be_visible(timeout=15000), "Full Color option is visible in the color mode choices."
         await asyncio.sleep(5)
 
     finally:

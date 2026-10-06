@@ -40,26 +40,21 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Open the Merch page by navigating to http://localhost:8081/merch
+        # -> Open the site's 'Merch' page (navigate to /merch) to locate product listings and purchase controls.
         await page.goto("http://localhost:8081/merch")
         try:
             await page.wait_for_load_state("domcontentloaded", timeout=5000)
         except Exception:
             pass
         
-        # -> Open the 'JPIA Official Polo Shirt' product page by clicking its product card/title.
+        # -> Open the 'JPIA Official Polo Shirt' product by clicking its product card to reveal size selection controls.
         # JPIA Official Polo Shirt
         elem = page.get_by_text("JPIA Official Polo Shirt")
         await elem.click(timeout=10000)
         
-        # -> Click the 'Pre-Order Merchandise' button (after selecting size).
-        # L
-        elem = page.get_by_text("L", exact=True)
-        await elem.click(timeout=10000)
-        
-        # -> Click the 'Pre-Order Merchandise' button to add the selected size to the cart.
+        # -> Click the 'Pre-Order Merchandise' button to add the selected size to the cart and start checkout.
         # Pre-Order Merchandise
-        elem = page.locator("div").filter(has_text=re.compile(r"^Pre-Order Merchandise$")).nth(1)
+        elem = page.get_by_text("Pre-Order Merchandise")
         await elem.click(timeout=10000)
         
         # -> Click the 'View Cart • ₱514.00' button to open the cart panel.
@@ -67,27 +62,22 @@ async def run_test():
         elem = page.get_by_text("View Cart • ₱")
         await elem.click(timeout=10000)
         
-        # -> Click the 'Confirm & Pay ₱514.00' button to complete checkout and trigger the order confirmation.
+        # -> Click the 'Confirm & Pay ₱514.00' button to complete checkout.
         # Confirm & Pay ₱ 514.00
         elem = page.get_by_text("Confirm & Pay ₱")
         await elem.click(timeout=10000)
         
-        # -> Click the 'Back to Catalog' button to return to the catalog, then verify the cart subtotal shows 'View Cart • ₱0.00' indicating the cart was cleared.
+        # -> Click the 'Back to Catalog' button to return to the merch catalog so the cart subtotal can be checked.
         # Back to Catalog
         elem = page.get_by_text("Back to Catalog")
         await elem.click(timeout=10000)
         
-        # -> Click the 'View Cart • ₱0.00' button to open the cart panel and confirm it contains no items.
-        # View Cart • ₱ 0.00
-        elem = page.locator("div").filter(has_text=re.compile(r"^View Cart • ₱0\.00$")).first
-        await elem.click(timeout=10000)
-        
         # --> Assertions to verify final state
         
-        # --> After checkout the cart modal shows zero totals and a disabled checkout button, indicating the cart was cleared.
+        # --> After returning to the catalog the cart subtotal shows 0.00, indicating the cart was cleared.
         # Assert-outcome: passed
-        # Assert: The cart's Confirm & Pay button shows 'Confirm & Pay ₱ 0.00', indicating the cart totals are zero.
-        await expect(page.locator("xpath=/html/body/div[3]/div/div[2]/div/div/div/div[2]/div[3]/div").nth(0)).to_have_text("Confirm & Pay \u20b1\n0.00", timeout=15000), "The cart's Confirm & Pay button shows 'Confirm & Pay \u20b1 0.00', indicating the cart totals are zero."
+        # Assert: The bottom-bar cart control shows the cart subtotal cleared to ₱0.00.
+        await expect(page.locator("#root").nth(0)).to_contain_text("View Cart \u2022 \u20b1 0.00", timeout=15000), "The bottom-bar cart control shows the cart subtotal cleared to \u20b10.00."
         await asyncio.sleep(5)
 
     finally:

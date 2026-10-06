@@ -40,42 +40,42 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Click the 'Dept Merch' card to open the merch/catalog page.
+        # -> Click the 'Dept Merch' link to open the department merch/catalog.
         # Dept Merch
         elem = page.get_by_text("Dept Merch")
         await elem.click(timeout=10000)
         
-        # -> Open the product page for 'JPIA Official Polo Shirt' by clicking its visible product name or image.
-        # JPIA Official Polo Shirt
-        elem = page.get_by_text("JPIA Official Polo Shirt")
+        # -> Open the 'JPIA Official Polo Shirt' product card from the catalog to view product details.
+        # 5.0 ( 188 ) JPIA Official Polo Shirt ₱499.00...
+        elem = page.get_by_text("5.0(188)JPIA Official Polo")
         await elem.click(timeout=10000)
         
-        # -> Click the 'Pre-Order Merchandise' button to submit the order (add to cart / proceed to checkout).
+        # -> Click the 'Pre-Order Merchandise' button to add the JPIA Official Polo Shirt (size M) to the cart.
         # Pre-Order Merchandise
         elem = page.get_by_text("Pre-Order Merchandise")
         await elem.click(timeout=10000)
         
-        # -> Click the 'View Cart • ₱514.00' button to open the cart view.
+        # -> Click the 'View Cart • ₱514.00' button to open the cart view and inspect its contents.
         # View Cart • ₱ 514.00
         elem = page.locator("div").filter(has_text=re.compile(r"^View Cart • ₱514\.00$")).first
         await elem.click(timeout=10000)
         
-        # -> Click the 'Confirm & Pay ₱514.00' button to complete checkout and verify the confirmation view shows the ordered item.
+        # -> Click the 'Confirm & Pay ₱514.00' button in the cart modal to complete checkout.
         # Confirm & Pay ₱ 514.00
         elem = page.get_by_text("Confirm & Pay ₱")
         await elem.click(timeout=10000)
         
         # --> Assertions to verify final state
         
-        # --> A checkout confirmation page is shown with the thank-you message.
+        # --> The checkout confirmation is visible with the success message.
         # Assert-outcome: passed
-        # Assert: Confirmation heading contains 'Thank you!'.
-        await expect(page.locator("body").nth(0)).to_contain_text("Thank you!", timeout=15000), "Confirmation heading contains 'Thank you!'."
+        # Assert: Confirmation page displays the 'Thank you!' success message.
+        await expect(page.get_by_role("dialog").nth(0)).to_contain_text("Thank you!", timeout=15000), "Confirmation page displays the 'Thank you!' success message."
         
-        # --> The confirmation view lists the ordered item 'JPIA Official Polo Shirt'.
+        # --> The ordered item 'JPIA Official Polo Shirt (M)' is listed on the confirmation page.
         # Assert-outcome: passed
-        # Assert: The confirmation lists the ordered product name.
-        await expect(page.get_by_role("dialog").nth(0)).to_contain_text("JPIA Official Polo Shirt", timeout=15000), "The confirmation lists the ordered product name."
+        # Assert: Confirmation page lists the purchased JPIA Official Polo Shirt (size M).
+        await expect(page.get_by_role("dialog").nth(0)).to_contain_text("1 x JPIA Official Polo Shirt ( M )", timeout=15000), "Confirmation page lists the purchased JPIA Official Polo Shirt (size M)."
         await asyncio.sleep(5)
 
     finally:
