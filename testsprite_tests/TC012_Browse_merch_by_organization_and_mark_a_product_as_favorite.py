@@ -40,33 +40,37 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Click the 'Dept Merch' link on the homepage to open the merchandise/catalog page.
+        # -> Click the 'Dept Merch' link to open the merchandise/catalog page.
         # Dept Merch
         elem = page.get_by_text("Dept Merch")
         await elem.click(timeout=10000)
         
-        # -> Click the 'JPIA' organization filter chip to filter merchandise by JPIA.
+        # -> Click the 'JPIA' organization filter to apply the organization filter.
         # JPIA
         elem = page.get_by_text("JPIA").nth(1)
         await elem.click(timeout=10000)
         
-        # -> Open the 'JPIA Official Polo Shirt' product from the catalog.
+        # -> Click the 'JPIA Official Polo Shirt' product to open its details page.
         # JPIA Official Polo Shirt
         elem = page.get_by_text("JPIA Official Polo Shirt")
         await elem.click(timeout=10000)
         
+        # -> Click the heart (favorite) icon in the product details modal to mark 'JPIA Official Polo Shirt' as a favorite.
+        # Click the heart (favorite) icon in the product details modal to mark 'JPIA Official Polo Shirt' as a favorite.
+        elem = page.locator(".r-bottom-1p0dtai > div:nth-child(2) > div > div > div > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(2)")
+        await elem.click(timeout=10000)
+        
         # --> Assertions to verify final state
         
-        # --> The catalog shows a JPIA product card (JPIA Official Polo Shirt) after applying the JPIA filter.
-        await page.get_by_text("JPIA5.0(188)JPIA Official").nth(0).scroll_into_view_if_needed()
+        # --> The catalog shows a JPIA product card for 'JPIA Official Polo Shirt' after applying the JPIA filter.
         # Assert-outcome: passed
-        # Assert: The JPIA product card is visible in the catalog.
-        await expect(page.get_by_text("JPIA5.0(188)JPIA Official").nth(0)).to_be_visible(timeout=15000), "The JPIA product card is visible in the catalog."
+        # Assert: Verified the JPIA product card 'JPIA Official Polo Shirt' is visible in the filtered results.
+        await expect(page.locator("#root").nth(0)).to_contain_text("JPIA Official Polo Shirt", timeout=15000), "Verified the JPIA product card 'JPIA Official Polo Shirt' is visible in the filtered results."
         
-        # --> The opened product is saved as a favorite (product modal shows 'Saved').
+        # --> The product details modal indicates the item was saved by showing the label 'Saved'.
         # Assert-outcome: passed
-        # Assert: The product modal header reads 'Saved', confirming the favorite state.
-        await expect(page.locator("xpath=/html/body/div[6]/div/div[2]/div/div/div/div[2]/div[1]/div[2]/div[1]").nth(0)).to_have_text("Saved", timeout=15000), "The product modal header reads 'Saved', confirming the favorite state."
+        # Assert: Product details modal displays the 'Saved' label indicating the item is favorited.
+        await expect(page.locator("xpath=/html/body/div[6]/div/div[2]/div/div/div/div[2]/div[1]/div[2]/div[1]").nth(0)).to_have_text("Saved", timeout=15000), "Product details modal displays the 'Saved' label indicating the item is favorited."
         await asyncio.sleep(5)
 
     finally:

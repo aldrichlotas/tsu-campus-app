@@ -42,17 +42,21 @@ async def run_test():
         
         # --> Assertions to verify final state
         
-        # --> Dashboard landing shows the campus selector set to 'TSU Main Campus'.
-        await page.get_by_text("TSU Main Campus").nth(0).scroll_into_view_if_needed()
+        # --> Student account section is visible on the dashboard (Add Funds action present).
+        await page.get_by_text("Add Funds").nth(0).scroll_into_view_if_needed()
         # Assert-outcome: passed
-        # Assert: Campus selector displays 'TSU Main Campus'.
-        await expect(page.get_by_text("TSU Main Campus").nth(0)).to_be_visible(timeout=15000), "Campus selector displays 'TSU Main Campus'."
+        # Assert: Verifies the student account action card (Add Funds) is visible.
+        await expect(page.get_by_text("Add Funds").nth(0)).to_be_visible(timeout=15000), "Verifies the student account action card (Add Funds) is visible."
         
-        # --> Active shuttle and canteen trackers are visible on the dashboard.
-        await page.locator("div").filter(has_text=re.compile(r"^Tap to view boarding pass & QR$")).nth(1).nth(0).scroll_into_view_if_needed()
+        # --> Active shuttle and canteen tracker cards are visible on the dashboard.
+        await page.get_by_text("Main Campus ↔ Lucinda Campus").nth(0).scroll_into_view_if_needed()
         # Assert-outcome: passed
-        # Assert: Shuttle card 'Tap to view boarding pass & QR' is visible.
-        await expect(page.locator("div").filter(has_text=re.compile(r"^Tap to view boarding pass & QR$")).nth(1).nth(0)).to_be_visible(timeout=15000), "Shuttle card 'Tap to view boarding pass & QR' is visible."
+        # Assert: Verifies the campus shuttle/tracker card (route info) is visible.
+        await expect(page.get_by_text("Main Campus ↔ Lucinda Campus").nth(0)).to_be_visible(timeout=15000), "Verifies the campus shuttle/tracker card (route info) is visible."
+        await page.get_by_text("Canteen Pre-Order").nth(0).scroll_into_view_if_needed()
+        # Assert-outcome: passed
+        # Assert: Verifies the canteen pre-order tracker card is visible.
+        await expect(page.get_by_text("Canteen Pre-Order").nth(0)).to_be_visible(timeout=15000), "Verifies the canteen pre-order tracker card is visible."
         await asyncio.sleep(5)
 
     finally:

@@ -63,7 +63,7 @@ export default function CanteenExpress() {
     return (
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, backgroundColor: '#f0eded', paddingHorizontal: 8, paddingVertical: 4, borderRadius: 8 }}>
         <Pressable onPress={() => removeFoodItem(item.id)}>
-          <Text style={{ fontSize: 16, fontFamily: 'Manrope_700Bold', color: '#800000', paddingHorizontal: 4 }}>-</Text>
+          <Text style={{ fontSize: 14, fontFamily: 'Manrope_700Bold', color: '#800000', paddingHorizontal: 4 }}>Remove</Text>
         </Pressable>
         <Text style={{ fontSize: 14, fontFamily: 'Manrope_700Bold', color: '#222222' }}>{qty}</Text>
         <Pressable onPress={() => addFoodItem(item)}>

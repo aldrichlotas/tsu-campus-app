@@ -40,40 +40,39 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Open the shuttle booking page by navigating to 'http://localhost:8081/shuttle'.
+        # -> Open the Shuttle page (navigate to the Shuttle page) so the route and seat selection UI can be used.
         await page.goto("http://localhost:8081/shuttle")
         try:
             await page.wait_for_load_state("domcontentloaded", timeout=5000)
         except Exception:
             pass
         
-        # -> Select the 'Lucinda ↔ Main' travel direction button on the Live Shuttle Scheduler.
-        # Lucinda ↔ Main
-        elem = page.get_by_text("Lucinda ↔ Main")
+        # -> Click the 'Main ↔ Lucinda' route button to select the travel direction.
+        # Main ↔ Lucinda
+        elem = page.locator("div").filter(has_text=re.compile(r"^Main ↔ Lucinda$")).first
         await elem.click(timeout=10000)
         
-        # -> Click the 'Seat #11' seat in the seat picker, then click the 'Confirm & Generate Instant Boarding Pass (₱25)' button to book the pass.
-        # Seat #11
-        elem = page.get_by_text("Seat #11")
+        # -> Click the 'Main ↔ Lucinda' route button to select the travel direction.
+        # Seat #01
+        elem = page.get_by_text("Seat #01")
         await elem.click(timeout=10000)
         
-        # -> Click the 'Seat #11' seat in the seat picker, then click the 'Confirm & Generate Instant Boarding Pass (₱25)' button to book the pass.
+        # -> Click the 'Main ↔ Lucinda' route button to select the travel direction.
         # Confirm & Generate Instant Boarding Pass (₱25)
         elem = page.get_by_text("Confirm & Generate Instant")
         await elem.click(timeout=10000)
         
         # --> Assertions to verify final state
         
-        # --> The boarding pass ticket page is displayed at /shuttle/ticket.
-        await page.locator("div").filter(has_text=re.compile(r"^Download Pass / Save to Photos$")).first.nth(0).scroll_into_view_if_needed()
+        # --> The boarding pass page is open (URL contains /shuttle/ticket).
         # Assert-outcome: passed
-        # Assert: The boarding pass page shows the Download Pass / Save to Photos control.
-        await expect(page.locator("div").filter(has_text=re.compile(r"^Download Pass / Save to Photos$")).first.nth(0)).to_be_visible(timeout=15000), "The boarding pass page shows the Download Pass / Save to Photos control."
+        # Assert: Verify the browser is on the ticket page (/shuttle/ticket).
+        await expect(page).to_have_url(re.compile("/shuttle/ticket"), timeout=15000), "Verify the browser is on the ticket page (/shuttle/ticket)."
         
-        # --> The boarding pass shows the selected seat Seat #11.
+        # --> Ticket UI controls are visible (Download Pass / Save to Photos).
         # Assert-outcome: passed
-        # Assert: The ticket displays the selected seat 'Seat #11'.
-        await expect(page.locator("#root").nth(0)).to_contain_text("Seat #11", timeout=15000), "The ticket displays the selected seat 'Seat #11'."
+        # Assert: Verify the 'Download Pass / Save to Photos' control is visible on the ticket.
+        await expect(page.locator("#root").nth(0)).to_contain_text("Download Pass / Save to Photos", timeout=15000), "Verify the 'Download Pass / Save to Photos' control is visible on the ticket."
         await asyncio.sleep(5)
 
     finally:

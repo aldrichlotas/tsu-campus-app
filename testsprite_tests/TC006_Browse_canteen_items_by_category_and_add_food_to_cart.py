@@ -40,35 +40,33 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Click the 'Canteen Pre-Order' link in the dashboard sidebar to open the canteen menu.
+        # -> Click the 'Canteen Pre-Order' card to open the canteen page.
         # Canteen Pre-Order
         elem = page.get_by_text("Canteen Pre-Order")
         await elem.click(timeout=10000)
         
-        # -> Click the 'Rice Bowls' category button to filter the menu to rice-bowl items.
-        # Rice Bowls
-        elem = page.get_by_text("Rice Bowls", exact=True)
+        # -> Click the 'Meals' category button to filter the menu to Meals.
+        # Meals
+        elem = page.get_by_text("Meals", exact=True)
         await elem.click(timeout=10000)
         
-        # -> Click the 'Pre-Order' button for the 'Crispy Sisig Rice Bowl w/ Egg' item to add it to the cart.
+        # -> Click the 'Pre-Order' button for a listed meal (e.g., the first visible meal's 'Pre-Order') to add it to the cart.
         # Pre-Order
         elem = page.locator("div").filter(has_text=re.compile(r"^₱90\.00Pre-Order$")).locator("div").nth(1)
         await elem.click(timeout=10000)
         
         # --> Assertions to verify final state
         
-        # --> The cart shows '1 items in cart (View)', indicating one item was added.
+        # --> The cart summary shows that 1 item is in the cart.
         # Assert-outcome: passed
-        # Assert: Verifies the cart displays '1 items in cart (View)'.
-        await expect(page.locator("xpath=/html/body/div[1]/div/div[2]/div[2]/div/div/div/div[3]/div/div[1]/div[1]/div[2]/div[1]").nth(0)).to_have_text("1\n items in cart (View)", timeout=15000), "Verifies the cart displays '1 items in cart (View)'."
+        # Assert: Cart summary contains the text '1 items in cart (View)'.
+        await expect(page.locator("#root").nth(0)).to_contain_text("1 items in cart (View)", timeout=15000), "Cart summary contains the text '1 items in cart (View)'."
         
-        # --> The Rice Bowls category is visible and rice-bowl items are displayed (a 'Pre-Order' control is present).
+        # --> Filtered meal items remain visible after adding to the cart (meal cards with 'Pre-Order' are shown).
+        await page.locator("div").filter(has_text=re.compile(r"^Pre-Order$")).nth(2).nth(0).scroll_into_view_if_needed()
         # Assert-outcome: passed
-        # Assert: Verifies the 'Rice Bowls' category button is visible.
-        await expect(page.locator("xpath=/html/body/div[1]/div/div[2]/div[2]/div/div/div/div[2]/div/div[2]/div[3]/div/div[5]/div").nth(0)).to_have_text("Rice Bowls", timeout=15000), "Verifies the 'Rice Bowls' category button is visible."
-        # Assert-outcome: passed
-        # Assert: Verifies a 'Pre-Order' control for an item in the filtered results is visible.
-        await expect(page.locator("xpath=/html/body/div[1]/div/div[2]/div[2]/div/div/div/div[2]/div/div[3]/div[2]/div[2]/div[2]/div[3]/div[2]/div").nth(0)).to_have_text("Pre-Order", timeout=15000), "Verifies a 'Pre-Order' control for an item in the filtered results is visible."
+        # Assert: A meal card 'Pre-Order' button is visible, indicating filtered results are shown.
+        await expect(page.locator("div").filter(has_text=re.compile(r"^Pre-Order$")).nth(2).nth(0)).to_be_visible(timeout=15000), "A meal card 'Pre-Order' button is visible, indicating filtered results are shown."
         await asyncio.sleep(5)
 
     finally:

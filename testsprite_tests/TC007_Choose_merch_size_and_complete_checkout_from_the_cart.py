@@ -40,44 +40,49 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Open the 'Merch' (merchandise) page by navigating to /merch so the product selection and cart flow can be tested.
+        # -> Navigate to the 'Merch' page (open the /merch URL).
         await page.goto("http://localhost:8081/merch")
         try:
             await page.wait_for_load_state("domcontentloaded", timeout=5000)
         except Exception:
             pass
         
-        # -> Click the 'Add to Cart' button on the product card to open the size selection and add-to-cart flow.
-        # Add to Cart
-        elem = page.locator("div:nth-child(6) > div > div:nth-child(3) > .css-text-146c3p1").first
+        # -> Open the product detail by clicking the product titled "JPIA Official Polo Shirt" so size options can be selected.
+        # JPIA Official Polo Shirt
+        elem = page.get_by_text("JPIA Official Polo Shirt")
         await elem.click(timeout=10000)
         
-        # -> Select a size (ensure a size such as 'M' is chosen) and click the 'Pre-Order Merchandise' button to add the item / proceed from the product modal.
+        # -> Select the 'M' size option in the 'JPIA Official Polo Shirt' product details.
         # M
         elem = page.get_by_text("M", exact=True)
         await elem.click(timeout=10000)
         
-        # -> Select a size (ensure a size such as 'M' is chosen) and click the 'Pre-Order Merchandise' button to add the item / proceed from the product modal.
+        # -> Select the 'M' size option in the 'JPIA Official Polo Shirt' product details.
+        # Online
+        elem = page.get_by_text("Online")
+        await elem.click(timeout=10000)
+        
+        # -> Select the 'M' size option in the 'JPIA Official Polo Shirt' product details.
         # Pre-Order Merchandise
         elem = page.get_by_text("Pre-Order Merchandise")
         await elem.click(timeout=10000)
         
-        # -> Click the 'View Cart • ₱514.00' bar at the bottom of the page to open the cart panel.
+        # -> Click the 'View Cart • ₱514.00' bar to open the cart panel and view items.
         # View Cart • ₱ 514.00
-        elem = page.get_by_text("View Cart • ₱")
+        elem = page.locator("div").filter(has_text=re.compile(r"^View Cart • ₱514\.00$")).first
         await elem.click(timeout=10000)
         
-        # -> Click the 'Confirm & Pay ₱514.00' button to complete checkout.
+        # -> Click the 'Confirm & Pay ₱514.00' button to complete checkout and observe the confirmation screen.
         # Confirm & Pay ₱ 514.00
         elem = page.get_by_text("Confirm & Pay ₱")
         await elem.click(timeout=10000)
         
         # --> Assertions to verify final state
         
-        # --> A checkout confirmation modal is visible confirming the order was placed.
+        # --> The checkout confirmation message 'Thank you! Your merchandise pre-order has been placed successfully.' is visible.
         # Assert-outcome: passed
-        # Assert: The confirmation modal is visible (shows the Back to Catalog link).
-        await expect(page.get_by_role("dialog").nth(0)).to_contain_text("Back to Catalog", timeout=15000), "The confirmation modal is visible (shows the Back to Catalog link)."
+        # Assert: Confirmation message text is present in the confirmation dialog.
+        await expect(page.get_by_role("dialog").nth(0)).to_contain_text("Thank you! Your merchandise pre-order has been placed successfully.", timeout=15000), "Confirmation message text is present in the confirmation dialog."
         await asyncio.sleep(5)
 
     finally:

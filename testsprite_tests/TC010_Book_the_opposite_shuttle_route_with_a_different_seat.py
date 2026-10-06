@@ -40,40 +40,40 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Open the Shuttle booking page by navigating to the Shuttle page (visit /shuttle).
+        # -> Navigate to the Shuttle page (open the URL /shuttle) so the route and seat-selection UI can be used.
         await page.goto("http://localhost:8081/shuttle")
         try:
             await page.wait_for_load_state("domcontentloaded", timeout=5000)
         except Exception:
             pass
         
-        # -> Click the 'Lucinda ↔ Main' route button to select the opposite campus route.
+        # -> Click the 'Lucinda ↔ Main' route button to switch to the opposite campus route.
         # Lucinda ↔ Main
-        elem = page.get_by_text("Lucinda ↔ Main")
+        elem = page.locator("div").filter(has_text=re.compile(r"^Lucinda ↔ Main$")).first
         await elem.click(timeout=10000)
         
-        # -> Click the 'Lucinda ↔ Main' route button to select the opposite campus route.
+        # -> Click the 'Seat #13' button to choose a different available seat.
         # Seat #13
-        elem = page.locator("div").filter(has_text=re.compile(r"^Seat #13$")).first
+        elem = page.get_by_text("Seat #13")
         await elem.click(timeout=10000)
         
-        # -> Click the 'Lucinda ↔ Main' route button to select the opposite campus route.
+        # -> Click the 'Seat #13' button to choose a different available seat.
         # Confirm & Generate Instant Boarding Pass (₱25)
         elem = page.get_by_text("Confirm & Generate Instant")
         await elem.click(timeout=10000)
         
         # --> Assertions to verify final state
         
-        # --> The boarding pass is displayed with ticket header "#TSU-SHT-2026-7857".
-        await page.get_by_text("Download Pass / Save to Photos").nth(0).scroll_into_view_if_needed()
+        # --> A boarding pass page is displayed with the 'Download Pass / Save to Photos' action visible.
+        await page.locator("div").filter(has_text=re.compile(r"^Download Pass / Save to Photos$")).first.nth(0).scroll_into_view_if_needed()
         # Assert-outcome: passed
-        # Assert: The boarding-pass download area is visible, indicating the pass is displayed.
-        await expect(page.get_by_text("Download Pass / Save to Photos").nth(0)).to_be_visible(timeout=15000), "The boarding-pass download area is visible, indicating the pass is displayed."
+        # Assert: The ticket page shows the 'Download Pass / Save to Photos' action, indicating the boarding pass is displayed.
+        await expect(page.locator("div").filter(has_text=re.compile(r"^Download Pass / Save to Photos$")).first.nth(0)).to_be_visible(timeout=15000), "The ticket page shows the 'Download Pass / Save to Photos' action, indicating the boarding pass is displayed."
         
-        # --> The ticket shows the selected route "Lucinda Campus → Main Campus".
+        # --> The generated ticket displays the selected route 'Lucinda Campus → Main Campus'.
         # Assert-outcome: passed
-        # Assert: The boarding pass displays the selected route.
-        await expect(page.locator("#root").nth(0)).to_contain_text("Lucinda Campus \u2192 Main Campus", timeout=15000), "The boarding pass displays the selected route."
+        # Assert: The ticket text matches the selected route 'Lucinda Campus → Main Campus'.
+        await expect(page.locator("xpath=/html/body/div[1]/div/div[2]/div[2]/div/div/div/div/div/div[1]/div[3]/div[1]/div/div[2]").nth(0)).to_have_text("Lucinda Campus \u2192 Main Campus", timeout=15000), "The ticket text matches the selected route 'Lucinda Campus \u2192 Main Campus'."
         await asyncio.sleep(5)
 
     finally:

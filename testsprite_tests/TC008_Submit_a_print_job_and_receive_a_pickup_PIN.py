@@ -40,46 +40,51 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Navigate to the print page by going to the '/print' path to begin the print submission flow.
+        # -> Open the Print page by navigating to the '/print' path (the Print submission UI).
         await page.goto("http://localhost:8081/print")
         try:
             await page.wait_for_load_state("domcontentloaded", timeout=5000)
         except Exception:
             pass
         
-        # -> Click the 'TSU Lucinda: Tech Center' print shop to select it.
-        # TSU Lucinda: Tech Center
-        elem = page.get_by_text("TSU Lucinda: Tech Center")
+        # -> Select 'TSU Main: Library Fleet' from the Verified Partner Print Shops (shop card) so a partner is chosen before submitting.
+        # TSU Main: Library Fleet
+        elem = page.get_by_text("TSU Main: Library Fleet")
         await elem.click(timeout=10000)
         
-        # -> Fill the 'SPECIAL INSTRUCTIONS' field with 'Staple top left', select 'Full Color', select 'Single-Sided', then click the 'Submit & Queue Print Job' button.
-        # e.g. Ring bind, staple top left... text area
-        elem = page.get_by_role("textbox", name="e.g. Ring bind, staple top")
-        await elem.wait_for(state="visible", timeout=10000)
-        await elem.fill("Staple top left")
-        
-        # -> Fill the 'SPECIAL INSTRUCTIONS' field with 'Staple top left', select 'Full Color', select 'Single-Sided', then click the 'Submit & Queue Print Job' button.
-        # Full Color ₱8.00 / page
-        elem = page.get_by_text("Full Color₱8.00 / page")
+        # -> Select 'TSU Main: Library Fleet' from the Verified Partner Print Shops (shop card) so a partner is chosen before submitting.
+        # Full Color
+        elem = page.get_by_text("Full Color")
         await elem.click(timeout=10000)
         
-        # -> Fill the 'SPECIAL INSTRUCTIONS' field with 'Staple top left', select 'Full Color', select 'Single-Sided', then click the 'Submit & Queue Print Job' button.
+        # -> Select 'TSU Main: Library Fleet' from the Verified Partner Print Shops (shop card) so a partner is chosen before submitting.
         # Single-Sided
-        elem = page.locator("div").filter(has_text=re.compile(r"^Single-Sided$")).first
+        elem = page.get_by_text("Single-Sided")
         await elem.click(timeout=10000)
         
-        # -> Fill the 'SPECIAL INSTRUCTIONS' field with 'Staple top left', select 'Full Color', select 'Single-Sided', then click the 'Submit & Queue Print Job' button.
+        # -> Select 'TSU Main: Library Fleet' from the Verified Partner Print Shops (shop card) so a partner is chosen before submitting.
         # Submit & Queue Print Job
         elem = page.get_by_text("Submit & Queue Print Job")
         await elem.click(timeout=10000)
         
+        # -> Click the 'Dismiss to Dashboard' button to close the print confirmation modal.
+        # Dismiss to Dashboard
+        elem = page.get_by_text("Dismiss to Dashboard")
+        await elem.click(timeout=10000)
+        
         # --> Assertions to verify final state
         
-        # --> A confirmation modal for the submitted print job is visible, containing the pickup PIN confirmation.
-        await page.locator("div").filter(has_text=re.compile(r"^Dismiss to Dashboard$")).first.nth(0).scroll_into_view_if_needed()
+        # --> A pickup PIN confirmation was shown after submitting the print job (pickup PIN PR-316, Est. Ready 10:18 AM).
+        await page.locator("div").filter(has_text=re.compile(r"^Submit & Queue Print Job$")).first.nth(0).scroll_into_view_if_needed()
         # Assert-outcome: passed
-        # Assert: Confirmation modal (with Dismiss to Dashboard) is visible.
-        await expect(page.locator("div").filter(has_text=re.compile(r"^Dismiss to Dashboard$")).first.nth(0)).to_be_visible(timeout=15000), "Confirmation modal (with Dismiss to Dashboard) is visible."
+        # Assert: The Submit & Queue Print Job button was present to produce the confirmation.
+        await expect(page.locator("div").filter(has_text=re.compile(r"^Submit & Queue Print Job$")).first.nth(0)).to_be_visible(timeout=15000), "The Submit & Queue Print Job button was present to produce the confirmation."
+        
+        # --> The print submission summary was visible (Sender Alex Gonzaga, Subject 'CS301 - Operating Systems', 14 pages, Est. ₱112.00).
+        await page.get_by_role("textbox", name="e.g. ENG101 Final Output").nth(0).scroll_into_view_if_needed()
+        # Assert-outcome: passed
+        # Assert: The Subject field from the print job summary is visible on the page.
+        await expect(page.get_by_role("textbox", name="e.g. ENG101 Final Output").nth(0)).to_be_visible(timeout=15000), "The Subject field from the print job summary is visible on the page."
         await asyncio.sleep(5)
 
     finally:

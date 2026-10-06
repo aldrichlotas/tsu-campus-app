@@ -40,41 +40,51 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Open the Print page by navigating to the /print URL so the print flow can be exercised.
+        # -> Open the Print page by navigating to /print so the print-shop selection and print options UI can be inspected.
         await page.goto("http://localhost:8081/print")
         try:
             await page.wait_for_load_state("domcontentloaded", timeout=5000)
         except Exception:
             pass
         
-        # -> Change the 'PAGE COUNT' to 10, select 'Full Color' and 'Single-Sided', then click the 'Submit & Queue Print Job' button to submit the print job.
+        # -> Select the 'TSU Lucinda: Tech Center' print shop.
+        # TSU Lucinda: Tech Center
+        elem = page.get_by_text("TSU Lucinda: Tech Center")
+        await elem.click(timeout=10000)
+        
+        # -> Select the 'TSU Lucinda: Tech Center' print shop.
         # text field
         elem = page.get_by_role("textbox").nth(1)
         await elem.wait_for(state="visible", timeout=10000)
         await elem.fill("10")
         
-        # -> Change the 'PAGE COUNT' to 10, select 'Full Color' and 'Single-Sided', then click the 'Submit & Queue Print Job' button to submit the print job.
+        # -> Select the 'TSU Lucinda: Tech Center' print shop.
         # Full Color ₱8.00 / page
         elem = page.get_by_text("Full Color₱8.00 / page")
         await elem.click(timeout=10000)
         
-        # -> Change the 'PAGE COUNT' to 10, select 'Full Color' and 'Single-Sided', then click the 'Submit & Queue Print Job' button to submit the print job.
+        # -> Click the 'B&W Monochrome' color option to change the print color mode.
+        # B&W Monochrome
+        elem = page.get_by_text("B&W Monochrome")
+        await elem.click(timeout=10000)
+        
+        # -> Click the 'Single-Sided' page sidedness option to change sidedness from Duplex to Single-Sided.
         # Single-Sided
         elem = page.locator("div").filter(has_text=re.compile(r"^Single-Sided$")).first
         await elem.click(timeout=10000)
         
-        # -> Change the 'PAGE COUNT' to 10, select 'Full Color' and 'Single-Sided', then click the 'Submit & Queue Print Job' button to submit the print job.
+        # -> Click the 'Submit & Queue Print Job' button to submit the print job and trigger the submission confirmation.
         # Submit & Queue Print Job
-        elem = page.get_by_text("Submit & Queue Print Job")
+        elem = page.locator("div").filter(has_text=re.compile(r"^Submit & Queue Print Job$")).first
         await elem.click(timeout=10000)
         
         # --> Assertions to verify final state
         
-        # --> A submission confirmation modal is visible and shows pickup details (queue PIN and estimated ready time).
-        await page.locator("div").filter(has_text=re.compile(r"^Dismiss to Dashboard$")).first.nth(0).scroll_into_view_if_needed()
+        # --> A submission confirmation modal appeared and displayed the pickup details (queue PIN and estimated ready time).
+        await page.get_by_text("Dismiss to Dashboard").nth(0).scroll_into_view_if_needed()
         # Assert-outcome: passed
-        # Assert: Confirmation modal is visible (dismiss control labeled 'Dismiss to Dashboard' is present).
-        await expect(page.locator("div").filter(has_text=re.compile(r"^Dismiss to Dashboard$")).first.nth(0)).to_be_visible(timeout=15000), "Confirmation modal is visible (dismiss control labeled 'Dismiss to Dashboard' is present)."
+        # Assert: Confirmation modal (contains the Dismiss to Dashboard button) is visible on the page.
+        await expect(page.get_by_text("Dismiss to Dashboard").nth(0)).to_be_visible(timeout=15000), "Confirmation modal (contains the Dismiss to Dashboard button) is visible on the page."
         await asyncio.sleep(5)
 
     finally:

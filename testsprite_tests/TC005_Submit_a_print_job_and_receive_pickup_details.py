@@ -40,44 +40,44 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Click the 'Print Hub' card shown under Express Campus Services to open the print shop selection and job configuration flow.
+        # -> Click the 'Print Hub' card to open the Print Hub service.
         # Print Hub
         elem = page.get_by_text("Print Hub")
         await elem.click(timeout=10000)
         
-        # -> Click the 'TSU Lucinda: Tech Center' print shop to select it.
-        # TSU Lucinda: Tech Center VERIFIED Open 8:00 AM...
-        elem = page.locator("div:nth-child(2) > div > div > div > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2)")
+        # -> Click the 'TSU Main: Library Fleet' print shop card to ensure that shop is selected.
+        # TSU Main: Library Fleet VERIFIED Ground Floor...
+        elem = page.locator("div:nth-child(2) > div > div > div > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(2) > div > div").first
         await elem.click(timeout=10000)
         
-        # -> Set the page count to 10 in the 'PAGE COUNT' field.
-        # text field
-        elem = page.get_by_role("textbox").nth(1)
-        await elem.wait_for(state="visible", timeout=10000)
-        await elem.fill("10")
-        
-        # -> Select the 'Full Color' option and the 'Single-Sided' option, then click the 'Submit & Queue Print Job' button to submit the job.
+        # -> Click the 'TSU Main: Library Fleet' print shop card to ensure that shop is selected.
         # Full Color
         elem = page.get_by_text("Full Color")
         await elem.click(timeout=10000)
         
-        # -> Select the 'Full Color' option and the 'Single-Sided' option, then click the 'Submit & Queue Print Job' button to submit the job.
-        # Single-Sided
-        elem = page.get_by_text("Single-Sided")
+        # -> Click the 'TSU Main: Library Fleet' print shop card to ensure that shop is selected.
+        # Duplex (Back-to-Back)
+        elem = page.get_by_text("Duplex (Back-to-Back)")
         await elem.click(timeout=10000)
         
-        # -> Select the 'Full Color' option and the 'Single-Sided' option, then click the 'Submit & Queue Print Job' button to submit the job.
+        # -> Click the 'TSU Main: Library Fleet' print shop card to ensure that shop is selected.
         # Submit & Queue Print Job
         elem = page.get_by_text("Submit & Queue Print Job")
         await elem.click(timeout=10000)
         
         # --> Assertions to verify final state
         
-        # --> A pickup confirmation modal was shown containing the pickup PIN.
+        # --> A print job confirmation modal is visible after submission.
         await page.locator("div").filter(has_text=re.compile(r"^Dismiss to Dashboard$")).first.nth(0).scroll_into_view_if_needed()
         # Assert-outcome: passed
-        # Assert: The print-job confirmation modal (with a dismiss button) is visible, indicating the pickup PIN confirmation appeared.
-        await expect(page.locator("div").filter(has_text=re.compile(r"^Dismiss to Dashboard$")).first.nth(0)).to_be_visible(timeout=15000), "The print-job confirmation modal (with a dismiss button) is visible, indicating the pickup PIN confirmation appeared."
+        # Assert: Confirmation modal with the 'Dismiss to Dashboard' button is visible.
+        await expect(page.locator("div").filter(has_text=re.compile(r"^Dismiss to Dashboard$")).first.nth(0)).to_be_visible(timeout=15000), "Confirmation modal with the 'Dismiss to Dashboard' button is visible."
+        
+        # --> The uploaded document area of the print job details is visible.
+        await page.get_by_text("PDF", exact=True).nth(0).scroll_into_view_if_needed()
+        # Assert-outcome: passed
+        # Assert: Uploaded document area (showing 'PDF') is visible in the print job details.
+        await expect(page.get_by_text("PDF", exact=True).nth(0)).to_be_visible(timeout=15000), "Uploaded document area (showing 'PDF') is visible in the print job details."
         await asyncio.sleep(5)
 
     finally:

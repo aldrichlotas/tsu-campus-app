@@ -40,40 +40,49 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Open the Print page by navigating to the '/print' path (clicking the Print Hub entry is optional but the step explicitly instructs navigation to /print).
+        # -> Open the Print Hub page (navigate to the '/print' path) so the print shop selection and configuration controls can be accessed.
         await page.goto("http://localhost:8081/print")
         try:
             await page.wait_for_load_state("domcontentloaded", timeout=5000)
         except Exception:
             pass
         
-        # -> Select the 'Full Color' color mode and set the PAGE COUNT field to '20' to begin configuring the print job.
-        # Full Color ₱8.00 / page
-        elem = page.get_by_text("Full Color₱8.00 / page")
+        # -> Click the 'TSU Lucinda: Tech Center' print shop to select it (then update page count and print options).
+        # TSU Lucinda: Tech Center VERIFIED Open 8:00 AM...
+        elem = page.locator("div:nth-child(2) > div:nth-child(2) > div:nth-child(2)").first
         await elem.click(timeout=10000)
         
-        # -> Select the 'Full Color' color mode and set the PAGE COUNT field to '20' to begin configuring the print job.
+        # -> Click the 'TSU Lucinda: Tech Center' print shop to select it (then update page count and print options).
         # text field
         elem = page.get_by_role("textbox").nth(1)
         await elem.wait_for(state="visible", timeout=10000)
-        await elem.fill("20")
+        await elem.fill("10")
+        
+        # -> Click the 'TSU Lucinda: Tech Center' print shop to select it (then update page count and print options).
+        # Full Color
+        elem = page.get_by_text("Full Color")
+        await elem.click(timeout=10000)
+        
+        # -> Click the 'TSU Lucinda: Tech Center' print shop to select it (then update page count and print options).
+        # Single-Sided
+        elem = page.get_by_text("Single-Sided")
+        await elem.click(timeout=10000)
         
         # --> Assertions to verify final state
         
-        # --> The print submission control 'Submit & Queue Print Job' is visible on the page.
+        # --> The Submit & Queue Print Job button is visible on the Print Hub page.
         await page.locator("div").filter(has_text=re.compile(r"^Submit & Queue Print Job$")).first.nth(0).scroll_into_view_if_needed()
         # Assert-outcome: passed
         # Assert: Submit & Queue Print Job button is visible.
         await expect(page.locator("div").filter(has_text=re.compile(r"^Submit & Queue Print Job$")).first.nth(0)).to_be_visible(timeout=15000), "Submit & Queue Print Job button is visible."
         
-        # --> The print configuration summary shows the entered page count and the Full Color option.
+        # --> The Print Job Specifications show the configured page count of 10 and the color mode set to Full Color.
         # Assert-outcome: passed
-        # Assert: Page count input contains the entered value '20'.
-        await expect(page.get_by_role("textbox").nth(1).nth(0)).to_have_value("20", timeout=15000), "Page count input contains the entered value '20'."
-        await page.get_by_text("Full Color").nth(0).scroll_into_view_if_needed()
+        # Assert: Page count input contains "10".
+        await expect(page.get_by_role("textbox").nth(1).nth(0)).to_have_value("10", timeout=15000), "Page count input contains \"10\"."
         # Assert-outcome: passed
-        # Assert: Full Color color mode option is visible.
-        await expect(page.get_by_text("Full Color").nth(0)).to_be_visible(timeout=15000), "Full Color color mode option is visible."
+        # Assert: Color mode displays "Full Color".
+        await expect(page.locator("xpath=/html/body/div[1]/div/div[2]/div/div/div/div/div[2]/div/div[4]/div[5]/div[2]/div[2]/div[1]").nth(0)).to_have_text("Full Color", timeout=15000), "Color mode displays \"Full Color\"."
         await asyncio.sleep(5)
 
     finally:
