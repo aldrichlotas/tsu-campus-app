@@ -22,7 +22,7 @@ import {
 
 export default function PrintHub() {
   const router = useRouter();
-  const { studentName, studentId, submitPrintJob, activePrintJob, balance } = useDemo();
+  const { studentName, studentId, submitPrintOrder, activePrintJob, balance } = useDemo();
   const [activeHub, setActiveHub] = useState('hub-1');
   const [colorMode, setColorMode] = useState('bw');
   const [sidedness, setSidedness] = useState('duplex');
@@ -37,14 +37,16 @@ export default function PrintHub() {
       Alert.alert('Insufficient Balance', 'Insufficient Ledger Balance');
       return;
     }
-    submitPrintJob(
-      activeHub === 'hub-1' ? 'TSU Main: Library Fleet' : 'TSU Lucinda: Tech Center',
-      'CS301_Final_Project.pdf',
-      colorMode,
-      numericPages,
-      cost
-    );
-    setShowModal(true);
+    const success = submitPrintOrder({
+      shopName: activeHub === 'hub-1' ? 'TSU Main: Library Fleet' : 'TSU Lucinda: Tech Center',
+      fileName: 'CS301_Final_Project.pdf',
+      colorMode: colorMode === 'bw' ? 'Grayscale' : 'Full Color',
+      pages: numericPages,
+      duplex: sidedness === 'duplex'
+    });
+    if (success) {
+      setShowModal(true);
+    }
   };
 
   return (

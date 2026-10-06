@@ -28,6 +28,7 @@ export default function CanteenExpress() {
   const { activeCampus, setActiveCampus, foodCart, addFoodItem, removeFoodItem, submitCanteenOrder, balance } = useDemo();
   const [filter, setFilter] = useState('All');
   const [paymentMode, setPaymentMode] = useState<'online' | 'cash'>('online');
+  const [showCartModal, setShowCartModal] = useState(false);
 
   const subtotal = foodCart.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const cartCount = foodCart.reduce((sum, item) => sum + item.quantity, 0);
@@ -340,15 +341,15 @@ export default function CanteenExpress() {
       <View style={styles.bottomCart}>
         <View style={styles.cartInner}>
           <View style={styles.cartSummaryRow}>
-            <View style={styles.cartSummaryLeft}>
+            <Pressable style={styles.cartSummaryLeft} onPress={() => setShowCartModal(true)}>
               <View style={styles.cartCountBadge}>
                 <Text style={styles.cartCountText}>{cartCount}</Text>
               </View>
               <View>
-                <Text style={styles.cartItemsText}>{cartCount} items in cart</Text>
+                <Text style={styles.cartItemsText}>{cartCount} items in cart (View)</Text>
                 <Text style={styles.cartFeeText}>+₱5.00 Campus Service Fee</Text>
               </View>
-            </View>
+            </Pressable>
             <View style={styles.cartTotalBox}>
               <Text style={styles.subtotalLbl}>SUBTOTAL</Text>
               <Text style={styles.subtotalVal}>₱{subtotal.toFixed(2)}</Text>
@@ -389,6 +390,22 @@ export default function CanteenExpress() {
           </Pressable>
         </View>
       </View>
+
+      {/* Cart Expandable Drawer / Modal */}
+      {showCartModal && (
+        <View style={{ position: 'absolute', bottom: 180, left: 16, right: 16, backgroundColor: '#FFF', borderRadius: 12, padding: 16, shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 10, elevation: 5, zIndex: 100 }}>
+          <Text style={{ fontFamily: 'Manrope_700Bold', fontSize: 16, marginBottom: 12 }}>Your Cart</Text>
+          {foodCart.map(item => (
+            <View key={item.id} style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+              <Text style={{ fontFamily: 'Manrope_600SemiBold', fontSize: 14 }}>{item.name}</Text>
+              <CartControls item={item} />
+            </View>
+          ))}
+          <Pressable onPress={() => setShowCartModal(false)} style={{ alignSelf: 'flex-end', marginTop: 12, backgroundColor: '#E2E5EB', paddingHorizontal: 12, paddingVertical: 6, borderRadius: 6 }}>
+            <Text style={{ fontFamily: 'Manrope_700Bold' }}>Close Cart</Text>
+          </Pressable>
+        </View>
+      )}
 
     </View>
   );

@@ -116,10 +116,9 @@ const SIZES = ['XS', 'S', 'M', 'L', 'XL', '2XL'];
 
 export default function MerchCatalog() {
   const router = useRouter();
-  const { merchCart, addMerchItem, checkoutMerch, balance } = useDemo();
+  const { merchCart, addMerchToCart, removeMerchItem, checkoutMerch, balance, favorites, toggleFavorite } = useDemo();
   const [activeCollege, setActiveCollege] = useState('cba');
   const [activeOrg, setActiveOrg] = useState('all');
-  const [favorites, setFavorites] = useState<number[]>([]);
   const [showCart, setShowCart] = useState(false);
   
   const cartSubtotal = merchCart.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -131,6 +130,8 @@ export default function MerchCatalog() {
     ? PRODUCTS 
     : PRODUCTS.filter(prod => prod.org.toLowerCase().includes(activeOrg.toLowerCase()) || (activeOrg === 'jpia' && (prod.org === 'ESSENTIAL' || prod.org.includes('BUNDLE') || prod.org === 'CUSTOM' || prod.org === '3 COLORS')));
 
+  const [orderSuccess, setOrderSuccess] = useState(false);
+
   const handleCheckout = () => {
     if (merchCart.length === 0) return;
     if (balance < cartTotal) {
@@ -140,7 +141,7 @@ export default function MerchCatalog() {
     const success = checkoutMerch('Student Account Ledger');
     if (success) {
       setShowCart(false);
-      Alert.alert('Order Confirmed', 'Your merchandise pre-order has been placed.');
+      setOrderSuccess(true);
     }
   };
 
@@ -307,14 +308,10 @@ export default function MerchCatalog() {
                 <Pressable 
                   style={styles.favBtn}
                   onPress={() => {
-                    if (favorites.includes(prod.id)) {
-                      setFavorites(favorites.filter(id => id !== prod.id));
-                    } else {
-                      setFavorites([...favorites, prod.id]);
-                    }
+                    toggleFavorite(prod.id.toString());
                   }}
                 >
-                  <Heart size={14} color={favorites.includes(prod.id) ? "#800000" : "#444651"} fill={favorites.includes(prod.id) ? "#800000" : "transparent"} />
+                  <Heart size={14} color={favorites.includes(prod.id.toString()) ? "#800000" : "#444651"} fill={favorites.includes(prod.id.toString()) ? "#800000" : "transparent"} />
                 </Pressable>
               </View>
               
@@ -428,9 +425,20 @@ export default function MerchCatalog() {
               {/* Sheet Header */}
               <View style={styles.sheetHeader}>
                 <Text style={styles.sheetTitle}>Product Details</Text>
-                <Pressable onPress={() => setSelectedProduct(null)} style={styles.closeBtn}>
-                  <X size={20} color="#1B2336" />
-                </Pressable>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+                  <Pressable 
+                    style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}
+                    onPress={() => {
+                      toggleFavorite(selectedProduct.id.toString());
+                    }}
+                  >
+                    <Heart size={20} color={favorites.includes(selectedProduct.id.toString()) ? "#800000" : "#444651"} fill={favorites.includes(selectedProduct.id.toString()) ? "#800000" : "transparent"} />
+                    {favorites.includes(selectedProduct.id.toString()) && <Text style={{ fontFamily: 'Manrope_600SemiBold', fontSize: 12, color: '#800000' }}>Saved</Text>}
+                  </Pressable>
+                  <Pressable onPress={() => setSelectedProduct(null)} style={styles.closeBtn}>
+                    <X size={20} color="#1B2336" />
+                  </Pressable>
+                </View>
               </View>
 
               <ScrollView style={styles.sheetScroll}>
@@ -496,13 +504,13 @@ export default function MerchCatalog() {
                 <Pressable 
                   style={styles.primaryCta} 
                   onPress={() => {
-                    addMerchItem({
+                    addMerchToCart({
                       id: selectedProduct.id.toString(),
                       name: selectedProduct.name,
                       price: parseFloat(selectedProduct.price.replace('₱', '')),
                       size: selectedSize,
                       org: selectedProduct.org
-                    });
+                    } as any, selectedSize);
                     setSelectedProduct(null);
                   }}
                 >
@@ -528,10 +536,13 @@ export default function MerchCatalog() {
             </View>
             <ScrollView style={styles.sheetScroll}>
               {merchCart.map((item, index) => (
-                <View key={index} style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 12 }}>
-                  <View>
+                <View key={index} style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 16 }}>
+                  <View style={{ flex: 1 }}>
                     <Text style={{ fontFamily: 'Manrope_700Bold', fontSize: 14 }}>{item.quantity}x {item.name}</Text>
                     <Text style={{ fontFamily: 'Manrope_500Medium', fontSize: 12, color: '#7A7A7A' }}>Size: {item.size}</Text>
+                    <Pressable onPress={() => removeMerchItem(item.id, item.size)} style={{ marginTop: 4 }}>
+                      <Text style={{ fontFamily: 'Manrope_600SemiBold', fontSize: 12, color: '#DC2626' }}>Remove</Text>
+                    </Pressable>
                   </View>
                   <Text style={{ fontFamily: 'Manrope_700Bold', fontSize: 14 }}>₱{(item.price * item.quantity).toFixed(2)}</Text>
                 </View>
@@ -555,6 +566,25 @@ export default function MerchCatalog() {
                 <Text style={styles.primaryCtaText}>Confirm & Pay ₱{cartTotal.toFixed(2)}</Text>
               </Pressable>
             </View>
+          </View>
+        </View>
+      </Modal>
+
+      {/* Order Success Modal */}
+      <Modal visible={orderSuccess} transparent animationType="fade">
+        <View style={styles.modalOverlay}>
+          <View style={[styles.bottomSheet, { padding: 32, alignItems: 'center', justifyContent: 'center' }]}>
+            <BadgeCheck size={48} color="#047857" style={{ marginBottom: 16 }} />
+            <Text style={{ fontFamily: 'PlayfairDisplay_700Bold', fontSize: 24, marginBottom: 8, color: '#1B2336' }}>Thank you!</Text>
+            <Text style={{ fontFamily: 'Manrope_500Medium', fontSize: 14, color: '#7A7A7A', textAlign: 'center', marginBottom: 24 }}>
+              Your merchandise pre-order has been placed successfully.
+            </Text>
+            <Pressable 
+              style={[styles.primaryCta, { width: '100%' }]} 
+              onPress={() => setOrderSuccess(false)}
+            >
+              <Text style={styles.primaryCtaText}>Back to Catalog</Text>
+            </Pressable>
           </View>
         </View>
       </Modal>

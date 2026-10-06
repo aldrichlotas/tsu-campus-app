@@ -1,0 +1,654 @@
+[
+  {
+    "id": "TC001",
+    "title": "Book a shuttle pass and view the ticket",
+    "description": "Verifies that a user can choose a route, select an available seat, book the shuttle, and reach the boarding pass ticket view.",
+    "category": "Campus Shuttle Booking",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /shuttle"
+      },
+      {
+        "type": "action",
+        "description": "Select a travel direction"
+      },
+      {
+        "type": "action",
+        "description": "Select an available seat"
+      },
+      {
+        "type": "action",
+        "description": "Book the shuttle pass"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the boarding pass ticket is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify ticket details are visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC002",
+    "title": "Switch campus context on the dashboard",
+    "description": "Verifies that a user can change the active campus on the dashboard and see the campus-specific service trackers update.",
+    "category": "Campus Hub Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Toggle the active campus context"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the active campus changes"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the visible tracker information updates for the selected campus"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC003",
+    "title": "Select a merch size, add to cart, and checkout",
+    "description": "This test verifies that a user can choose a size, add a merch item to the cart, review the cart, and complete checkout.",
+    "category": "Merch Catalog Shopping",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /merch"
+      },
+      {
+        "type": "action",
+        "description": "Select a product from the catalog"
+      },
+      {
+        "type": "action",
+        "description": "Choose a size for the product"
+      },
+      {
+        "type": "action",
+        "description": "Add the item to the cart"
+      },
+      {
+        "type": "action",
+        "description": "Open the cart view"
+      },
+      {
+        "type": "action",
+        "description": "Complete checkout"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the checkout confirmation is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the ordered merch item is shown in the completion view"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC004",
+    "title": "Adjust canteen cart quantity and complete checkout",
+    "description": "Verifies that a user can remove an item from the cart using quantity controls and then place the order successfully.",
+    "category": "Canteen Express Food Ordering",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /canteen"
+      },
+      {
+        "type": "action",
+        "description": "Add a menu item to the cart"
+      },
+      {
+        "type": "action",
+        "description": "Decrease the item quantity using the cart control"
+      },
+      {
+        "type": "action",
+        "description": "Checkout the order"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the live order tracker is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an order status pipeline is visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC005",
+    "title": "Submit a print job and receive pickup details",
+    "description": "This test verifies that a user can select a print shop, configure a print job, submit it, and see pickup confirmation details.",
+    "category": "Print Hub Document Processing",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /print"
+      },
+      {
+        "type": "action",
+        "description": "Select a print shop"
+      },
+      {
+        "type": "action",
+        "description": "Configure the number of pages for the print job"
+      },
+      {
+        "type": "action",
+        "description": "Choose valid print options for color and sidedness"
+      },
+      {
+        "type": "action",
+        "description": "Submit the document for printing"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a pickup PIN confirmation is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify print job details are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC006",
+    "title": "Browse canteen items by category and add food to cart",
+    "description": "Verifies that a user can filter canteen items by category and add an item to the cart from the filtered results.",
+    "category": "Canteen Express Food Ordering",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /canteen"
+      },
+      {
+        "type": "action",
+        "description": "Filter the menu by a category"
+      },
+      {
+        "type": "action",
+        "description": "Add a menu item to the cart"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the cart contains an item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the filtered menu results remain visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC007",
+    "title": "Choose merch size and complete checkout from the cart",
+    "description": "Verifies that a user can select a product size, add the item to the cart, open the cart, and finish checkout.",
+    "category": "Collegiate Merch",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /merch"
+      },
+      {
+        "type": "action",
+        "description": "Select a product size"
+      },
+      {
+        "type": "action",
+        "description": "Add the product to the cart"
+      },
+      {
+        "type": "action",
+        "description": "Open the cart panel"
+      },
+      {
+        "type": "action",
+        "description": "Checkout the cart"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the checkout confirmation is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the cart is empty or cleared after checkout"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC008",
+    "title": "Submit a print job and receive a pickup PIN",
+    "description": "Verifies that a user can complete a print submission and see the generated pickup PIN confirmation.",
+    "category": "Print Hub",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /print"
+      },
+      {
+        "type": "action",
+        "description": "Select a print shop"
+      },
+      {
+        "type": "action",
+        "description": "Configure the print options"
+      },
+      {
+        "type": "action",
+        "description": "Submit the print job"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a pickup PIN confirmation is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the print submission summary is visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC009",
+    "title": "Open the print hub and start a print submission",
+    "description": "Verifies that a user can enter the print hub and begin configuring a document print submission.",
+    "category": "Print Hub",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /print"
+      },
+      {
+        "type": "action",
+        "description": "Select a print shop"
+      },
+      {
+        "type": "action",
+        "description": "Configure the page count and print options"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify print submission controls are visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a print configuration summary is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC010",
+    "title": "Book the opposite shuttle route with a different seat",
+    "description": "Verifies that a user can switch to the opposite campus route, choose another available seat, and generate a valid ticket.",
+    "category": "Campus Shuttle Booking",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /shuttle"
+      },
+      {
+        "type": "action",
+        "description": "Select the opposite campus route"
+      },
+      {
+        "type": "action",
+        "description": "Select a different available seat"
+      },
+      {
+        "type": "action",
+        "description": "Book the shuttle pass"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the boarding pass ticket is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the ticket reflects the selected route"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC011",
+    "title": "View dashboard service shortcuts for the active campus",
+    "description": "Verifies that the dashboard shows the expected service shortcuts and trackers for the current campus context.",
+    "category": "Campus Hub Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the dashboard landing content is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify active shuttle and canteen tracker information is visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC012",
+    "title": "Browse merch by organization and mark a product as favorite",
+    "description": "This test verifies that a user can filter merchandise by organization and favorite a product while browsing the catalog.",
+    "category": "Merch Catalog Shopping",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /merch"
+      },
+      {
+        "type": "action",
+        "description": "Filter products by an organization"
+      },
+      {
+        "type": "action",
+        "description": "Open a product from the filtered results"
+      },
+      {
+        "type": "action",
+        "description": "Mark the product as a favorite"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the filtered merchandise results are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the product is saved as a favorite"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC013",
+    "title": "Continue canteen order tracking after checkout",
+    "description": "Verifies that after checkout a user can view the live tracking page for the placed canteen order.",
+    "category": "Canteen Express Food Ordering",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /canteen"
+      },
+      {
+        "type": "action",
+        "description": "Add a menu item to the cart"
+      },
+      {
+        "type": "action",
+        "description": "Checkout the order"
+      },
+      {
+        "type": "action",
+        "description": "Open the order tracker view"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the live order tracker is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the order progress stages are visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC014",
+    "title": "Update merch cart contents before checkout",
+    "description": "This test verifies that a user can add merch to the cart, adjust the cart contents, and still proceed to checkout successfully.",
+    "category": "Merch Catalog Shopping",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /merch"
+      },
+      {
+        "type": "action",
+        "description": "Select a product from the catalog"
+      },
+      {
+        "type": "action",
+        "description": "Choose a size for the product"
+      },
+      {
+        "type": "action",
+        "description": "Add the item to the cart"
+      },
+      {
+        "type": "action",
+        "description": "Open the cart view"
+      },
+      {
+        "type": "action",
+        "description": "Adjust the cart contents before checkout"
+      },
+      {
+        "type": "action",
+        "description": "Complete checkout"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the cart review is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a checkout confirmation is visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC015",
+    "title": "Change print settings before submitting a document",
+    "description": "This test verifies that a user can update print options before submission and still complete the print flow successfully.",
+    "category": "Print Hub Document Processing",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /print"
+      },
+      {
+        "type": "action",
+        "description": "Select a print shop"
+      },
+      {
+        "type": "action",
+        "description": "Configure the number of pages for the print job"
+      },
+      {
+        "type": "action",
+        "description": "Choose one set of valid print options for color and sidedness"
+      },
+      {
+        "type": "action",
+        "description": "Change the print options to a different valid combination"
+      },
+      {
+        "type": "action",
+        "description": "Submit the document for printing"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a successful submission confirmation is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify pickup details are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC016",
+    "title": "Browse merch by organization and save a favorite product",
+    "description": "Verifies that a user can filter merchandise by organization and mark a product as a favorite.",
+    "category": "Collegiate Merch",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /merch"
+      },
+      {
+        "type": "action",
+        "description": "Filter merchandise by organization"
+      },
+      {
+        "type": "action",
+        "description": "Favorite a product"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the filtered product list is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the product is marked as a favorite"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC017",
+    "title": "Use a different print shop for a new submission",
+    "description": "This test verifies that a user can switch to another print shop and still submit a print job successfully.",
+    "category": "Print Hub Document Processing",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /print"
+      },
+      {
+        "type": "action",
+        "description": "Select a print shop"
+      },
+      {
+        "type": "action",
+        "description": "Change to a different print shop"
+      },
+      {
+        "type": "action",
+        "description": "Configure the number of pages for the print job"
+      },
+      {
+        "type": "action",
+        "description": "Choose valid print options for color and sidedness"
+      },
+      {
+        "type": "action",
+        "description": "Submit the document for printing"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the selected print shop is reflected in the confirmation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a pickup PIN confirmation is visible"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC018",
+    "title": "See validation when submitting an incomplete print job",
+    "description": "This test verifies that required print settings must be completed before submission and that validation is shown instead of a confirmation.",
+    "category": "Print Hub Document Processing",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /print"
+      },
+      {
+        "type": "action",
+        "description": "Select a print shop"
+      },
+      {
+        "type": "action",
+        "description": "Attempt to submit the document without completing the remaining print settings"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a print validation error is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify pickup details are not displayed"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC019",
+    "title": "Handle an empty merch filter result",
+    "description": "Verifies that filtering merchandise to a category or organization with no items shows an empty state instead of products.",
+    "category": "Collegiate Merch",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /merch"
+      },
+      {
+        "type": "action",
+        "description": "Apply a filter that yields no merchandise items"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an empty state message is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify no products are displayed"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC020",
+    "title": "See merch empty-state guidance when no products match a filter",
+    "description": "This test verifies that filtering merchandise to a category with no matches shows an empty state instead of products.",
+    "category": "Merch Catalog Shopping",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /merch"
+      },
+      {
+        "type": "action",
+        "description": "Filter products by an organization with no matching products"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an empty state message is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify no merch products are displayed"
+      }
+    ],
+    "priority": "Low"
+  }
+]

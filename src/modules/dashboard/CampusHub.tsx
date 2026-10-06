@@ -37,6 +37,7 @@ export default function CampusHub() {
   if (canteenOrder) activeTrackers.push({ type: 'canteen', data: canteenOrder });
 
   const [trackerIndex, setTrackerIndex] = useState(0);
+  const [showCampusDropdown, setShowCampusDropdown] = useState(false);
   const currentTracker = activeTrackers.length > 0 ? activeTrackers[trackerIndex % activeTrackers.length] : null;
 
   return (
@@ -86,11 +87,21 @@ export default function CampusHub() {
           {/* Explicit Campus Selector (as requested by Business Logic Hooks) */}
           <Pressable 
             style={styles.campusSelector}
-            onPress={() => setActiveCampus(activeCampus === 'TSU Main Campus' ? 'TSU Lucinda Campus' : 'TSU Main Campus')}
+            onPress={() => setShowCampusDropdown(!showCampusDropdown)}
           >
             <Text style={styles.campusSelectorText}>{activeCampus}</Text>
             <ChevronDown size={16} color="#800000" />
           </Pressable>
+          {showCampusDropdown && (
+            <View style={{ backgroundColor: '#FFF', position: 'absolute', top: 120, left: 16, zIndex: 50, elevation: 5, borderWidth: 1, borderColor: '#E2E8F0', borderRadius: 8 }}>
+              <Pressable style={{ padding: 12, borderBottomWidth: 1, borderBottomColor: '#E2E8F0' }} onPress={() => { setActiveCampus('TSU Main Campus'); setShowCampusDropdown(false); }}>
+                <Text style={{ fontFamily: 'Manrope_600SemiBold', fontSize: 13, color: '#1B2336' }}>TSU Main Campus</Text>
+              </Pressable>
+              <Pressable style={{ padding: 12 }} onPress={() => { setActiveCampus('TSU Lucinda Campus'); setShowCampusDropdown(false); }}>
+                <Text style={{ fontFamily: 'Manrope_600SemiBold', fontSize: 13, color: '#1B2336' }}>TSU Lucinda Campus</Text>
+              </Pressable>
+            </View>
+          )}
         </View>
 
         {/* Quick E-Wallet & Billing Balance Card */}
