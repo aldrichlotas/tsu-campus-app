@@ -131,6 +131,7 @@ export default function MerchCatalog() {
     : PRODUCTS.filter(prod => prod.org.toLowerCase().includes(activeOrg.toLowerCase()) || (activeOrg === 'jpia' && (prod.org === 'ESSENTIAL' || prod.org.includes('BUNDLE') || prod.org === 'CUSTOM' || prod.org === '3 COLORS')));
 
   const [orderSuccess, setOrderSuccess] = useState(false);
+  const [lastOrder, setLastOrder] = useState<any[]>([]);
 
   const handleCheckout = () => {
     if (merchCart.length === 0) return;
@@ -138,8 +139,10 @@ export default function MerchCatalog() {
       Alert.alert('Insufficient Balance', 'Insufficient Ledger Balance');
       return;
     }
+    const currentOrder = [...merchCart];
     const success = checkoutMerch('Student Account Ledger');
     if (success) {
+      setLastOrder(currentOrder);
       setShowCart(false);
       setOrderSuccess(true);
     }
@@ -562,7 +565,7 @@ export default function MerchCatalog() {
               </View>
             </ScrollView>
             <View style={styles.sheetFooter}>
-              <Pressable style={styles.primaryCta} onPress={handleCheckout}>
+              <Pressable style={[styles.primaryCta, merchCart.length === 0 && {opacity: 0.5}]} onPress={handleCheckout} disabled={merchCart.length === 0}>
                 <Text style={styles.primaryCtaText}>Confirm & Pay ₱{cartTotal.toFixed(2)}</Text>
               </Pressable>
             </View>
@@ -579,6 +582,16 @@ export default function MerchCatalog() {
             <Text style={{ fontFamily: 'Manrope_500Medium', fontSize: 14, color: '#7A7A7A', textAlign: 'center', marginBottom: 24 }}>
               Your merchandise pre-order has been placed successfully.
             </Text>
+            
+            <View style={{ width: '100%', marginBottom: 24, padding: 16, backgroundColor: '#F4F5F7', borderRadius: 8 }}>
+              {lastOrder.map((item, idx) => (
+                <View key={idx} style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 }}>
+                  <Text style={{ fontFamily: 'Manrope_600SemiBold', fontSize: 13, color: '#1B2336', flex: 1, paddingRight: 8 }}>{item.quantity}x {item.name} ({item.size})</Text>
+                  <Text style={{ fontFamily: 'Manrope_700Bold', fontSize: 13, color: '#800000' }}>₱{(item.price * item.quantity).toFixed(2)}</Text>
+                </View>
+              ))}
+            </View>
+
             <Pressable 
               style={[styles.primaryCta, { width: '100%' }]} 
               onPress={() => setOrderSuccess(false)}

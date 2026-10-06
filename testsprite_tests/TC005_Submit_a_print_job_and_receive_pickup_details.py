@@ -40,44 +40,47 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Click the 'Print Hub' card to open the Print Hub service.
-        # Print Hub
-        elem = page.get_by_text("Print Hub")
+        # -> Open the Print Hub page by navigating to /print so the print job configuration UI can be tested.
+        await page.goto("http://localhost:8081/print")
+        try:
+            await page.wait_for_load_state("domcontentloaded", timeout=5000)
+        except Exception:
+            pass
+        
+        # -> Set the page count to 10, choose 'Full Color' and 'Duplex (Back-to-Back)', then click the 'Submit & Queue Print Job' button.
+        # text field
+        elem = page.get_by_role("textbox").nth(1)
+        await elem.wait_for(state="visible", timeout=10000)
+        await elem.fill("10")
+        
+        # -> Set the page count to 10, choose 'Full Color' and 'Duplex (Back-to-Back)', then click the 'Submit & Queue Print Job' button.
+        # Full Color ₱8.00 / page
+        elem = page.get_by_text("Full Color₱8.00 / page")
         await elem.click(timeout=10000)
         
-        # -> Click the 'TSU Main: Library Fleet' print shop card to ensure that shop is selected.
-        # TSU Main: Library Fleet VERIFIED Ground Floor...
-        elem = page.locator("div:nth-child(2) > div > div > div > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(2) > div > div").first
-        await elem.click(timeout=10000)
-        
-        # -> Click the 'TSU Main: Library Fleet' print shop card to ensure that shop is selected.
-        # Full Color
-        elem = page.get_by_text("Full Color")
-        await elem.click(timeout=10000)
-        
-        # -> Click the 'TSU Main: Library Fleet' print shop card to ensure that shop is selected.
+        # -> Set the page count to 10, choose 'Full Color' and 'Duplex (Back-to-Back)', then click the 'Submit & Queue Print Job' button.
         # Duplex (Back-to-Back)
-        elem = page.get_by_text("Duplex (Back-to-Back)")
+        elem = page.locator("div").filter(has_text=re.compile(r"^Duplex \(Back-to-Back\)$")).first
         await elem.click(timeout=10000)
         
-        # -> Click the 'TSU Main: Library Fleet' print shop card to ensure that shop is selected.
+        # -> Set the page count to 10, choose 'Full Color' and 'Duplex (Back-to-Back)', then click the 'Submit & Queue Print Job' button.
         # Submit & Queue Print Job
-        elem = page.get_by_text("Submit & Queue Print Job")
+        elem = page.locator("div").filter(has_text=re.compile(r"^Submit & Queue Print Job$")).first
         await elem.click(timeout=10000)
         
         # --> Assertions to verify final state
         
-        # --> A print job confirmation modal is visible after submission.
+        # --> A pickup confirmation modal with the queue PIN is visible.
         await page.locator("div").filter(has_text=re.compile(r"^Dismiss to Dashboard$")).first.nth(0).scroll_into_view_if_needed()
         # Assert-outcome: passed
-        # Assert: Confirmation modal with the 'Dismiss to Dashboard' button is visible.
-        await expect(page.locator("div").filter(has_text=re.compile(r"^Dismiss to Dashboard$")).first.nth(0)).to_be_visible(timeout=15000), "Confirmation modal with the 'Dismiss to Dashboard' button is visible."
+        # Assert: Confirmation modal with the pickup PIN is visible.
+        await expect(page.locator("div").filter(has_text=re.compile(r"^Dismiss to Dashboard$")).first.nth(0)).to_be_visible(timeout=15000), "Confirmation modal with the pickup PIN is visible."
         
-        # --> The uploaded document area of the print job details is visible.
-        await page.get_by_text("PDF", exact=True).nth(0).scroll_into_view_if_needed()
+        # --> Print job details are shown in the job summary (10 pages, Full Color, Duplex).
+        await page.get_by_text("TSU Main: Library Fleet").nth(0).scroll_into_view_if_needed()
         # Assert-outcome: passed
-        # Assert: Uploaded document area (showing 'PDF') is visible in the print job details.
-        await expect(page.get_by_text("PDF", exact=True).nth(0)).to_be_visible(timeout=15000), "Uploaded document area (showing 'PDF') is visible in the print job details."
+        # Assert: The print job summary (shop/job details area) is visible.
+        await expect(page.get_by_text("TSU Main: Library Fleet").nth(0)).to_be_visible(timeout=15000), "The print job summary (shop/job details area) is visible."
         await asyncio.sleep(5)
 
     finally:

@@ -163,6 +163,16 @@ export const DemoProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
     }, [canteenOrder?.status]);
 
+    useEffect(() => {
+        if (activePass && activePass.ticketId === '#TSU-SHT-2026-9812') {
+            setActivePass(prev => prev ? {
+                ...prev,
+                origin: activeCampus,
+                destination: activeCampus === 'TSU Main Campus' ? 'TSU Lucinda Campus' : 'TSU Main Campus'
+            } : null);
+        }
+    }, [activeCampus]);
+
     const deductBalance = (amount: number): boolean => {
         if (balance >= amount) {
             setBalance((prev) => Number((prev - amount).toFixed(2)));

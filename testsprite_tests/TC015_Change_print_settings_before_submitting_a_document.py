@@ -40,51 +40,53 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Open the Print page by navigating to /print so the print-shop selection and print options UI can be inspected.
-        await page.goto("http://localhost:8081/print")
-        try:
-            await page.wait_for_load_state("domcontentloaded", timeout=5000)
-        except Exception:
-            pass
-        
-        # -> Select the 'TSU Lucinda: Tech Center' print shop.
-        # TSU Lucinda: Tech Center
-        elem = page.get_by_text("TSU Lucinda: Tech Center")
+        # -> Click the 'Print Hub' card to open the print partner / print options area
+        # Print Hub
+        elem = page.get_by_text("Print Hub")
         await elem.click(timeout=10000)
         
-        # -> Select the 'TSU Lucinda: Tech Center' print shop.
+        # -> Click the 'TSU Lucinda: Tech Center' print shop to select it.
+        # TSU Lucinda: Tech Center VERIFIED Open 8:00 AM...
+        elem = page.locator("div:nth-child(2) > div > div > div > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2)")
+        await elem.click(timeout=10000)
+        
+        # -> Set the page count to 10, select 'Full Color' and 'Single-Sided', then change the options to 'B&W Monochrome' and 'Duplex (Back-to-Back)'.
         # text field
         elem = page.get_by_role("textbox").nth(1)
         await elem.wait_for(state="visible", timeout=10000)
         await elem.fill("10")
         
-        # -> Select the 'TSU Lucinda: Tech Center' print shop.
+        # -> Set the page count to 10, select 'Full Color' and 'Single-Sided', then change the options to 'B&W Monochrome' and 'Duplex (Back-to-Back)'.
         # Full Color ₱8.00 / page
         elem = page.get_by_text("Full Color₱8.00 / page")
         await elem.click(timeout=10000)
         
-        # -> Click the 'B&W Monochrome' color option to change the print color mode.
-        # B&W Monochrome
-        elem = page.get_by_text("B&W Monochrome")
-        await elem.click(timeout=10000)
-        
-        # -> Click the 'Single-Sided' page sidedness option to change sidedness from Duplex to Single-Sided.
+        # -> Set the page count to 10, select 'Full Color' and 'Single-Sided', then change the options to 'B&W Monochrome' and 'Duplex (Back-to-Back)'.
         # Single-Sided
         elem = page.locator("div").filter(has_text=re.compile(r"^Single-Sided$")).first
         await elem.click(timeout=10000)
         
-        # -> Click the 'Submit & Queue Print Job' button to submit the print job and trigger the submission confirmation.
+        # -> Set the page count to 10, select 'Full Color' and 'Single-Sided', then change the options to 'B&W Monochrome' and 'Duplex (Back-to-Back)'.
+        # B&W Monochrome ₱2.00 / page
+        elem = page.get_by_text("B&W Monochrome₱2.00 / page")
+        await elem.click(timeout=10000)
+        
+        # -> Set the page count to 10, select 'Full Color' and 'Single-Sided', then change the options to 'B&W Monochrome' and 'Duplex (Back-to-Back)'.
+        # Duplex (Back-to-Back)
+        elem = page.locator("div").filter(has_text=re.compile(r"^Duplex \(Back-to-Back\)$")).first
+        await elem.click(timeout=10000)
+        
+        # -> Click the 'Submit & Queue Print Job' button to submit the print job and trigger the confirmation UI.
         # Submit & Queue Print Job
-        elem = page.locator("div").filter(has_text=re.compile(r"^Submit & Queue Print Job$")).first
+        elem = page.get_by_text("Submit & Queue Print Job")
         await elem.click(timeout=10000)
         
         # --> Assertions to verify final state
         
-        # --> A submission confirmation modal appeared and displayed the pickup details (queue PIN and estimated ready time).
-        await page.get_by_text("Dismiss to Dashboard").nth(0).scroll_into_view_if_needed()
+        # --> A submission confirmation modal is visible after submitting the print job.
         # Assert-outcome: passed
-        # Assert: Confirmation modal (contains the Dismiss to Dashboard button) is visible on the page.
-        await expect(page.get_by_text("Dismiss to Dashboard").nth(0)).to_be_visible(timeout=15000), "Confirmation modal (contains the Dismiss to Dashboard button) is visible on the page."
+        # Assert: Confirmation modal shows the 'Dismiss to Dashboard' button.
+        await expect(page.locator("xpath=/html/body/div[5]/div/div[2]/div/div/div/div/div[6]").nth(0)).to_have_text("Dismiss to Dashboard", timeout=15000), "Confirmation modal shows the 'Dismiss to Dashboard' button."
         await asyncio.sleep(5)
 
     finally:

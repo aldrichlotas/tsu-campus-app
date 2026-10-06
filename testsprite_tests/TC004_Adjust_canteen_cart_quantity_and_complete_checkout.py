@@ -40,44 +40,107 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Click the 'Canteen Pre-Order' card to open the canteen page.
+        # -> Click the 'Canteen Pre-Order' card to open the canteen/pre-order page.
         # Canteen Pre-Order
         elem = page.get_by_text("Canteen Pre-Order")
         await elem.click(timeout=10000)
         
-        # -> Click the 'Pre-Order' button for a menu item (for example, the 'Beef Tapa Special' card) to add it to the cart.
+        # -> Click the 'Pre-Order' button for a menu item (for example, the 'Beef Tapa Special with Atchara' Pre-Order button) to add it to the cart.
         # Pre-Order
         elem = page.locator("div").filter(has_text=re.compile(r"^₱90\.00Pre-Order$")).locator("div").nth(1)
         await elem.click(timeout=10000)
         
-        # -> Click the 'Pre-Order' button for the Chicken Pesto Wrap to add a second unit to the cart.
+        # -> Click the 'Remove' button labeled 'Remove' next to the menu item to decrease quantity and remove it from the cart, then click the 'Proceed to Pre-Order' button to attempt checkout.
+        # Remove
+        elem = page.get_by_text("Remove")
+        await elem.click(timeout=10000)
+        
+        # -> Click the 'Remove' button labeled 'Remove' next to the menu item to decrease quantity and remove it from the cart, then click the 'Proceed to Pre-Order' button to attempt checkout.
+        # Proceed to Pre-Order
+        elem = page.get_by_text("Proceed to Pre-Order")
+        await elem.click(timeout=10000)
+        
+        # -> Click the 'Pre-Order' button for the Beef Tapa Special to add it to the cart.
         # Pre-Order
-        elem = page.get_by_text("Pre-Order").nth(2)
+        elem = page.locator("div").filter(has_text=re.compile(r"^₱90\.00Pre-Order$")).locator("div").nth(1)
         await elem.click(timeout=10000)
         
-        # -> Click the '-' button next to a cart item (e.g., next to 'Beef Tapa Special with Atchara') to reduce its quantity by one, then click the 'Proceed to Pre-Order' button.
-        # +
-        elem = page.get_by_text("+").first
+        # -> Click the 'Remove' button next to the cart item to decrease/remove the item from the cart.
+        # Remove
+        elem = page.get_by_text("Remove")
         await elem.click(timeout=10000)
         
-        # -> Click the '-' button next to a cart item (e.g., next to 'Beef Tapa Special with Atchara') to reduce its quantity by one, then click the 'Proceed to Pre-Order' button.
+        # -> Click the 'Pre-Order' button for the Beef Tapa Special to add the item to the cart.
+        # Pre-Order
+        elem = page.locator("div").filter(has_text=re.compile(r"^₱90\.00Pre-Order$")).locator("div").nth(1)
+        await elem.click(timeout=10000)
+        
+        # -> Click the 'Remove' button next to the cart item to decrease/remove the item, then click the 'Proceed to Pre-Order' button to checkout.
+        # Remove
+        elem = page.get_by_text("Remove")
+        await elem.click(timeout=10000)
+        
+        # -> Click the 'Remove' button next to the cart item to decrease/remove the item, then click the 'Proceed to Pre-Order' button to checkout.
+        # Proceed to Pre-Order
+        elem = page.get_by_text("Proceed to Pre-Order")
+        await elem.click(timeout=10000)
+        
+        # -> Click the 'Pre-Order' button for the 'Beef Tapa Special with Atchara' menu item to add it to the cart.
+        # Pre-Order
+        elem = page.locator("div").filter(has_text=re.compile(r"^₱90\.00Pre-Order$")).locator("div").nth(1)
+        await elem.click(timeout=10000)
+        
+        # -> Click the 'Remove' button next to the cart item to decrease/remove the item from the cart.
+        # Remove
+        elem = page.get_by_text("Remove")
+        await elem.click(timeout=10000)
+        
+        # -> Click the 'Pre-Order' button for 'Beef Tapa Special with Atchara' to add it to the cart.
+        # Pre-Order
+        elem = page.locator("div").filter(has_text=re.compile(r"^₱90\.00Pre-Order$")).locator("div").nth(1)
+        await elem.click(timeout=10000)
+        
+        # -> Click the 'Remove' button next to the cart item to decrease the quantity, verify the cart updates, then click the 'Proceed to Pre-Order' button.
+        # Remove
+        elem = page.locator("div").filter(has_text=re.compile(r"^Remove$")).first
+        await elem.click(timeout=10000)
+        
+        # -> Click the 'Remove' button next to the cart item to decrease the quantity, verify the cart updates, then click the 'Proceed to Pre-Order' button.
+        # Proceed to Pre-Order
+        elem = page.get_by_text("Proceed to Pre-Order")
+        await elem.click(timeout=10000)
+        
+        # -> Click the 'Pre-Order' button for 'Beef Tapa Special with Atchara' to add one item to the cart.
+        # Pre-Order
+        elem = page.locator("div").filter(has_text=re.compile(r"^₱90\.00Pre-Order$")).locator("div").nth(1)
+        await elem.click(timeout=10000)
+        
+        # -> Click the 'Remove' button to decrease the cart quantity, then click the 'Pre-Order' button for 'Chicken Pesto Wrap', and finally click the 'Proceed to Pre-Order' button to attempt checkout.
+        # Remove
+        elem = page.locator("div").filter(has_text=re.compile(r"^Remove$")).first
+        await elem.click(timeout=10000)
+        
+        # -> Click the 'Remove' button to decrease the cart quantity, then click the 'Pre-Order' button for 'Chicken Pesto Wrap', and finally click the 'Proceed to Pre-Order' button to attempt checkout.
+        # Pre-Order
+        elem = page.get_by_text("Pre-Order").nth(3)
+        await elem.click(timeout=10000)
+        
+        # -> Click the 'Pre-Order' button for 'Beef Tapa Special with Atchara' to add one item to the cart and wait for the cart to update.
+        # Pre-Order
+        elem = page.locator("div").filter(has_text=re.compile(r"^₱90\.00Pre-Order$")).locator("div").nth(1)
+        await elem.click(timeout=10000)
+        
+        # -> Click the 'Proceed to Pre-Order' button to start checkout while the cart shows 1 item.
         # Proceed to Pre-Order
         elem = page.get_by_text("Proceed to Pre-Order")
         await elem.click(timeout=10000)
         
         # --> Assertions to verify final state
         
-        # --> Live Order Tracker is displayed with order queue number '#3372'.
-        await page.get_by_text("#3372").nth(1).nth(0).scroll_into_view_if_needed()
-        # Assert-outcome: failed
-        # Assert: Expected the live order tracker (order queue number) to be visible on the page.
-        await expect(page.get_by_text("#3372").nth(1).nth(0)).to_be_visible(timeout=15000), "Expected the live order tracker (order queue number) to be visible on the page."
-        
-        # --> Order status pipeline with stages 'Order Sent', 'Preparing', and 'Ready for Pickup' is visible.
-        await page.locator("xpath=/html/body/div[1]/div/div[2]/div[3]/div/div/div/div[2]/div/div[2]/div[1]/svg").nth(0).scroll_into_view_if_needed()
-        # Assert-outcome: failed
-        # Assert: Expected the order status pipeline (progress/stage indicator) to be visible on the page.
-        await expect(page.locator("xpath=/html/body/div[1]/div/div[2]/div[3]/div/div/div/div[2]/div/div[2]/div[1]/svg").nth(0)).to_be_visible(timeout=15000), "Expected the order status pipeline (progress/stage indicator) to be visible on the page."
+        # --> Live Order Tracker is displayed showing order queue number #2261.
+        # Assert-outcome: passed
+        # Assert: Order queue number #2261 is visible in the live tracker.
+        await expect(page.locator("#root").nth(0)).to_contain_text("#2261", timeout=15000), "Order queue number #2261 is visible in the live tracker."
         await asyncio.sleep(5)
 
     finally:

@@ -40,61 +40,27 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Click the 'TSU Main Campus' dropdown to open campus options.
+        # -> Open the campus selector labelled 'TSU Main Campus' in the header so campus options are revealed.
         # TSU Main Campus
         elem = page.get_by_text("TSU Main Campus")
         await elem.click(timeout=10000)
         
-        # -> Click the 'TSU Main Campus' dropdown to open campus options so 'Lucinda Campus' can be selected.
-        # TSU Main Campus
-        elem = page.get_by_text("TSU Main Campus").first
-        await elem.click(timeout=10000)
-        
-        # -> Open the 'TSU Main Campus' dropdown so the campus options (including 'Lucinda Campus') become visible.
-        # TSU Main Campus
-        elem = page.get_by_text("TSU Main Campus")
-        await elem.click(timeout=10000)
-        
-        # -> Open the 'TSU Main Campus' dropdown to reveal the campus options (so 'Lucinda Campus' can be selected).
-        # TSU Main Campus
-        elem = page.get_by_text("TSU Main Campus").first
-        await elem.click(timeout=10000)
-        
-        # -> Open the campus dropdown by clicking the campus label area showing 'TSU Main Campus' (the campus control container) to reveal campus options including 'Lucinda Campus'.
-        # TSU Main Campus
-        elem = page.locator("div").filter(has_text=re.compile(r"^TSU Main Campus$")).first
-        await elem.click(timeout=10000)
-        
-        # -> Click the 'Live Shuttle Pass' card (the maroon Live Shuttle Pass panel) to open its details and look for campus controls or the 'Lucinda Campus' option.
-        # Unit
-        elem = page.get_by_text("Unit")
-        await elem.click(timeout=10000)
-        
-        # -> Click the campus control container labeled 'TSU Main Campus' (the surrounding container) to open campus options so 'Lucinda Campus' can be selected.
-        # TSU Main Campus
-        elem = page.locator("div").filter(has_text=re.compile(r"^TSU Main Campus$")).first
-        await elem.click(timeout=10000)
-        
-        # -> Click the campus control container labeled 'TSU Main Campus' (the surrounding container) to open campus options so 'Lucinda Campus' can be selected.
-        # Click the campus control container labeled 'TSU Main Campus' (the surrounding container) to open campus options so 'Lucinda Campus' can be selected.
-        elem = page.locator("div:nth-child(2) > div:nth-child(2) > div").first
+        # -> Click the 'TSU Lucinda Campus' option in the Select Campus dropdown to change the active campus.
+        # TSU Lucinda Campus
+        elem = page.get_by_text("TSU Lucinda Campus")
         await elem.click(timeout=10000)
         
         # --> Assertions to verify final state
         
-        # --> The active campus did not change — the dashboard still shows 'TSU Main Campus' as the selected campus.
+        # --> The page header updated to 'TSU Lucinda Campus' after selecting that campus.
         # Assert-outcome: failed
-        # Assert: Expected the active campus label to change after selecting a different campus.
-        await expect(page.locator("xpath=/html/body/div[1]/div/div[2]/div/div/div/div/div[2]/div/div[1]/div[2]/div").nth(0)).not_to_be_visible(timeout=15000), "Expected the active campus label to change after selecting a different campus."
+        # Assert: Expected the page header to show the selected campus 'TSU Lucinda Campus'.
+        await expect(page.locator("xpath=/html/body/div[1]/div/div[2]/div/div/div/div/div[2]/div/div[1]/div[2]/div").nth(0)).to_have_text("TSU Lucinda Campus", timeout=15000), "Expected the page header to show the selected campus 'TSU Lucinda Campus'."
         
-        # --> The campus-specific tracker did not update after attempting to change campuses; the Live Service Tracking still displays the Main Campus ↔ Lucinda Campus route.
+        # --> The Live Service Tracking did not update to the selected campus and still shows a Main Campus route.
         # Assert-outcome: failed
-        # Assert: Expected the Live Service Tracking route to update to reflect the newly selected campus and not show the prior Main Campus ↔ Lucinda Campus route.
-        await expect(page.locator("xpath=/html/body/div[1]/div/div[2]/div/div/div/div/div[2]/div/div[4]/div[2]/div[1]/div[1]/div[2]/div[2]").nth(0)).not_to_be_visible(timeout=15000), "Expected the Live Service Tracking route to update to reflect the newly selected campus and not show the prior Main Campus \u2194 Lucinda Campus route."
-        
-        # --> Test blocked by environment/access constraints during agent run
-        # Reason: TEST BLOCKED The test could not be run — the UI does not expose a selectable campus option from the campus selector, so the user action to change the active campus could not be performed. Observations: - Clicking the campus selector ('TSU Main Campus' button) and its chevron did not open any campus options; repeated clicks produced no visible dropdown. - 'Lucinda Campus' text is present in the ...
-        raise AssertionError("Test blocked during agent run: " + "TEST BLOCKED The test could not be run \u2014 the UI does not expose a selectable campus option from the campus selector, so the user action to change the active campus could not be performed. Observations: - Clicking the campus selector ('TSU Main Campus' button) and its chevron did not open any campus options; repeated clicks produced no visible dropdown. - 'Lucinda Campus' text is present in the ..." + " — the exported script cannot reproduce a PASS in this environment.")
+        # Assert: Expected the Live Service Tracking to update to the selected campus (Main Campus route should no longer be visible).
+        await expect(page.locator("xpath=/html/body/div[1]/div/div[2]/div/div/div/div/div[2]/div/div[4]/div[2]/div[1]/div[1]/div[2]/div[2]").nth(0)).not_to_be_visible(timeout=15000), "Expected the Live Service Tracking to update to the selected campus (Main Campus route should no longer be visible)."
         await asyncio.sleep(5)
 
     finally:

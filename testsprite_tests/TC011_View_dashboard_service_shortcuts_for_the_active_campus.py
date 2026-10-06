@@ -42,21 +42,21 @@ async def run_test():
         
         # --> Assertions to verify final state
         
-        # --> Student account section is visible on the dashboard (Add Funds action present).
-        await page.get_by_text("Add Funds").nth(0).scroll_into_view_if_needed()
+        # --> Dashboard header 'TSU' is visible on the landing page.
+        await page.get_by_text("TSU", exact=True).nth(0).scroll_into_view_if_needed()
         # Assert-outcome: passed
-        # Assert: Verifies the student account action card (Add Funds) is visible.
-        await expect(page.get_by_text("Add Funds").nth(0)).to_be_visible(timeout=15000), "Verifies the student account action card (Add Funds) is visible."
+        # Assert: Dashboard header shows 'TSU'.
+        await expect(page.get_by_text("TSU", exact=True).nth(0)).to_be_visible(timeout=15000), "Dashboard header shows 'TSU'."
         
-        # --> Active shuttle and canteen tracker cards are visible on the dashboard.
-        await page.get_by_text("Main Campus ↔ Lucinda Campus").nth(0).scroll_into_view_if_needed()
+        # --> Active shuttle tracker is visible showing the Main Campus ↔ Lucinda Campus route.
         # Assert-outcome: passed
-        # Assert: Verifies the campus shuttle/tracker card (route info) is visible.
-        await expect(page.get_by_text("Main Campus ↔ Lucinda Campus").nth(0)).to_be_visible(timeout=15000), "Verifies the campus shuttle/tracker card (route info) is visible."
-        await page.get_by_text("Canteen Pre-Order").nth(0).scroll_into_view_if_needed()
+        # Assert: Shuttle card displays the route 'Main Campus ↔ Lucinda Campus corridor & seats.'.
+        await expect(page.locator("#root").nth(0)).to_contain_text("Main Campus \u2194 Lucinda Campus corridor & seats.", timeout=15000), "Shuttle card displays the route 'Main Campus \u2194 Lucinda Campus corridor & seats.'."
+        
+        # --> Canteen tracker/shortcut '14 Stalls' is visible on the dashboard.
         # Assert-outcome: passed
-        # Assert: Verifies the canteen pre-order tracker card is visible.
-        await expect(page.get_by_text("Canteen Pre-Order").nth(0)).to_be_visible(timeout=15000), "Verifies the canteen pre-order tracker card is visible."
+        # Assert: Canteen Pre-Order card lists '14 Stalls'.
+        await expect(page.locator("#root").nth(0)).to_contain_text("14 Stalls", timeout=15000), "Canteen Pre-Order card lists '14 Stalls'."
         await asyncio.sleep(5)
 
     finally:
