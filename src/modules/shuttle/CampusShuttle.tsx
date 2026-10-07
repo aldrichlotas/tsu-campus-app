@@ -1,13 +1,9 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Pressable, Image, Alert } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { useDemo } from '../../context/DemoContext';
-import { 
-  Bell, 
-  Bus, 
+import {
+  Bell,
+  Bus,
   CheckCircle2,
-  Clock, 
+  Clock,
   CreditCard,
   Info,
   MapPin,
@@ -16,10 +12,14 @@ import {
   X,
   Zap
 } from 'lucide-react-native';
+import { useState } from 'react';
+import { Alert, Dimensions, Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useDemo } from '../../context/DemoContext';
+
+const { width } = Dimensions.get('window');
 
 export default function CampusShuttle() {
   const router = useRouter();
-  const insets = useSafeAreaInsets();
   const { bookShuttle, balance } = useDemo();
   const [origin, setOrigin] = useState<'TSU Main Campus' | 'TSU Lucinda Campus'>('TSU Main Campus');
   const [paymentMethod, setPaymentMethod] = useState<'student-portal' | 'gcash' | 'maya'>('student-portal');
@@ -42,13 +42,13 @@ export default function CampusShuttle() {
   };
 
   return (
-    <View style={[styles.container, { paddingBottom: insets.bottom }]}>
+    <View style={styles.container}>
       {/* Header App Bar */}
-      <View style={[styles.appBar, { paddingTop: insets.top || 8, height: 56 + (insets.top || 8) }]}>
+      <View style={styles.appBar}>
         <View style={styles.headerLeft}>
-          <Image 
-            source={{ uri: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAot_ZOzjMN9c53XW5WOpsYiU-Knn3WpKMyQbhajfY5CQO29V7BSuQ30TYJ5tEjZLa8GuttXHHiQ-VMsSia4K-tTnThZ6Db_C8dDHpI9mtT2pkBdlxlV-lnORkBcoGaeXcQvv1npi2ZmL_pJ6VRBelVJf9RbEyHFItihXOtY4uL_nRVATwMjDj9fQmMtq_LYNGGrRv0jbJPShRcO8bS7j-dDGXzMGDryW4A6Yrc9dx-BLEP4SXYb8vg60iwScPpXmp6MjI' }} 
-            style={styles.logoImage} 
+          <Image
+            source={{ uri: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAot_ZOzjMN9c53XW5WOpsYiU-Knn3WpKMyQbhajfY5CQO29V7BSuQ30TYJ5tEjZLa8GuttXHHiQ-VMsSia4K-tTnThZ6Db_C8dDHpI9mtT2pkBdlxlV-lnORkBcoGaeXcQvv1npi2ZmL_pJ6VRBelVJf9RbEyHFItihXOtY4uL_nRVATwMjDj9fQmMtq_LYNGGrRv0jbJPShRcO8bS7j-dDGXzMGDryW4A6Yrc9dx-BLEP4SXYb8vg60iwScPpXmp6MjI' }}
+            style={styles.logoImage}
           />
           <View style={styles.headerTitles}>
             <Text style={styles.headerSubtitle}>Tarlac State University</Text>
@@ -61,16 +61,16 @@ export default function CampusShuttle() {
             <View style={styles.notificationDot} />
           </Pressable>
           <Pressable style={styles.profileButton}>
-            <Image 
-              source={{ uri: 'https://i.pravatar.cc/100?img=1' }} 
-              style={styles.profileImage} 
+            <Image
+              source={{ uri: 'https://i.pravatar.cc/100?img=1' }}
+              style={styles.profileImage}
             />
           </Pressable>
         </View>
       </View>
 
-      <ScrollView style={styles.mainScroll} contentContainerStyle={[styles.scrollContent, { flexGrow: 1, paddingBottom: (insets.bottom || 0) + 32 }]}>
-        
+      <ScrollView style={styles.mainScroll} contentContainerStyle={styles.scrollContent}>
+
         {/* Page Title Section */}
         <View style={styles.pageTitleSection}>
           <View style={styles.pageTitleRow}>
@@ -146,7 +146,7 @@ export default function CampusShuttle() {
                 <Text style={styles.passTimeText}>Departs in 06m 40s</Text>
               </View>
               <Text style={styles.passSeatText}>
-                Seat: <Text style={{fontWeight: '600', color: '#FFFFFF'}}>Seat #12 (Window)</Text> • Gate 3 Bay A
+                Seat: <Text style={{ fontWeight: '600', color: '#FFFFFF' }}>Seat #12 (Window)</Text> • Gate 3 Bay A
               </Text>
             </View>
             <Pressable style={styles.showQrBtn} onPress={() => setShowQR(true)}>
@@ -185,15 +185,15 @@ export default function CampusShuttle() {
               <Text style={styles.syncText}>Auto-sync 15s</Text>
             </View>
           </View>
-          
+
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.routeTabsScroll}>
-            <Pressable 
+            <Pressable
               style={[styles.routeTab, origin === 'TSU Main Campus' && styles.routeTabActive]}
               onPress={() => setOrigin('TSU Main Campus')}
             >
               <Text style={[styles.routeTabText, origin === 'TSU Main Campus' && styles.routeTabTextActive]}>Main ↔ Lucinda</Text>
             </Pressable>
-            <Pressable 
+            <Pressable
               style={[styles.routeTab, origin === 'TSU Lucinda Campus' && styles.routeTabActive]}
               onPress={() => setOrigin('TSU Lucinda Campus')}
             >
@@ -232,7 +232,7 @@ export default function CampusShuttle() {
                 <MapPin size={16} color="#800000" />
                 <Text style={styles.unitLocText}>Main Student Center</Text>
               </View>
-              <Text style={styles.unitEtdText}>ETD: <Text style={{fontWeight: '700', color: '#222222'}}>10:15 AM</Text></Text>
+              <Text style={styles.unitEtdText}>ETD: <Text style={{ fontWeight: '700', color: '#222222' }}>10:15 AM</Text></Text>
             </View>
             <View style={styles.unitProgressRow}>
               <View style={styles.progressBarBg}>
@@ -269,7 +269,7 @@ export default function CampusShuttle() {
                 <MapPin size={16} color="#800000" />
                 <Text style={styles.unitLocText}>Science & Tech Complex</Text>
               </View>
-              <Text style={styles.unitEtdText}>ETD: <Text style={{fontWeight: '700', color: '#222222'}}>10:25 AM</Text></Text>
+              <Text style={styles.unitEtdText}>ETD: <Text style={{ fontWeight: '700', color: '#222222' }}>10:25 AM</Text></Text>
             </View>
             <View style={styles.unitProgressRow}>
               <View style={styles.progressBarBg}>
@@ -294,7 +294,7 @@ export default function CampusShuttle() {
               <Text style={styles.bookingFareVal}>₱25.00</Text>
             </View>
           </View>
-          
+
           <View style={styles.bookingWarningBox}>
             <Info size={18} color="#92400e" />
             <Text style={styles.bookingWarningText}>
@@ -338,7 +338,7 @@ export default function CampusShuttle() {
           <Text style={styles.methodTitle}>SELECT CASHLESS METHOD</Text>
 
           <View style={styles.methodsList}>
-            <Pressable 
+            <Pressable
               style={[styles.methodCard, paymentMethod === 'student-portal' && styles.methodCardActive]}
               onPress={() => setPaymentMethod('student-portal')}
             >
@@ -356,7 +356,7 @@ export default function CampusShuttle() {
               </View>
             </Pressable>
 
-            <Pressable 
+            <Pressable
               style={[styles.methodCard, paymentMethod === 'gcash' && styles.methodCardActive]}
               onPress={() => setPaymentMethod('gcash')}
             >
@@ -365,14 +365,14 @@ export default function CampusShuttle() {
                   {paymentMethod === 'gcash' && <View style={styles.radioInner} />}
                 </View>
                 <View style={styles.ewalletRow}>
-                  <View style={[styles.ewalletDot, {backgroundColor: '#005CEE'}]} />
+                  <View style={[styles.ewalletDot, { backgroundColor: '#005CEE' }]} />
                   <Text style={styles.methodCardTitle}>GCash E-Wallet</Text>
                 </View>
               </View>
               <Text style={styles.linkedText}>Linked</Text>
             </Pressable>
 
-            <Pressable 
+            <Pressable
               style={[styles.methodCard, paymentMethod === 'maya' && styles.methodCardActive]}
               onPress={() => setPaymentMethod('maya')}
             >
@@ -381,7 +381,7 @@ export default function CampusShuttle() {
                   {paymentMethod === 'maya' && <View style={styles.radioInner} />}
                 </View>
                 <View style={styles.ewalletRow}>
-                  <View style={[styles.ewalletDot, {backgroundColor: '#20B259'}]} />
+                  <View style={[styles.ewalletDot, { backgroundColor: '#20B259' }]} />
                   <Text style={styles.methodCardTitle}>Maya E-Wallet</Text>
                 </View>
               </View>
@@ -408,6 +408,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F4F5F7',
   },
   appBar: {
+    height: 64,
     backgroundColor: 'rgba(255, 255, 255, 0.95)',
     borderBottomWidth: 1,
     borderBottomColor: '#E2E5EB',
@@ -415,6 +416,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
+    paddingTop: 8,
   },
   headerLeft: {
     flexDirection: 'row',

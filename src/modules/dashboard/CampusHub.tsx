@@ -1,27 +1,27 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Pressable, Image, Modal } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { useDemo } from '../../context/DemoContext';
-import { 
-  Bell, 
-  PlusCircle, 
-  ChevronLeft, 
-  ChevronRight, 
-  Bus, 
-  Utensils, 
-  Printer, 
-  ShoppingBag,
-  Megaphone,
-  Zap,
+import {
   Award,
+  Bell,
+  Bus,
   ChevronDown,
-  QrCode
+  ChevronLeft,
+  ChevronRight,
+  Megaphone,
+  PlusCircle,
+  Printer,
+  QrCode,
+  ShoppingBag,
+  Utensils,
+  Zap
 } from 'lucide-react-native';
+import { useState } from 'react';
+import { Dimensions, Image, Modal, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useDemo } from '../../context/DemoContext';
+
+const { width } = Dimensions.get('window');
 
 export default function CampusHub() {
   const router = useRouter();
-  const insets = useSafeAreaInsets();
   const {
     studentName,
     studentId,
@@ -41,9 +41,9 @@ export default function CampusHub() {
   const currentTracker = activeTrackers.length > 0 ? activeTrackers[trackerIndex % activeTrackers.length] : null;
 
   return (
-    <View style={[styles.container, { paddingBottom: insets.bottom }]}>
-      {/* Header (Top App Bar - Dynamic Padding) */}
-      <View style={[styles.appBar, { paddingTop: insets.top || 8, height: 56 + (insets.top || 8) }]}>
+    <View style={styles.container}>
+      {/* Header (Top App Bar - Fixed 64px) */}
+      <View style={styles.appBar}>
         <View style={styles.headerLeft}>
           <View style={styles.logoPlaceholder}>
             <Text style={styles.logoText}>TSU</Text>
@@ -56,16 +56,16 @@ export default function CampusHub() {
             <View style={styles.notificationDot} />
           </Pressable>
           <Pressable style={styles.profileButton}>
-            <Image 
-              source={{ uri: 'https://i.pravatar.cc/100' }} 
-              style={styles.profileImage} 
+            <Image
+              source={{ uri: 'https://i.pravatar.cc/100' }}
+              style={styles.profileImage}
             />
           </Pressable>
         </View>
       </View>
 
-      <ScrollView style={styles.mainScroll} contentContainerStyle={[styles.scrollContent, { flexGrow: 1, paddingBottom: (insets.bottom || 0) + 32 }]}>
-        
+      <ScrollView style={styles.mainScroll} contentContainerStyle={styles.scrollContent}>
+
         {/* Top Greeting & Identity Section */}
         <View style={styles.greetingSection}>
           <View style={styles.greetingRow}>
@@ -85,14 +85,14 @@ export default function CampusHub() {
           </View>
 
           {/* Explicit Campus Selector (as requested by Business Logic Hooks) */}
-          <Pressable 
+          <Pressable
             style={styles.campusSelector}
             onPress={() => setShowCampusDropdown(true)}
           >
             <Text style={styles.campusSelectorText}>{activeCampus}</Text>
             <ChevronDown size={16} color="#800000" />
           </Pressable>
-          
+
           {/* Campus Selector Dropdown Modal */}
           <Modal visible={showCampusDropdown} transparent animationType="fade">
             <Pressable style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.3)' }} onPress={() => setShowCampusDropdown(false)}>
@@ -100,14 +100,14 @@ export default function CampusHub() {
                 <View style={{ padding: 16, backgroundColor: '#800000' }}>
                   <Text style={{ fontFamily: 'Manrope_700Bold', color: '#FFF', fontSize: 16 }}>Select Campus</Text>
                 </View>
-                <Pressable 
-                  style={{ padding: 16, borderBottomWidth: 1, borderBottomColor: '#E2E8F0' }} 
+                <Pressable
+                  style={{ padding: 16, borderBottomWidth: 1, borderBottomColor: '#E2E8F0' }}
                   onPress={() => { setActiveCampus('TSU Main Campus'); setShowCampusDropdown(false); }}
                 >
                   <Text style={{ fontFamily: 'Manrope_600SemiBold', fontSize: 15, color: activeCampus === 'TSU Main Campus' ? '#800000' : '#1B2336' }}>TSU Main Campus</Text>
                 </Pressable>
-                <Pressable 
-                  style={{ padding: 16 }} 
+                <Pressable
+                  style={{ padding: 16 }}
                   onPress={() => { setActiveCampus('TSU Lucinda Campus'); setShowCampusDropdown(false); }}
                 >
                   <Text style={{ fontFamily: 'Manrope_600SemiBold', fontSize: 15, color: activeCampus === 'TSU Lucinda Campus' ? '#800000' : '#1B2336' }}>TSU Lucinda Campus</Text>
@@ -132,15 +132,15 @@ export default function CampusHub() {
               <Text style={styles.addFundsText}>Add Funds</Text>
             </Pressable>
           </View>
-          
+
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.walletScroll}>
             <View style={styles.walletPill}>
-              <View style={[styles.walletDot, {backgroundColor: '#005CEE'}]} />
+              <View style={[styles.walletDot, { backgroundColor: '#005CEE' }]} />
               <Text style={styles.walletLabel}>GCash</Text>
               <Text style={styles.walletBalance}>₱820.50</Text>
             </View>
             <View style={styles.walletPill}>
-              <View style={[styles.walletDot, {backgroundColor: '#20B259'}]} />
+              <View style={[styles.walletDot, { backgroundColor: '#20B259' }]} />
               <Text style={styles.walletLabel}>Maya</Text>
               <Text style={styles.walletBalance}>₱350.00</Text>
             </View>
@@ -152,85 +152,85 @@ export default function CampusHub() {
 
         {/* Interactive Active Live Status Tracker Carousel */}
         {activeTrackers.length > 0 && (
-        <View style={styles.trackerSection}>
-          <View style={styles.sectionHeader}>
-            <View style={styles.sectionTitleRow}>
-              <Zap size={18} color="#800000" />
-              <Text style={styles.sectionTitle}>Live Service Tracking</Text>
+          <View style={styles.trackerSection}>
+            <View style={styles.sectionHeader}>
+              <View style={styles.sectionTitleRow}>
+                <Zap size={18} color="#800000" />
+                <Text style={styles.sectionTitle}>Live Service Tracking</Text>
+              </View>
+              {activeTrackers.length > 1 && (
+                <View style={styles.carouselControls}>
+                  <Pressable style={styles.carouselBtn} onPress={() => setTrackerIndex((prev) => (prev === 0 ? activeTrackers.length - 1 : prev - 1))}>
+                    <ChevronLeft size={14} color="#1B2336" />
+                  </Pressable>
+                  <Text style={styles.carouselIndex}>{(trackerIndex % activeTrackers.length) + 1}/{activeTrackers.length}</Text>
+                  <Pressable style={styles.carouselBtn} onPress={() => setTrackerIndex((prev) => (prev + 1) % activeTrackers.length)}>
+                    <ChevronRight size={14} color="#1B2336" />
+                  </Pressable>
+                </View>
+              )}
             </View>
-            {activeTrackers.length > 1 && (
-            <View style={styles.carouselControls}>
-              <Pressable style={styles.carouselBtn} onPress={() => setTrackerIndex((prev) => (prev === 0 ? activeTrackers.length - 1 : prev - 1))}>
-                <ChevronLeft size={14} color="#1B2336" />
-              </Pressable>
-              <Text style={styles.carouselIndex}>{(trackerIndex % activeTrackers.length) + 1}/{activeTrackers.length}</Text>
-              <Pressable style={styles.carouselBtn} onPress={() => setTrackerIndex((prev) => (prev + 1) % activeTrackers.length)}>
-                <ChevronRight size={14} color="#1B2336" />
-              </Pressable>
-            </View>
-            )}
-          </View>
 
-          <View style={styles.carouselContainer}>
-            {currentTracker?.type === 'shuttle' && (
-              <View style={styles.trackerCardActive}>
-                <View style={styles.trackerCardHeader}>
-                  <View style={styles.trackerLiveBadge}>
-                    <View style={styles.trackerLiveDot} />
-                    <Text style={styles.trackerLiveText}>Live Shuttle Pass</Text>
+            <View style={styles.carouselContainer}>
+              {currentTracker?.type === 'shuttle' && (
+                <View style={styles.trackerCardActive}>
+                  <View style={styles.trackerCardHeader}>
+                    <View style={styles.trackerLiveBadge}>
+                      <View style={styles.trackerLiveDot} />
+                      <Text style={styles.trackerLiveText}>Live Shuttle Pass</Text>
+                    </View>
+                    <Text style={styles.trackerUnit}>{activePass?.unit.split(' ')[0]}</Text>
                   </View>
-                  <Text style={styles.trackerUnit}>{activePass?.unit.split(' ')[0]}</Text>
+                  <View style={styles.trackerCardBody}>
+                    <View style={styles.trackerCardInfo}>
+                      <Text style={styles.trackerCardTitle}>{activePass?.origin.replace('TSU ', '')} → {activePass?.destination.replace('TSU ', '')}</Text>
+                      <Text style={styles.trackerCardSubtitle}>{activePass?.seat} • {activePass?.lane}</Text>
+                    </View>
+                    <View style={styles.trackerCardTime}>
+                      <Text style={styles.trackerCardTimeVal}>8m</Text>
+                      <Text style={styles.trackerCardTimeLbl}>Departure</Text>
+                    </View>
+                  </View>
+                  <Pressable style={styles.trackerCardFooter} onPress={() => router.push('/shuttle/ticket')}>
+                    <View style={styles.trackerCardFooterRow}>
+                      <QrCode size={16} color="#FFC632" />
+                      <Text style={styles.trackerCardFooterText}>Tap to view boarding pass & QR</Text>
+                    </View>
+                    <ChevronRight size={18} color="#FFC632" />
+                  </Pressable>
                 </View>
-                <View style={styles.trackerCardBody}>
-                  <View style={styles.trackerCardInfo}>
-                    <Text style={styles.trackerCardTitle}>{activePass?.origin.replace('TSU ', '')} → {activePass?.destination.replace('TSU ', '')}</Text>
-                    <Text style={styles.trackerCardSubtitle}>{activePass?.seat} • {activePass?.lane}</Text>
+              )}
+
+              {currentTracker?.type === 'canteen' && (
+                <View style={styles.trackerCardSecondary}>
+                  <View style={styles.trackerCardHeader}>
+                    <View style={[styles.trackerPrepBadge, canteenOrder?.status === 'Ready for Pickup' && { backgroundColor: '#ECFDF5', borderColor: '#A7F3D0' }]}>
+                      <View style={[styles.trackerPrepDot, canteenOrder?.status === 'Ready for Pickup' && { backgroundColor: '#10B981' }]} />
+                      <Text style={[styles.trackerPrepText, canteenOrder?.status === 'Ready for Pickup' && { color: '#065F46' }]}>{canteenOrder?.status}</Text>
+                    </View>
+                    <Text style={styles.trackerOrder}>Order {canteenOrder?.orderId}</Text>
                   </View>
-                  <View style={styles.trackerCardTime}>
-                    <Text style={styles.trackerCardTimeVal}>8m</Text>
-                    <Text style={styles.trackerCardTimeLbl}>Departure</Text>
+                  <View style={styles.trackerCardBody}>
+                    <View style={styles.trackerCardInfo}>
+                      <Text style={styles.trackerCardTitleDark} numberOfLines={1}>{canteenOrder?.stall}</Text>
+                      <Text style={styles.trackerCardSubtitleDark} numberOfLines={1}>{canteenOrder?.items.map(i => i.name).join(', ')}</Text>
+                    </View>
+                    <View style={styles.trackerCardTime}>
+                      <Text style={styles.trackerCardTimeValDark}>{canteenOrder?.status === 'Ready for Pickup' ? '0m' : '12m'}</Text>
+                      <Text style={styles.trackerCardTimeLblDark}>Est. Pickup</Text>
+                    </View>
                   </View>
+                  <Pressable style={styles.trackerCardFooterSecondary} onPress={() => router.push('/canteen/tracker')}>
+                    <View style={styles.trackerCardFooterRow}>
+                      <Utensils size={16} color="#800000" />
+                      <Text style={styles.trackerCardFooterTextDark}>Present token at window counter</Text>
+                    </View>
+                    <ChevronRight size={18} color="#7A7A7A" />
+                  </Pressable>
                 </View>
-                <Pressable style={styles.trackerCardFooter} onPress={() => router.push('/shuttle/ticket')}>
-                  <View style={styles.trackerCardFooterRow}>
-                    <QrCode size={16} color="#FFC632" />
-                    <Text style={styles.trackerCardFooterText}>Tap to view boarding pass & QR</Text>
-                  </View>
-                  <ChevronRight size={18} color="#FFC632" />
-                </Pressable>
-              </View>
-            )}
-            
-            {currentTracker?.type === 'canteen' && (
-              <View style={styles.trackerCardSecondary}>
-                <View style={styles.trackerCardHeader}>
-                  <View style={[styles.trackerPrepBadge, canteenOrder?.status === 'Ready for Pickup' && { backgroundColor: '#ECFDF5', borderColor: '#A7F3D0' }]}>
-                    <View style={[styles.trackerPrepDot, canteenOrder?.status === 'Ready for Pickup' && { backgroundColor: '#10B981' }]} />
-                    <Text style={[styles.trackerPrepText, canteenOrder?.status === 'Ready for Pickup' && { color: '#065F46' }]}>{canteenOrder?.status}</Text>
-                  </View>
-                  <Text style={styles.trackerOrder}>Order {canteenOrder?.orderId}</Text>
-                </View>
-                <View style={styles.trackerCardBody}>
-                  <View style={styles.trackerCardInfo}>
-                    <Text style={styles.trackerCardTitleDark} numberOfLines={1}>{canteenOrder?.stall}</Text>
-                    <Text style={styles.trackerCardSubtitleDark} numberOfLines={1}>{canteenOrder?.items.map(i => i.name).join(', ')}</Text>
-                  </View>
-                  <View style={styles.trackerCardTime}>
-                    <Text style={styles.trackerCardTimeValDark}>{canteenOrder?.status === 'Ready for Pickup' ? '0m' : '12m'}</Text>
-                    <Text style={styles.trackerCardTimeLblDark}>Est. Pickup</Text>
-                  </View>
-                </View>
-                <Pressable style={styles.trackerCardFooterSecondary} onPress={() => router.push('/canteen/tracker')}>
-                  <View style={styles.trackerCardFooterRow}>
-                    <Utensils size={16} color="#800000" />
-                    <Text style={styles.trackerCardFooterTextDark}>Present token at window counter</Text>
-                  </View>
-                  <ChevronRight size={18} color="#7A7A7A" />
-                </Pressable>
-              </View>
-            )}
+              )}
+            </View>
           </View>
-        </View>
         )}
 
         {/* 4 Core Service Action Cards Grid (2x2 Tactile Cards) */}
@@ -246,6 +246,9 @@ export default function CampusHub() {
                 <View style={styles.gridCardHeader}>
                   <View style={[styles.gridIconBox, { backgroundColor: '#fce8e6' }]}>
                     <Bus size={20} color="#800000" />
+                  </View>
+                  <View style={styles.gridLiveBadge}>
+                    <Text style={styles.gridLiveBadgeText}>4m avg</Text>
                   </View>
                 </View>
                 <View style={styles.gridCardText}>
@@ -323,6 +326,36 @@ export default function CampusHub() {
             </Pressable>
           </View>
         </View>
+
+        {/* Campus Activity & Midterm Advisory Banner */}
+        <View style={styles.advisoryBanner}>
+          <View style={styles.advisoryIconBox}>
+            <Megaphone size={20} color="#b45309" />
+          </View>
+          <View style={styles.advisoryTextContainer}>
+            <Text style={styles.advisoryTitle}>Midterm Week Advisory</Text>
+            <Text style={styles.advisoryDesc} numberOfLines={1}>TSU print partner network open with express queues.</Text>
+            <Text style={styles.advisorySub}>Staff on-site for immediate bound document binding & release.</Text>
+          </View>
+        </View>
+
+        {/* Quick Stats Pill Strip */}
+        <View style={styles.statsStrip}>
+          <View style={styles.statsLeft}>
+            <View style={styles.statsIconBox}>
+              <Zap size={18} color="#006c4a" />
+            </View>
+            <View style={styles.statsTextContainer}>
+              <Text style={styles.statsTitle}>18 queues bypassed</Text>
+              <Text style={styles.statsSub}>~3.4 hrs saved this month</Text>
+            </View>
+          </View>
+          <View style={styles.statsBadge}>
+            <Award size={14} color="#800000" />
+            <Text style={styles.statsBadgeText}>Top 5% User</Text>
+          </View>
+        </View>
+
       </ScrollView>
     </View>
   );
@@ -334,6 +367,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F4F5F7',
   },
   appBar: {
+    height: 64,
     backgroundColor: 'rgba(255, 255, 255, 0.95)',
     borderBottomWidth: 1,
     borderBottomColor: '#E2E8F0',
@@ -341,6 +375,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
+    paddingTop: 8, // safe area padding handled by OS usually, adding slight padding here
   },
   headerLeft: {
     flexDirection: 'row',
@@ -723,7 +758,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#FFFFFF',
   },
-  
+
   trackerCardSecondary: {
     backgroundColor: '#FFFFFF',
     borderRadius: 12,
@@ -815,12 +850,10 @@ const styles = StyleSheet.create({
   grid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    rowGap: 12,
+    gap: 12,
   },
   gridCard: {
-    width: '48%',
-    height: 200,
+    width: (width - 44) / 2, // 2 cols, 16px padding each side, 12px gap
     backgroundColor: '#FFFFFF',
     borderRadius: 12,
     borderWidth: 1,
@@ -832,7 +865,6 @@ const styles = StyleSheet.create({
     elevation: 2,
     flexDirection: 'column',
     justifyContent: 'space-between',
-    overflow: 'hidden',
   },
   gridCardInner: {
     padding: 14,
@@ -867,7 +899,6 @@ const styles = StyleSheet.create({
   },
   gridCardText: {
     gap: 2,
-    flexShrink: 1,
   },
   gridCardTitle: {
     fontFamily: 'Manrope_600SemiBold',
@@ -878,7 +909,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Manrope_400Regular',
     fontSize: 12,
     color: '#444651',
-    flexShrink: 1,
   },
   gridCardFooter: {
     flexDirection: 'row',
@@ -902,4 +932,94 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#444651',
   },
+
+  advisoryBanner: {
+    flexDirection: 'row',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
+    padding: 14,
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+    gap: 12,
+    alignItems: 'center',
+  },
+  advisoryIconBox: {
+    width: 36,
+    height: 36,
+    borderRadius: 8,
+    backgroundColor: '#fef3c7',
+    borderWidth: 1,
+    borderColor: '#fde68a',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  advisoryTextContainer: {
+    flex: 1,
+  },
+  advisoryTitle: {
+    fontFamily: 'Manrope_600SemiBold',
+    fontSize: 12,
+    color: '#b45309',
+  },
+  advisoryDesc: {
+    fontFamily: 'Manrope_400Regular',
+    fontSize: 14,
+    color: '#1B2336',
+  },
+  advisorySub: {
+    fontFamily: 'Manrope_400Regular',
+    fontSize: 12,
+    color: '#444651',
+  },
+
+  statsStrip: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
+    padding: 14,
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+  },
+  statsLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  statsIconBox: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: '#ECFDF5',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  statsTextContainer: {
+    gap: 2,
+  },
+  statsTitle: {
+    fontFamily: 'Manrope_600SemiBold',
+    fontSize: 14,
+    color: '#1B2336',
+  },
+  statsSub: {
+    fontFamily: 'Manrope_400Regular',
+    fontSize: 12,
+    color: '#444651',
+  },
+  statsBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#eaedff',
+    paddingHorizontal: 10,
+    height: 28,
+    borderRadius: 14,
+    gap: 4,
+  },
+  statsBadgeText: {
+    fontFamily: 'Manrope_600SemiBold',
+    fontSize: 12,
+    color: '#800000',
+  }
 });

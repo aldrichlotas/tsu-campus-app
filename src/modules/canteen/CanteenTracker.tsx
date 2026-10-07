@@ -1,26 +1,24 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { useDemo } from '../../context/DemoContext';
-import { 
-  ArrowLeft, 
-  Check, 
-  RefreshCw,
-  ShoppingBag,
-  QrCode,
+import {
+  ArrowLeft,
+  Check,
   ChevronDown,
   ChevronUp,
-  Receipt,
-  PhoneCall,
   Clock,
-  Store,
-  MapPin
+  MapPin,
+  PhoneCall,
+  QrCode,
+  Receipt,
+  RefreshCw,
+  ShoppingBag,
+  Store
 } from 'lucide-react-native';
+import { useState } from 'react';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useDemo } from '../../context/DemoContext';
 
 export default function CanteenTracker() {
   const router = useRouter();
-  const insets = useSafeAreaInsets();
   const { canteenOrder } = useDemo();
   const [summaryOpen, setSummaryOpen] = useState(true);
 
@@ -36,15 +34,15 @@ export default function CanteenTracker() {
   }
 
   const { status, orderId, stall, campus, items, total, paymentMode } = canteenOrder;
-  
+
   const isOrderSent = status === 'Order Sent' || status === 'Preparing' || status === 'Ready for Pickup';
   const isPreparing = status === 'Preparing' || status === 'Ready for Pickup';
   const isReady = status === 'Ready for Pickup';
 
   return (
     <View style={styles.container}>
-      {/* Top App Bar (Dynamic Padding) */}
-      <View style={[styles.appBar, { paddingTop: insets.top || 8, height: 56 + (insets.top || 8) }]}>
+      {/* Top App Bar (Fixed 64px) */}
+      <View style={styles.appBar}>
         <View style={styles.appBarLeft}>
           <Pressable style={styles.backBtn} onPress={() => router.push('/canteen')}>
             <ArrowLeft size={24} color="#1B2336" />
@@ -57,8 +55,8 @@ export default function CanteenTracker() {
         </View>
       </View>
 
-      <ScrollView style={styles.mainScroll} contentContainerStyle={[styles.scrollContent, { flexGrow: 1, paddingBottom: (insets.bottom || 0) + 32 }]}>
-        
+      <ScrollView style={styles.mainScroll} contentContainerStyle={styles.scrollContent}>
+
         {/* Order Queue & Pickup QR Card */}
         <View style={styles.qrCard}>
           <View style={styles.qrHeader}>
@@ -161,7 +159,7 @@ export default function CanteenTracker() {
       </ScrollView>
 
       {/* Bottom Navigation Actions */}
-      <View style={[styles.bottomActions, { paddingBottom: Math.max(insets.bottom, 16) }]}>
+      <View style={styles.bottomActions}>
         <Pressable style={styles.homeBtn} onPress={() => router.push('/')}>
           <Text style={styles.homeBtnText}>Back to Campus Hub</Text>
         </Pressable>
@@ -181,6 +179,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F4F5F7',
   },
   appBar: {
+    height: 64,
     backgroundColor: '#FFFFFF',
     borderBottomWidth: 1,
     borderBottomColor: '#E2E5EB',
@@ -188,6 +187,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
+    paddingTop: 8,
   },
   appBarLeft: {
     flexDirection: 'row',

@@ -1,23 +1,20 @@
-import React from 'react';
-import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useDemo } from '../../context/DemoContext';
-import { 
-  ArrowLeft, 
-  Download, 
-  QrCode, 
+import { useRouter } from 'expo-router';
+import {
   AlertTriangle,
+  ArrowLeft,
   Bus,
-  CheckCircle2
+  CheckCircle2,
+  Download,
+  QrCode
 } from 'lucide-react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useDemo } from '../../context/DemoContext';
 
 export default function ShuttleTicket() {
   const router = useRouter();
-  const insets = useSafeAreaInsets();
   const { activePass, studentName } = useDemo();
-  
+
   if (!activePass) {
     return (
       <View style={[styles.container, { alignItems: 'center', justifyContent: 'center' }]}>
@@ -31,8 +28,8 @@ export default function ShuttleTicket() {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={[styles.scrollContent, { flexGrow: 1, paddingTop: Math.max(insets.top, 16), paddingBottom: (insets.bottom || 0) + 32 }]}>
-        
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+
         {/* Pass Card with Institutional Maroon Gradient */}
         <LinearGradient
           colors={['#800000', '#570000']}
@@ -95,7 +92,7 @@ export default function ShuttleTicket() {
             <AlertTriangle size={14} color="#FFC632" />
             <Text style={styles.warningText}>NON-REFUNDABLE • VALID FOR SCHEDULED TRIP ONLY</Text>
           </View>
-          
+
         </LinearGradient>
 
         {/* Actions */}
@@ -104,8 +101,8 @@ export default function ShuttleTicket() {
             <Download size={18} color="#1B2336" />
             <Text style={styles.downloadText}>Download Pass / Save to Photos</Text>
           </Pressable>
-          
-          <Pressable 
+
+          <Pressable
             style={styles.homeBtn}
             onPress={() => router.push('/')}
           >
@@ -113,7 +110,7 @@ export default function ShuttleTicket() {
             <Text style={styles.homeText}>Back to Campus Hub</Text>
           </Pressable>
         </View>
-        
+
       </ScrollView>
     </View>
   );
@@ -126,6 +123,8 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     padding: 16,
+    paddingTop: 48,
+    paddingBottom: 40,
   },
   passCard: {
     borderRadius: 20,

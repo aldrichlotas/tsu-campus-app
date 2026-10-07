@@ -1,29 +1,22 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Pressable, TextInput, Modal, SafeAreaView, Alert } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { useDemo } from '../../context/DemoContext';
-import { 
+import {
   ArrowLeft,
-  FileText,
-  UploadCloud,
-  CheckCircle2,
   Check,
+  CheckCircle2,
+  Eye,
+  FileText,
   MapPin,
-  Clock,
   Printer,
   Settings2,
-  ChevronDown,
   Trash2,
-  Eye,
-  CreditCard,
-  Banknote,
-  Send
+  UploadCloud
 } from 'lucide-react-native';
+import { useState } from 'react';
+import { Alert, Modal, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { useDemo } from '../../context/DemoContext';
 
 export default function PrintHub() {
   const router = useRouter();
-  const insets = useSafeAreaInsets();
   const { studentName, studentId, submitPrintOrder, activePrintJob, balance } = useDemo();
   const [activeHub, setActiveHub] = useState('hub-1');
   const [colorMode, setColorMode] = useState('bw');
@@ -53,8 +46,8 @@ export default function PrintHub() {
 
   return (
     <View style={styles.container}>
-      {/* Dynamic Top App Bar */}
-      <View style={[styles.appBar, { paddingTop: insets.top || 8, height: 56 + (insets.top || 8) }]}>
+      {/* 64px Top App Bar */}
+      <View style={styles.appBar}>
         <View style={styles.appBarLeft}>
           <Pressable style={styles.iconBtn} onPress={() => router.push('/')}>
             <ArrowLeft size={24} color="#1B2336" />
@@ -66,8 +59,8 @@ export default function PrintHub() {
         </Pressable>
       </View>
 
-      <ScrollView style={styles.mainScroll} contentContainerStyle={[styles.scrollContent, { flexGrow: 1, paddingBottom: (insets.bottom || 0) + 32 }]}>
-        
+      <ScrollView style={styles.mainScroll} contentContainerStyle={styles.scrollContent}>
+
         {/* Header Section */}
         <View style={styles.headerSection}>
           <View style={styles.headerLeft}>
@@ -93,7 +86,7 @@ export default function PrintHub() {
 
           <View style={styles.hubList}>
             {/* Hub 1: TSU Main */}
-            <Pressable 
+            <Pressable
               style={[styles.hubItem, activeHub === 'hub-1' && styles.hubItemActive]}
               onPress={() => setActiveHub('hub-1')}
             >
@@ -109,6 +102,9 @@ export default function PrintHub() {
                     </View>
                   </View>
                   <Text style={styles.hubItemSub}>Ground Floor East Wing • 50m away</Text>
+                  <View style={styles.hubItemStats}>
+                    <Text style={styles.statLive}>Queue: 4 jobs ahead • ~15 mins</Text>
+                  </View>
                   <Text style={styles.servicesText}>Laser • Colored • Ring Binding</Text>
                 </View>
               </View>
@@ -118,12 +114,12 @@ export default function PrintHub() {
             </Pressable>
 
             {/* Hub 2: Lucinda */}
-            <Pressable 
+            <Pressable
               style={[styles.hubItem, activeHub === 'hub-2' && styles.hubItemActive]}
               onPress={() => setActiveHub('hub-2')}
             >
               <View style={styles.hubItemLeft}>
-                <View style={[styles.hubIconBg, {backgroundColor: '#F4F5F7'}]}>
+                <View style={[styles.hubIconBg, { backgroundColor: '#F4F5F7' }]}>
                   <Printer size={18} color="#1B2336" />
                 </View>
                 <View style={styles.hubItemInfo}>
@@ -134,6 +130,9 @@ export default function PrintHub() {
                     </View>
                   </View>
                   <Text style={styles.hubItemSub}>Open 8:00 AM - 5:00 PM • 1.2km away</Text>
+                  <View style={styles.hubItemStats}>
+                    <Text style={styles.statPending}>Queue: 12 jobs ahead • ~45 mins</Text>
+                  </View>
                   <Text style={styles.servicesText}>Laser • Hardbound • Large Format</Text>
                 </View>
               </View>
@@ -152,7 +151,7 @@ export default function PrintHub() {
               <Text style={styles.cardTitle}>Document Upload</Text>
             </View>
           </View>
-          
+
           <View style={styles.dropzone}>
             <View style={styles.dropIconBox}>
               <UploadCloud size={24} color="#800000" />
@@ -207,7 +206,7 @@ export default function PrintHub() {
 
           <View style={styles.formGroup}>
             <Text style={styles.label}>SUBJECT / JOB TITLE</Text>
-            <TextInput 
+            <TextInput
               style={styles.textInput}
               placeholder="e.g. ENG101 Final Output"
               placeholderTextColor="#7A7A7A"
@@ -217,7 +216,7 @@ export default function PrintHub() {
 
           <View style={styles.formGroup}>
             <Text style={styles.label}>PAGE COUNT</Text>
-            <TextInput 
+            <TextInput
               style={styles.textInput}
               keyboardType="number-pad"
               value={pages}
@@ -228,14 +227,14 @@ export default function PrintHub() {
           <View style={styles.formGroup}>
             <Text style={styles.label}>COLOR MODE</Text>
             <View style={styles.rowGrid}>
-              <Pressable 
+              <Pressable
                 style={[styles.gridBtn, colorMode === 'bw' && styles.gridBtnActive]}
                 onPress={() => setColorMode('bw')}
               >
                 <Text style={[styles.gridBtnTitle, colorMode === 'bw' && styles.gridBtnTitleActive]}>B&W Monochrome</Text>
                 <Text style={[styles.gridBtnSub, colorMode === 'bw' && styles.gridBtnSubActive]}>₱2.00 / page</Text>
               </Pressable>
-              <Pressable 
+              <Pressable
                 style={[styles.gridBtn, colorMode === 'color' && styles.gridBtnActive]}
                 onPress={() => setColorMode('color')}
               >
@@ -248,13 +247,13 @@ export default function PrintHub() {
           <View style={styles.formGroup}>
             <Text style={styles.label}>PAGE SIDEDNESS</Text>
             <View style={styles.rowGrid}>
-              <Pressable 
+              <Pressable
                 style={[styles.gridBtn, sidedness === 'duplex' && styles.gridBtnActive]}
                 onPress={() => setSidedness('duplex')}
               >
                 <Text style={[styles.gridBtnTitle, sidedness === 'duplex' && styles.gridBtnTitleActive]}>Duplex (Back-to-Back)</Text>
               </Pressable>
-              <Pressable 
+              <Pressable
                 style={[styles.gridBtn, sidedness === 'single' && styles.gridBtnActive]}
                 onPress={() => setSidedness('single')}
               >
@@ -265,7 +264,7 @@ export default function PrintHub() {
 
           <View style={styles.formGroup}>
             <Text style={styles.label}>SPECIAL INSTRUCTIONS</Text>
-            <TextInput 
+            <TextInput
               style={[styles.textInput, styles.textArea]}
               placeholder="e.g. Ring bind, staple top left..."
               placeholderTextColor="#7A7A7A"
@@ -277,7 +276,7 @@ export default function PrintHub() {
       </ScrollView>
 
       {/* Bottom Sticky Action */}
-      <View style={[styles.bottomTray, { paddingBottom: Math.max(insets.bottom, 16) }]}>
+      <View style={styles.bottomTray}>
         <View style={styles.estimateRow}>
           <Text style={styles.estimateLabel}>Est. ₱{cost.toFixed(2)}</Text>
           <Text style={styles.estimateSub}>• Online or Cash at Counter</Text>
@@ -297,7 +296,7 @@ export default function PrintHub() {
             <Text style={styles.modalStatus}>PRINT JOB DISPATCHED</Text>
             <Text style={styles.modalTitle}>Queue PIN Ready</Text>
             <Text style={styles.modalDesc}>Present this code at the terminal</Text>
-            
+
             <View style={styles.pinBox}>
               <Text style={styles.pinText}>{activePrintJob?.pin || 'PR-492'}</Text>
               <Text style={styles.pinSub}>Est. Ready: 10:18 AM</Text>
@@ -320,6 +319,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F4F5F7',
   },
   appBar: {
+    height: 64,
     backgroundColor: '#FFFFFF',
     borderBottomWidth: 1,
     borderBottomColor: '#E2E5EB',
@@ -327,6 +327,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
+    paddingTop: 8,
   },
   appBarLeft: {
     flexDirection: 'row',
@@ -483,7 +484,19 @@ const styles = StyleSheet.create({
     color: '#4A4A4A',
     marginTop: 2,
   },
-
+  hubItemStats: {
+    marginTop: 4,
+  },
+  statLive: {
+    fontFamily: 'Manrope_600SemiBold',
+    fontSize: 11,
+    color: '#10B981',
+  },
+  statPending: {
+    fontFamily: 'Manrope_600SemiBold',
+    fontSize: 11,
+    color: '#D97706',
+  },
   servicesText: {
     fontFamily: 'Manrope_500Medium',
     fontSize: 11,

@@ -1,29 +1,27 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Pressable, Image, Modal, Alert } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { useDemo } from '../../context/DemoContext';
-import { 
+import {
   ArrowLeft,
-  ShoppingBag,
-  Store,
-  MapPin,
-  Clock,
-  Star,
-  CheckCircle2,
-  X,
-  CreditCard,
-  Banknote,
-  Heart,
-  SlidersHorizontal,
-  ArrowUpDown,
-  ShoppingCart,
-  BadgeCheck,
-  ShieldCheck,
   ArrowRight,
-  Receipt
+  ArrowUpDown,
+  BadgeCheck,
+  Banknote,
+  CreditCard,
+  Heart,
+  MapPin,
+  Receipt,
+  ShieldCheck,
+  ShoppingBag,
+  ShoppingCart,
+  SlidersHorizontal,
+  Star,
+  X
 } from 'lucide-react-native';
+import { useState } from 'react';
+import { Alert, Dimensions, Image, Modal, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useDemo } from '../../context/DemoContext';
 
+const { width } = Dimensions.get('window');
+const CARD_WIDTH = (width - 44) / 2; // 2 columns with 16px padding on sides and 12px gap
 
 const ORGS = [
   { id: 'all', name: 'All Merch' },
@@ -115,19 +113,18 @@ const SIZES = ['XS', 'S', 'M', 'L', 'XL', '2XL'];
 
 export default function MerchCatalog() {
   const router = useRouter();
-  const insets = useSafeAreaInsets();
   const { merchCart, addMerchToCart, removeMerchItem, decrementMerchItem, checkoutMerch, balance, favorites, toggleFavorite } = useDemo();
   const [activeCollege, setActiveCollege] = useState('cba');
   const [activeOrg, setActiveOrg] = useState('all');
   const [showCart, setShowCart] = useState(false);
-  
+
   const cartSubtotal = merchCart.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const cartCount = merchCart.reduce((sum, item) => sum + item.quantity, 0);
   const fee = 15.0;
   const cartTotal = cartSubtotal > 0 ? cartSubtotal + fee : 0;
-  
-  const filteredProducts = activeOrg === 'all' 
-    ? PRODUCTS 
+
+  const filteredProducts = activeOrg === 'all'
+    ? PRODUCTS
     : PRODUCTS.filter(prod => prod.org.toLowerCase().includes(activeOrg.toLowerCase()) || (activeOrg === 'jpia' && (prod.org === 'ESSENTIAL' || prod.org.includes('BUNDLE') || prod.org === 'CUSTOM' || prod.org === '3 COLORS')));
 
   const [orderSuccess, setOrderSuccess] = useState(false);
@@ -155,8 +152,8 @@ export default function MerchCatalog() {
 
   return (
     <View style={styles.container}>
-      {/* Dynamic Top App Bar */}
-      <View style={[styles.appBar, { paddingTop: insets.top || 8, height: 56 + (insets.top || 8) }]}>
+      {/* 64px Top App Bar */}
+      <View style={styles.appBar}>
         <View style={styles.appBarLeft}>
           <Pressable style={styles.iconBtn} onPress={() => router.push('/')}>
             <ArrowLeft size={24} color="#1B2336" />
@@ -173,8 +170,8 @@ export default function MerchCatalog() {
         </Pressable>
       </View>
 
-      <ScrollView style={styles.mainScroll} contentContainerStyle={[styles.scrollContent, { flexGrow: 1, paddingBottom: (insets.bottom || 0) + 120 }]}>
-        
+      <ScrollView style={styles.mainScroll} contentContainerStyle={styles.scrollContent}>
+
         {/* Sub-Header */}
         <View style={styles.subHeader}>
           <View style={styles.subHeaderLeft}>
@@ -189,40 +186,40 @@ export default function MerchCatalog() {
         {/* College Selector Bar */}
         <View style={styles.collegeSection}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.collegeScroll}>
-            <Pressable 
+            <Pressable
               style={[styles.collegeChip, activeCollege === 'cba' && styles.collegeChipActive]}
               onPress={() => setActiveCollege('cba')}
             >
-              <View style={[styles.collegeIconBg, {backgroundColor: '#222222'}]}>
-                <Text style={[styles.collegeIconText, {color: '#FFC632'}]}>BA</Text>
+              <View style={[styles.collegeIconBg, { backgroundColor: '#222222' }]}>
+                <Text style={[styles.collegeIconText, { color: '#FFC632' }]}>BA</Text>
               </View>
               <Text style={[styles.collegeText, activeCollege === 'cba' && styles.collegeTextActive]}>CBA Main</Text>
               {activeCollege === 'cba' && <View style={styles.collegeActiveDot} />}
             </Pressable>
-            <Pressable 
+            <Pressable
               style={[styles.collegeChip, activeCollege === 'coe' && styles.collegeChipActive]}
               onPress={() => setActiveCollege('coe')}
             >
-              <View style={[styles.collegeIconBg, {backgroundColor: '#FFEDD5'}]}>
-                <Text style={[styles.collegeIconText, {color: '#B45309'}]}>COE</Text>
+              <View style={[styles.collegeIconBg, { backgroundColor: '#FFEDD5' }]}>
+                <Text style={[styles.collegeIconText, { color: '#B45309' }]}>COE</Text>
               </View>
               <Text style={[styles.collegeText, activeCollege === 'coe' && styles.collegeTextActive]}>Engineering (COE)</Text>
             </Pressable>
-            <Pressable 
+            <Pressable
               style={[styles.collegeChip, activeCollege === 'ccs' && styles.collegeChipActive]}
               onPress={() => setActiveCollege('ccs')}
             >
-              <View style={[styles.collegeIconBg, {backgroundColor: '#DBEAFE'}]}>
-                <Text style={[styles.collegeIconText, {color: '#800000'}]}>CCS</Text>
+              <View style={[styles.collegeIconBg, { backgroundColor: '#DBEAFE' }]}>
+                <Text style={[styles.collegeIconText, { color: '#800000' }]}>CCS</Text>
               </View>
               <Text style={[styles.collegeText, activeCollege === 'ccs' && styles.collegeTextActive]}>Computer (CCS)</Text>
             </Pressable>
-            <Pressable 
+            <Pressable
               style={[styles.collegeChip, activeCollege === 'cass' && styles.collegeChipActive]}
               onPress={() => setActiveCollege('cass')}
             >
-              <View style={[styles.collegeIconBg, {backgroundColor: '#FCE7F3'}]}>
-                <Text style={[styles.collegeIconText, {color: '#BE185D'}]}>AS</Text>
+              <View style={[styles.collegeIconBg, { backgroundColor: '#FCE7F3' }]}>
+                <Text style={[styles.collegeIconText, { color: '#BE185D' }]}>AS</Text>
               </View>
               <Text style={[styles.collegeText, activeCollege === 'cass' && styles.collegeTextActive]}>CASS</Text>
             </Pressable>
@@ -247,6 +244,33 @@ export default function MerchCatalog() {
               );
             })}
           </ScrollView>
+        </View>
+
+        {/* Drop Notification Banner Card */}
+        <View style={styles.dropBannerContainer}>
+          <View style={styles.dropBanner}>
+            <View style={styles.dropBannerBgDeco} />
+            <View style={styles.dropBannerContent}>
+              <View style={styles.dropHeaderRow}>
+                <View style={styles.dropBadge}>
+                  <View style={styles.dropBadgeDot} />
+                  <Text style={styles.dropBadgeText}>DROP #2 PRE-ORDER</Text>
+                </View>
+                <Text style={styles.dropSubtitle}>TSU Main Gym Booth B</Text>
+              </View>
+              <Text style={styles.dropTitle}>TSU Main Campus Student Center Distribution</Text>
+              <Text style={styles.dropDesc}>
+                Claim Schedule: <Text style={styles.dropDescHighlight}>Nov 24 – 28</Text>. Bring digital QR pass.
+              </Text>
+              <View style={styles.dropFooterRow}>
+                <Text style={styles.dropTimeLimit}>Closes Nov 20, 11:59 PM</Text>
+                <Pressable style={styles.dropCta}>
+                  <Text style={styles.dropCtaText}>Claim Slot</Text>
+                  <ArrowRight size={14} color="#FFC632" />
+                </Pressable>
+              </View>
+            </View>
+          </View>
         </View>
 
         {/* Catalog Section Header */}
@@ -281,7 +305,7 @@ export default function MerchCatalog() {
                     <Text style={styles.orgTagText}>{prod.org}</Text>
                   </View>
                 </View>
-                <Pressable 
+                <Pressable
                   style={styles.favBtn}
                   onPress={() => {
                     toggleFavorite(prod.id.toString());
@@ -290,47 +314,47 @@ export default function MerchCatalog() {
                   <Heart size={14} color={favorites.includes(prod.id.toString()) ? "#800000" : "#444651"} fill={favorites.includes(prod.id.toString()) ? "#800000" : "transparent"} />
                 </Pressable>
               </View>
-              
+
               <View style={styles.productInfo}>
                 <View style={styles.ratingRow}>
                   <Star size={13} color="#FFC632" fill="#FFC632" />
                   <Text style={styles.ratingText}>{prod.rating}</Text>
                   <Text style={styles.reviewsText}>({prod.reviews})</Text>
                 </View>
-                
+
                 <Text style={styles.productTitle} numberOfLines={1}>{prod.name}</Text>
-                
+
                 <View style={styles.priceRow}>
                   <Text style={styles.productPrice}>{prod.price}</Text>
                 </View>
-                
+
                 <View style={[
-                  styles.featureTag, 
-                  prod.tag.type === 'emerald' ? styles.featureTagEmerald : 
-                  prod.tag.type === 'amber' ? styles.featureTagAmber : 
-                  styles.featureTagRose
+                  styles.featureTag,
+                  prod.tag.type === 'emerald' ? styles.featureTagEmerald :
+                    prod.tag.type === 'amber' ? styles.featureTagAmber :
+                      styles.featureTagRose
                 ]}>
-                  <BadgeCheck 
-                    size={11} 
+                  <BadgeCheck
+                    size={11}
                     color={
-                      prod.tag.type === 'emerald' ? '#047857' : 
-                      prod.tag.type === 'amber' ? '#B45309' : 
-                      '#800000'
-                    } 
+                      prod.tag.type === 'emerald' ? '#047857' :
+                        prod.tag.type === 'amber' ? '#B45309' :
+                          '#800000'
+                    }
                   />
                   <Text style={[
                     styles.featureTagText,
-                    prod.tag.type === 'emerald' ? styles.featureTagTextEmerald : 
-                    prod.tag.type === 'amber' ? styles.featureTagTextAmber : 
-                    styles.featureTagTextRose
+                    prod.tag.type === 'emerald' ? styles.featureTagTextEmerald :
+                      prod.tag.type === 'amber' ? styles.featureTagTextAmber :
+                        styles.featureTagTextRose
                   ]} numberOfLines={1}>{prod.tag.label}</Text>
                 </View>
-                
+
                 <View style={styles.descRow}>
                   <Text style={styles.descText} numberOfLines={1}>{prod.desc}</Text>
                 </View>
               </View>
-              
+
               <Pressable style={styles.addCartBtn} onPress={() => setSelectedProduct(prod)}>
                 <ShoppingCart size={15} color="#FFC632" />
                 <Text style={styles.addCartText}>Add to Cart</Text>
@@ -351,7 +375,7 @@ export default function MerchCatalog() {
                 <Text style={styles.policySubtitle}>UniPass Campus Store Service Rules</Text>
               </View>
             </View>
-            
+
             <View style={styles.policyList}>
               <View style={styles.policyItemRow}>
                 <Banknote size={18} color="#059669" />
@@ -378,7 +402,7 @@ export default function MerchCatalog() {
       </ScrollView>
 
       {/* Fixed Bottom Cart Nav */}
-      <View style={[styles.bottomCartNav, { paddingBottom: Math.max(insets.bottom, 16) }]}>
+      <View style={styles.bottomCartNav}>
         <View style={styles.bottomCartNavContent}>
           <View style={styles.bottomCartTotalBox}>
             <Text style={styles.bottomCartTotalLbl}>Subtotal (inc. ₱15 fee)</Text>
@@ -397,12 +421,12 @@ export default function MerchCatalog() {
           <View style={styles.modalOverlay}>
             <Pressable style={styles.modalBackdrop} onPress={() => setSelectedProduct(null)} />
             <View style={styles.bottomSheet}>
-              
+
               {/* Sheet Header */}
               <View style={styles.sheetHeader}>
                 <Text style={styles.sheetTitle}>Product Details</Text>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
-                  <Pressable 
+                  <Pressable
                     style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}
                     onPress={() => {
                       toggleFavorite(selectedProduct.id.toString());
@@ -429,7 +453,7 @@ export default function MerchCatalog() {
                   <Text style={styles.sheetSectionLabel}>SELECT SIZE (UNISEX)</Text>
                   <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.sizeScroll}>
                     {SIZES.map(size => (
-                      <Pressable 
+                      <Pressable
                         key={size}
                         style={[styles.sizeChip, selectedSize === size && styles.sizeChipActive]}
                         onPress={() => setSelectedSize(size)}
@@ -456,14 +480,14 @@ export default function MerchCatalog() {
                 <View style={styles.sheetSection}>
                   <Text style={styles.sheetSectionLabel}>PAYMENT MODE</Text>
                   <View style={styles.paymentGrid}>
-                    <Pressable 
+                    <Pressable
                       style={[styles.paymentBtn, paymentMode === 'online' && styles.paymentBtnActive]}
                       onPress={() => setPaymentMode('online')}
                     >
                       <CreditCard size={18} color={paymentMode === 'online' ? '#800000' : '#7A7A7A'} />
                       <Text style={[styles.paymentText, paymentMode === 'online' && styles.paymentTextActive]}>Online</Text>
                     </Pressable>
-                    <Pressable 
+                    <Pressable
                       style={[styles.paymentBtn, paymentMode === 'cash' && styles.paymentBtnActive]}
                       onPress={() => setPaymentMode('cash')}
                     >
@@ -477,8 +501,8 @@ export default function MerchCatalog() {
               </ScrollView>
 
               <View style={styles.sheetFooter}>
-                <Pressable 
-                  style={styles.primaryCta} 
+                <Pressable
+                  style={styles.primaryCta}
                   onPress={() => {
                     addMerchToCart({
                       id: selectedProduct.id.toString(),
@@ -516,13 +540,13 @@ export default function MerchCatalog() {
                   <View style={{ flex: 1 }}>
                     <Text style={{ fontFamily: 'Manrope_700Bold', fontSize: 14 }}>{item.quantity}x {item.name}</Text>
                     <Text style={{ fontFamily: 'Manrope_500Medium', fontSize: 12, color: '#7A7A7A' }}>Size: {item.size}</Text>
-                    
+
                     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, marginTop: 8, backgroundColor: '#f0eded', paddingHorizontal: 8, paddingVertical: 4, borderRadius: 8, alignSelf: 'flex-start' }}>
                       <Pressable onPress={() => decrementMerchItem(item.id, item.size!)}>
                         <Text style={{ fontSize: 14, fontFamily: 'Manrope_700Bold', color: '#800000', paddingHorizontal: 4 }}>Remove</Text>
                       </Pressable>
                       <Text style={{ fontSize: 14, fontFamily: 'Manrope_700Bold', color: '#222222' }}>{item.quantity}</Text>
-                      <Pressable onPress={() => addMerchToCart(item as any, item.size!)}>
+                      <Pressable onPress={() => addMerchToCart(item, item.size!)}>
                         <Text style={{ fontSize: 16, fontFamily: 'Manrope_700Bold', color: '#800000', paddingHorizontal: 4 }}>+</Text>
                       </Pressable>
                     </View>
@@ -545,7 +569,7 @@ export default function MerchCatalog() {
               </View>
             </ScrollView>
             <View style={styles.sheetFooter}>
-              <Pressable style={[styles.primaryCta, merchCart.length === 0 && {opacity: 0.5}]} onPress={handleCheckout} disabled={merchCart.length === 0}>
+              <Pressable style={[styles.primaryCta, merchCart.length === 0 && { opacity: 0.5 }]} onPress={handleCheckout} disabled={merchCart.length === 0}>
                 <Text style={styles.primaryCtaText}>Confirm & Pay ₱{cartTotal.toFixed(2)}</Text>
               </Pressable>
             </View>
@@ -562,7 +586,7 @@ export default function MerchCatalog() {
             <Text style={{ fontFamily: 'Manrope_500Medium', fontSize: 14, color: '#7A7A7A', textAlign: 'center', marginBottom: 24 }}>
               Your merchandise pre-order has been placed successfully.
             </Text>
-            
+
             <View style={{ width: '100%', marginBottom: 24, padding: 16, backgroundColor: '#F4F5F7', borderRadius: 8 }}>
               {lastOrder.map((item, idx) => (
                 <View key={idx} style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 }}>
@@ -572,8 +596,8 @@ export default function MerchCatalog() {
               ))}
             </View>
 
-            <Pressable 
-              style={[styles.primaryCta, { width: '100%' }]} 
+            <Pressable
+              style={[styles.primaryCta, { width: '100%' }]}
               onPress={() => setOrderSuccess(false)}
             >
               <Text style={styles.primaryCtaText}>Back to Catalog</Text>
@@ -592,6 +616,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F4F5F7',
   },
   appBar: {
+    height: 64,
     backgroundColor: '#FFFFFF',
     borderBottomWidth: 1,
     borderBottomColor: '#E2E5EB',
@@ -599,6 +624,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
+    paddingTop: 8,
   },
   appBarLeft: {
     flexDirection: 'row',
@@ -771,6 +797,101 @@ const styles = StyleSheet.create({
   orgChipTextActive: {
     color: '#FFFFFF',
   },
+  dropBannerContainer: {
+    paddingHorizontal: 16,
+    marginTop: 4,
+  },
+  dropBanner: {
+    backgroundColor: '#4A4A4A',
+    borderRadius: 12,
+    padding: 14,
+    position: 'relative',
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: '#222222',
+  },
+  dropBannerBgDeco: {
+    position: 'absolute',
+    right: -24,
+    bottom: -24,
+    width: 96,
+    height: 96,
+    borderRadius: 48,
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+  },
+  dropBannerContent: {
+    position: 'relative',
+    zIndex: 1,
+    flexDirection: 'column',
+    gap: 6,
+  },
+  dropHeaderRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  dropBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FFC632',
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: 12,
+    gap: 4,
+  },
+  dropBadgeDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: '#800000',
+  },
+  dropBadgeText: {
+    fontFamily: 'Manrope_800ExtraBold',
+    fontSize: 11,
+    color: '#222222',
+    letterSpacing: 0.5,
+  },
+  dropSubtitle: {
+    fontFamily: 'Manrope_400Regular',
+    fontSize: 12,
+    color: '#fde68a',
+  },
+  dropTitle: {
+    fontFamily: 'Manrope_600SemiBold',
+    fontSize: 14,
+    color: '#FFFFFF',
+    marginTop: 2,
+  },
+  dropDesc: {
+    fontFamily: 'Manrope_400Regular',
+    fontSize: 12,
+    color: '#E5E7EB',
+  },
+  dropDescHighlight: {
+    fontFamily: 'Manrope_600SemiBold',
+    color: '#FFC632',
+  },
+  dropFooterRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 4,
+  },
+  dropTimeLimit: {
+    fontFamily: 'Manrope_400Regular',
+    fontSize: 12,
+    color: '#D1D5DB',
+  },
+  dropCta: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 2,
+  },
+  dropCtaText: {
+    fontFamily: 'Manrope_600SemiBold',
+    fontSize: 12,
+    color: '#FFC632',
+  },
   catalogHeader: {
     paddingHorizontal: 16,
     marginTop: 16,
@@ -825,13 +946,12 @@ const styles = StyleSheet.create({
   catalogGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
     paddingHorizontal: 16,
     marginTop: 12,
-    rowGap: 12,
+    gap: 12,
   },
   productCard: {
-    width: '48%',
+    width: CARD_WIDTH,
     backgroundColor: '#FFFFFF',
     borderRadius: 12,
     borderWidth: 1,
@@ -890,7 +1010,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   productInfo: {
-    marginTop: 8,
+    flex: 1,
   },
   ratingRow: {
     flexDirection: 'row',
@@ -1104,7 +1224,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   modalBackdrop: {
-    ...(StyleSheet.absoluteFill as any),
+    ...StyleSheet.absoluteFillObject,
     backgroundColor: 'rgba(27, 35, 54, 0.6)',
   },
   bottomSheet: {
