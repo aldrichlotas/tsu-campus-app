@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Pressable, TextInput, Modal, SafeAreaView, Alert } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useDemo } from '../../context/DemoContext';
 import { 
@@ -22,6 +23,7 @@ import {
 
 export default function PrintHub() {
   const router = useRouter();
+  const insets = useSafeAreaInsets();
   const { studentName, studentId, submitPrintOrder, activePrintJob, balance } = useDemo();
   const [activeHub, setActiveHub] = useState('hub-1');
   const [colorMode, setColorMode] = useState('bw');
@@ -51,8 +53,8 @@ export default function PrintHub() {
 
   return (
     <View style={styles.container}>
-      {/* 64px Top App Bar */}
-      <View style={styles.appBar}>
+      {/* Dynamic Top App Bar */}
+      <View style={[styles.appBar, { paddingTop: insets.top || 8, height: 56 + (insets.top || 8) }]}>
         <View style={styles.appBarLeft}>
           <Pressable style={styles.iconBtn} onPress={() => router.push('/')}>
             <ArrowLeft size={24} color="#1B2336" />
@@ -64,7 +66,7 @@ export default function PrintHub() {
         </Pressable>
       </View>
 
-      <ScrollView style={styles.mainScroll} contentContainerStyle={styles.scrollContent}>
+      <ScrollView style={styles.mainScroll} contentContainerStyle={[styles.scrollContent, { flexGrow: 1, paddingBottom: (insets.bottom || 0) + 32 }]}>
         
         {/* Header Section */}
         <View style={styles.headerSection}>
@@ -107,9 +109,6 @@ export default function PrintHub() {
                     </View>
                   </View>
                   <Text style={styles.hubItemSub}>Ground Floor East Wing • 50m away</Text>
-                  <View style={styles.hubItemStats}>
-                    <Text style={styles.statLive}>Queue: 4 jobs ahead • ~15 mins</Text>
-                  </View>
                   <Text style={styles.servicesText}>Laser • Colored • Ring Binding</Text>
                 </View>
               </View>
@@ -135,9 +134,6 @@ export default function PrintHub() {
                     </View>
                   </View>
                   <Text style={styles.hubItemSub}>Open 8:00 AM - 5:00 PM • 1.2km away</Text>
-                  <View style={styles.hubItemStats}>
-                    <Text style={styles.statPending}>Queue: 12 jobs ahead • ~45 mins</Text>
-                  </View>
                   <Text style={styles.servicesText}>Laser • Hardbound • Large Format</Text>
                 </View>
               </View>
@@ -281,7 +277,7 @@ export default function PrintHub() {
       </ScrollView>
 
       {/* Bottom Sticky Action */}
-      <View style={styles.bottomTray}>
+      <View style={[styles.bottomTray, { paddingBottom: Math.max(insets.bottom, 16) }]}>
         <View style={styles.estimateRow}>
           <Text style={styles.estimateLabel}>Est. ₱{cost.toFixed(2)}</Text>
           <Text style={styles.estimateSub}>• Online or Cash at Counter</Text>
@@ -324,7 +320,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#F4F5F7',
   },
   appBar: {
-    height: 64,
     backgroundColor: '#FFFFFF',
     borderBottomWidth: 1,
     borderBottomColor: '#E2E5EB',
@@ -332,7 +327,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
-    paddingTop: 8,
   },
   appBarLeft: {
     flexDirection: 'row',
@@ -489,19 +483,7 @@ const styles = StyleSheet.create({
     color: '#4A4A4A',
     marginTop: 2,
   },
-  hubItemStats: {
-    marginTop: 4,
-  },
-  statLive: {
-    fontFamily: 'Manrope_600SemiBold',
-    fontSize: 11,
-    color: '#10B981',
-  },
-  statPending: {
-    fontFamily: 'Manrope_600SemiBold',
-    fontSize: 11,
-    color: '#D97706',
-  },
+
   servicesText: {
     fontFamily: 'Manrope_500Medium',
     fontSize: 11,

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Pressable, Image, Dimensions, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Pressable, Image, Alert } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useDemo } from '../../context/DemoContext';
 import { 
@@ -16,10 +17,9 @@ import {
   Zap
 } from 'lucide-react-native';
 
-const { width } = Dimensions.get('window');
-
 export default function CampusShuttle() {
   const router = useRouter();
+  const insets = useSafeAreaInsets();
   const { bookShuttle, balance } = useDemo();
   const [origin, setOrigin] = useState<'TSU Main Campus' | 'TSU Lucinda Campus'>('TSU Main Campus');
   const [paymentMethod, setPaymentMethod] = useState<'student-portal' | 'gcash' | 'maya'>('student-portal');
@@ -42,9 +42,9 @@ export default function CampusShuttle() {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingBottom: insets.bottom }]}>
       {/* Header App Bar */}
-      <View style={styles.appBar}>
+      <View style={[styles.appBar, { paddingTop: insets.top || 8, height: 56 + (insets.top || 8) }]}>
         <View style={styles.headerLeft}>
           <Image 
             source={{ uri: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAot_ZOzjMN9c53XW5WOpsYiU-Knn3WpKMyQbhajfY5CQO29V7BSuQ30TYJ5tEjZLa8GuttXHHiQ-VMsSia4K-tTnThZ6Db_C8dDHpI9mtT2pkBdlxlV-lnORkBcoGaeXcQvv1npi2ZmL_pJ6VRBelVJf9RbEyHFItihXOtY4uL_nRVATwMjDj9fQmMtq_LYNGGrRv0jbJPShRcO8bS7j-dDGXzMGDryW4A6Yrc9dx-BLEP4SXYb8vg60iwScPpXmp6MjI' }} 
@@ -69,7 +69,7 @@ export default function CampusShuttle() {
         </View>
       </View>
 
-      <ScrollView style={styles.mainScroll} contentContainerStyle={styles.scrollContent}>
+      <ScrollView style={styles.mainScroll} contentContainerStyle={[styles.scrollContent, { flexGrow: 1, paddingBottom: (insets.bottom || 0) + 32 }]}>
         
         {/* Page Title Section */}
         <View style={styles.pageTitleSection}>
@@ -408,7 +408,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#F4F5F7',
   },
   appBar: {
-    height: 64,
     backgroundColor: 'rgba(255, 255, 255, 0.95)',
     borderBottomWidth: 1,
     borderBottomColor: '#E2E5EB',
@@ -416,7 +415,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
-    paddingTop: 8, 
   },
   headerLeft: {
     flexDirection: 'row',

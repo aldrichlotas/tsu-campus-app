@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Pressable, Image, Modal, Dimensions, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Pressable, Image, Modal, Alert } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useDemo } from '../../context/DemoContext';
 import { 
@@ -23,8 +24,6 @@ import {
   Receipt
 } from 'lucide-react-native';
 
-const { width } = Dimensions.get('window');
-const CARD_WIDTH = (width - 44) / 2; // 2 columns with 16px padding on sides and 12px gap
 
 const ORGS = [
   { id: 'all', name: 'All Merch' },
@@ -116,6 +115,7 @@ const SIZES = ['XS', 'S', 'M', 'L', 'XL', '2XL'];
 
 export default function MerchCatalog() {
   const router = useRouter();
+  const insets = useSafeAreaInsets();
   const { merchCart, addMerchToCart, removeMerchItem, decrementMerchItem, checkoutMerch, balance, favorites, toggleFavorite } = useDemo();
   const [activeCollege, setActiveCollege] = useState('cba');
   const [activeOrg, setActiveOrg] = useState('all');
@@ -155,8 +155,8 @@ export default function MerchCatalog() {
 
   return (
     <View style={styles.container}>
-      {/* 64px Top App Bar */}
-      <View style={styles.appBar}>
+      {/* Dynamic Top App Bar */}
+      <View style={[styles.appBar, { paddingTop: insets.top || 8, height: 56 + (insets.top || 8) }]}>
         <View style={styles.appBarLeft}>
           <Pressable style={styles.iconBtn} onPress={() => router.push('/')}>
             <ArrowLeft size={24} color="#1B2336" />
@@ -173,7 +173,7 @@ export default function MerchCatalog() {
         </Pressable>
       </View>
 
-      <ScrollView style={styles.mainScroll} contentContainerStyle={styles.scrollContent}>
+      <ScrollView style={styles.mainScroll} contentContainerStyle={[styles.scrollContent, { flexGrow: 1, paddingBottom: (insets.bottom || 0) + 120 }]}>
         
         {/* Sub-Header */}
         <View style={styles.subHeader}>
@@ -247,33 +247,6 @@ export default function MerchCatalog() {
               );
             })}
           </ScrollView>
-        </View>
-
-        {/* Drop Notification Banner Card */}
-        <View style={styles.dropBannerContainer}>
-          <View style={styles.dropBanner}>
-            <View style={styles.dropBannerBgDeco} />
-            <View style={styles.dropBannerContent}>
-              <View style={styles.dropHeaderRow}>
-                <View style={styles.dropBadge}>
-                  <View style={styles.dropBadgeDot} />
-                  <Text style={styles.dropBadgeText}>DROP #2 PRE-ORDER</Text>
-                </View>
-                <Text style={styles.dropSubtitle}>TSU Main Gym Booth B</Text>
-              </View>
-              <Text style={styles.dropTitle}>TSU Main Campus Student Center Distribution</Text>
-              <Text style={styles.dropDesc}>
-                Claim Schedule: <Text style={styles.dropDescHighlight}>Nov 24 – 28</Text>. Bring digital QR pass.
-              </Text>
-              <View style={styles.dropFooterRow}>
-                <Text style={styles.dropTimeLimit}>Closes Nov 20, 11:59 PM</Text>
-                <Pressable style={styles.dropCta}>
-                  <Text style={styles.dropCtaText}>Claim Slot</Text>
-                  <ArrowRight size={14} color="#FFC632" />
-                </Pressable>
-              </View>
-            </View>
-          </View>
         </View>
 
         {/* Catalog Section Header */}
@@ -405,7 +378,7 @@ export default function MerchCatalog() {
       </ScrollView>
 
       {/* Fixed Bottom Cart Nav */}
-      <View style={styles.bottomCartNav}>
+      <View style={[styles.bottomCartNav, { paddingBottom: Math.max(insets.bottom, 16) }]}>
         <View style={styles.bottomCartNavContent}>
           <View style={styles.bottomCartTotalBox}>
             <Text style={styles.bottomCartTotalLbl}>Subtotal (inc. ₱15 fee)</Text>
@@ -549,7 +522,7 @@ export default function MerchCatalog() {
                         <Text style={{ fontSize: 14, fontFamily: 'Manrope_700Bold', color: '#800000', paddingHorizontal: 4 }}>Remove</Text>
                       </Pressable>
                       <Text style={{ fontSize: 14, fontFamily: 'Manrope_700Bold', color: '#222222' }}>{item.quantity}</Text>
-                      <Pressable onPress={() => addMerchToCart(item, item.size!)}>
+                      <Pressable onPress={() => addMerchToCart(item as any, item.size!)}>
                         <Text style={{ fontSize: 16, fontFamily: 'Manrope_700Bold', color: '#800000', paddingHorizontal: 4 }}>+</Text>
                       </Pressable>
                     </View>
@@ -619,7 +592,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#F4F5F7',
   },
   appBar: {
-    height: 64,
     backgroundColor: '#FFFFFF',
     borderBottomWidth: 1,
     borderBottomColor: '#E2E5EB',
@@ -627,7 +599,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
-    paddingTop: 8,
   },
   appBarLeft: {
     flexDirection: 'row',
@@ -800,101 +771,6 @@ const styles = StyleSheet.create({
   orgChipTextActive: {
     color: '#FFFFFF',
   },
-  dropBannerContainer: {
-    paddingHorizontal: 16,
-    marginTop: 4,
-  },
-  dropBanner: {
-    backgroundColor: '#4A4A4A',
-    borderRadius: 12,
-    padding: 14,
-    position: 'relative',
-    overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: '#222222',
-  },
-  dropBannerBgDeco: {
-    position: 'absolute',
-    right: -24,
-    bottom: -24,
-    width: 96,
-    height: 96,
-    borderRadius: 48,
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
-  },
-  dropBannerContent: {
-    position: 'relative',
-    zIndex: 1,
-    flexDirection: 'column',
-    gap: 6,
-  },
-  dropHeaderRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  dropBadge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#FFC632',
-    paddingHorizontal: 8,
-    paddingVertical: 2,
-    borderRadius: 12,
-    gap: 4,
-  },
-  dropBadgeDot: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
-    backgroundColor: '#800000',
-  },
-  dropBadgeText: {
-    fontFamily: 'Manrope_800ExtraBold',
-    fontSize: 11,
-    color: '#222222',
-    letterSpacing: 0.5,
-  },
-  dropSubtitle: {
-    fontFamily: 'Manrope_400Regular',
-    fontSize: 12,
-    color: '#fde68a',
-  },
-  dropTitle: {
-    fontFamily: 'Manrope_600SemiBold',
-    fontSize: 14,
-    color: '#FFFFFF',
-    marginTop: 2,
-  },
-  dropDesc: {
-    fontFamily: 'Manrope_400Regular',
-    fontSize: 12,
-    color: '#E5E7EB',
-  },
-  dropDescHighlight: {
-    fontFamily: 'Manrope_600SemiBold',
-    color: '#FFC632',
-  },
-  dropFooterRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginTop: 4,
-  },
-  dropTimeLimit: {
-    fontFamily: 'Manrope_400Regular',
-    fontSize: 12,
-    color: '#D1D5DB',
-  },
-  dropCta: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 2,
-  },
-  dropCtaText: {
-    fontFamily: 'Manrope_600SemiBold',
-    fontSize: 12,
-    color: '#FFC632',
-  },
   catalogHeader: {
     paddingHorizontal: 16,
     marginTop: 16,
@@ -949,12 +825,13 @@ const styles = StyleSheet.create({
   catalogGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+    justifyContent: 'space-between',
     paddingHorizontal: 16,
     marginTop: 12,
-    gap: 12,
+    rowGap: 12,
   },
   productCard: {
-    width: CARD_WIDTH,
+    width: '48%',
     backgroundColor: '#FFFFFF',
     borderRadius: 12,
     borderWidth: 1,
@@ -1013,7 +890,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   productInfo: {
-    flex: 1,
+    marginTop: 8,
   },
   ratingRow: {
     flexDirection: 'row',
@@ -1227,7 +1104,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   modalBackdrop: {
-    ...StyleSheet.absoluteFillObject,
+    ...(StyleSheet.absoluteFill as any),
     backgroundColor: 'rgba(27, 35, 54, 0.6)',
   },
   bottomSheet: {

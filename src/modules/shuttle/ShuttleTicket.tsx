@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useDemo } from '../../context/DemoContext';
@@ -14,6 +15,7 @@ import {
 
 export default function ShuttleTicket() {
   const router = useRouter();
+  const insets = useSafeAreaInsets();
   const { activePass, studentName } = useDemo();
   
   if (!activePass) {
@@ -29,7 +31,7 @@ export default function ShuttleTicket() {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollContent}>
+      <ScrollView contentContainerStyle={[styles.scrollContent, { flexGrow: 1, paddingTop: Math.max(insets.top, 16), paddingBottom: (insets.bottom || 0) + 32 }]}>
         
         {/* Pass Card with Institutional Maroon Gradient */}
         <LinearGradient
@@ -124,8 +126,6 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     padding: 16,
-    paddingTop: 48,
-    paddingBottom: 40,
   },
   passCard: {
     borderRadius: 20,

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useDemo } from '../../context/DemoContext';
 import { 
@@ -19,6 +20,7 @@ import {
 
 export default function CanteenTracker() {
   const router = useRouter();
+  const insets = useSafeAreaInsets();
   const { canteenOrder } = useDemo();
   const [summaryOpen, setSummaryOpen] = useState(true);
 
@@ -41,8 +43,8 @@ export default function CanteenTracker() {
 
   return (
     <View style={styles.container}>
-      {/* Top App Bar (Fixed 64px) */}
-      <View style={styles.appBar}>
+      {/* Top App Bar (Dynamic Padding) */}
+      <View style={[styles.appBar, { paddingTop: insets.top || 8, height: 56 + (insets.top || 8) }]}>
         <View style={styles.appBarLeft}>
           <Pressable style={styles.backBtn} onPress={() => router.push('/canteen')}>
             <ArrowLeft size={24} color="#1B2336" />
@@ -55,7 +57,7 @@ export default function CanteenTracker() {
         </View>
       </View>
 
-      <ScrollView style={styles.mainScroll} contentContainerStyle={styles.scrollContent}>
+      <ScrollView style={styles.mainScroll} contentContainerStyle={[styles.scrollContent, { flexGrow: 1, paddingBottom: (insets.bottom || 0) + 32 }]}>
         
         {/* Order Queue & Pickup QR Card */}
         <View style={styles.qrCard}>
@@ -159,7 +161,7 @@ export default function CanteenTracker() {
       </ScrollView>
 
       {/* Bottom Navigation Actions */}
-      <View style={styles.bottomActions}>
+      <View style={[styles.bottomActions, { paddingBottom: Math.max(insets.bottom, 16) }]}>
         <Pressable style={styles.homeBtn} onPress={() => router.push('/')}>
           <Text style={styles.homeBtnText}>Back to Campus Hub</Text>
         </Pressable>
@@ -179,7 +181,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#F4F5F7',
   },
   appBar: {
-    height: 64,
     backgroundColor: '#FFFFFF',
     borderBottomWidth: 1,
     borderBottomColor: '#E2E5EB',
@@ -187,7 +188,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
-    paddingTop: 8,
   },
   appBarLeft: {
     flexDirection: 'row',

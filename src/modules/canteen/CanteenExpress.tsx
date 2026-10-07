@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Pressable, Image, TextInput, Dimensions, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Pressable, Image, TextInput, Alert } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useDemo } from '../../context/DemoContext';
 import { 
@@ -21,10 +22,9 @@ import {
   Send
 } from 'lucide-react-native';
 
-const { width } = Dimensions.get('window');
-
 export default function CanteenExpress() {
   const router = useRouter();
+  const insets = useSafeAreaInsets();
   const { activeCampus, setActiveCampus, foodCart, addFoodItem, removeFoodItem, submitCanteenOrder, balance } = useDemo();
   const [filter, setFilter] = useState('All');
   const [paymentMode, setPaymentMode] = useState<'online' | 'cash'>('online');
@@ -74,9 +74,9 @@ export default function CanteenExpress() {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingBottom: insets.bottom }]}>
       {/* Header App Bar */}
-      <View style={styles.appBar}>
+      <View style={[styles.appBar, { paddingTop: insets.top || 8, height: 56 + (insets.top || 8) }]}>
         <View style={styles.headerLeft}>
           <Image 
             source={{ uri: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCOuP8IJspmOAfG6VDlImwW7ajlmtocMxG18LvdanqwCOf3WK7B1B6WfcGE9ib4mL44wzU5oe5S0UAXXo5znXXQxXJy90p2EGgeoQu6vRj0innB_R6EOIJtx855eSDYDxvjhgiAgy1VHPEOonYBONHh-D0W-9DkUtygzya7eIbx37jvfgbDwIgO3rLmmROYuiQ-WQ-qGv-y_J_qX7NbjvcU1d3TYwwtwW3ypzsfemFYwgO-M5_vdClhrB7NniMxtjfo0rE' }} 
@@ -104,7 +104,7 @@ export default function CanteenExpress() {
         </View>
       </View>
 
-      <ScrollView style={styles.mainScroll} contentContainerStyle={styles.scrollContent}>
+      <ScrollView style={styles.mainScroll} contentContainerStyle={[styles.scrollContent, { flexGrow: 1, paddingBottom: (insets.bottom || 0) + 32 }]}>
         {/* Live Order Tracking Header Module */}
         <View style={styles.trackerModule}>
           <View style={styles.trackerTopBorder} />
@@ -161,22 +161,7 @@ export default function CanteenExpress() {
               <Text style={styles.stepTime}>Counter #2</Text>
             </View>
           </View>
-
-          {/* Express Lane Reminder Banner */}
-          <View style={styles.expressReminder}>
-            <View style={styles.expressReminderLeft}>
-              <QrCode size={18} color="#800000" />
-              <Text style={styles.expressReminderText}>
-                Show Code <Text style={styles.expressCodeHighight}>#8921</Text> at Express Lane
-              </Text>
-            </View>
-            <Pressable style={styles.qrPassBtn}>
-              <Text style={styles.qrPassBtnText}>QR PASS</Text>
-              <ArrowRight size={14} color="#800000" />
-            </Pressable>
-          </View>
         </View>
-
         {/* Search & Campus Location Selector */}
         <View style={styles.searchSection}>
           <View style={styles.searchBar}>
@@ -417,7 +402,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#F4F5F7',
   },
   appBar: {
-    height: 64,
     backgroundColor: 'rgba(255, 255, 255, 0.95)',
     borderBottomWidth: 1,
     borderBottomColor: '#E2E5EB',
@@ -425,7 +409,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
-    paddingTop: 8, 
   },
   headerLeft: {
     flexDirection: 'row',
@@ -667,44 +650,7 @@ const styles = StyleSheet.create({
   stepLinePending: {
     backgroundColor: '#E2E5EB',
   },
-  expressReminder: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: '#FFF7DB',
-    borderWidth: 1,
-    borderColor: 'rgba(255, 198, 50, 0.5)',
-    padding: 8,
-    borderRadius: 8,
-    marginTop: 16,
-  },
-  expressReminderLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-  },
-  expressReminderText: {
-    fontFamily: 'Manrope_500Medium',
-    fontSize: 12,
-    color: '#222222',
-  },
-  expressCodeHighight: {
-    fontFamily: 'Manrope_800ExtraBold',
-    color: '#800000',
-    backgroundColor: '#FFFFFF',
-    paddingHorizontal: 4,
-    borderRadius: 4,
-  },
-  qrPassBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 2,
-  },
-  qrPassBtnText: {
-    fontFamily: 'Manrope_800ExtraBold',
-    fontSize: 11,
-    color: '#800000',
-  },
+
   searchSection: {
     paddingHorizontal: 16,
     gap: 12,

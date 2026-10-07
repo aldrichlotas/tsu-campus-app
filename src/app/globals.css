@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #800000;
+  --color-brand-dark: #570000;
+  --color-gold: #FFC632;
+  --color-gold-dark: #785a00;
+  --color-navy: #1B2336;
+  --color-surface: #F4F5F7;
+  --color-hairline: #E2E5EB;
+
+  --font-heading: var(--font-playfair);
+  --font-body: var(--font-manrope);
+
+  --shadow-academic-sm: 0 2px 4px rgba(27, 35, 54, 0.04);
+  --shadow-academic-md: 0 8px 16px rgba(27, 35, 54, 0.08);
+
+  --radius-card: 8px;
+  --radius-pill: 9999px;
+  --radius-input: 4px;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-navy);
+  }
+}
